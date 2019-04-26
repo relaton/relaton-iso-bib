@@ -1,0 +1,419 @@
+= IsoBibItem
+
+image:https://img.shields.io/gem/v/iso-bib-item.svg["Gem Version", link="https://rubygems.org/gems/iso-bib-item"]
+image:https://img.shields.io/travis/metanorma/iso-bib-item/master.svg["Build Status", link="https://travis-ci.com/metanorma/iso-bib-item"]
+image:https://codeclimate.com/github/metanorma/iso-bib-item/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/iso-bib-item"]
+
+IsoBib is a Ruby gem that implements the https://github.com/metanorma/metanorma-model-iso#iso-bibliographic-item[IsoBibliographicItem model].
+
+== Installation
+
+Add this line to your application's Gemfile:
+
+[source,ruby]
+----
+gem 'iso-bib-item'
+----
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install iso-bib-item
+
+== Usage
+
+=== Create ISO bibliographic item
+
+[source,ruby]
+----
+item = IsoBibItem::IsoBibliographicItem.new(
+  docid: { project_number: "19115", part_number: "1" },
+  edition: "1",
+  language: ["en", "fr"],
+  script: ["Latn"],
+  titles: [
+    {
+      title_intro: "Geographic information",
+      title_main: "Metadata",
+      title_part: "Part 1: Fundamentals",
+      language: "en", script: "Latn"
+    },
+    {
+      title_intro: "Information géographique",
+      title_main: "Métadonnées",
+      title_part: "Partie 1: Principes de base",
+      language: "fr", script: "Latn"
+    }
+  ],
+  type: "international-standard",
+  docstatus: { status: "Published", stage: "60", substage: "60" },
+  ics: [{ field: "35", group: "240", subgroup: "70" }],
+  dates: [{ type: "published", on: "2014-04" }],
+  contributors: [{ entity: {
+    name: "International Organization for Standardization",
+    url: "www.iso.org", abbreviation: "ISO"
+  }, roles: ["publisher"]}],
+  workgroup: {
+    name: "International Organization for Standardization",
+    abbreviation: "ISO",
+    url: "www.iso.org",
+    technical_committee: {
+      name: "ISO/TC 211Geographic information/Geomatics",
+      type: "technicalCommittee", number: 211
+    }
+  },
+  abstract: [
+    {
+      content: "ISO 19115-1:2014 defines the schema required for describing geographic information and services by means of metadata. It provides information about the identification, the extent, the quality, the spatial and temporal aspects, the content, the spatial reference, the portrayal, distribution, and other properties of digital geographic data and services.ISO 19115-1:2014 is applicable to:-the cataloguing of all types of resources, clearinghouse activities, and the full description of datasets and services;-geographic services, geographic datasets, dataset series, and individual geographic features and feature properties.ISO 19115-1:2014 defines:-mandatory and conditional metadata sections, metadata entities, and metadata elements;-the minimum set of metadata required to serve most metadata applications (data discovery, determining data fitness for use, data access, data transfer, and use of digital data and services);-optional metadata elements to allow for a more extensive standard description of resources, if required;-a method for extending metadata to fit specialized needs.Though ISO 19115-1:2014 is applicable to digital data and services, its principles can be extended to many other types of resources such as maps, charts, and textual documents as well as non-geographic data. Certain conditional metadata elements might not apply to these other forms of data.",
+      language: "en", script: "Latn"
+    },
+    {
+      content: "L'ISO 19115-1:2014 définit le schéma requis pour décrire des informations géographiques et des services au moyen de métadonnées. Elle fournit des informations concernant l'identification, l'étendue, la qualité, les aspects spatiaux et temporels, le contenu, la référence spatiale, la représentation des données, la distribution et d'autres propriétés des données géographiques numériques et des services.L'ISO 19115-1:2014 est applicable:-au catalogage de tous les types de ressources, des activités des centres d'informations et à la description complète des jeux de données et des services,-aux services géographiques, jeux de données géographiques, séries de jeux de données, entités géographiques individuelles et propriétés d'entités.L'ISO 19115-1:2014 définit:-des sections relatives aux métadonnées obligatoires et facultatives, aux entités de métadonnées et aux éléments de métadonnées,-le jeu minimal de métadonnées requis pour répondre au besoin de la plupart des applications des métadonnées (la découverte des données, la détermination de l'adéquation des données à une utilisation, l'accès aux données, le transfert des données et l'utilisation des données numériques et des services),-les éléments de métadonnées facultatifs pour permettre une description standard plus poussée des ressources, si cela est nécessaire,-un procédé d'extension des métadonnées pour s'adapter aux besoins spéciaux.L'ISO 19115-1:2014 est applicable aux données numériques et services, ses principes peuvent être étendus à bien d'autres types de ressources telles que les cartes, les graphes et les documents textes, de même qu'à des données non géographiques. Certains éléments de métadonnées conditionnels peuvent ne pas s'appliquer à ces autres formes de données.",
+      language: "fr", script: "Latn"
+    }
+  ],
+  copyright: { owner: { name: "ISO" }, from: "2014" },
+  link: [
+    { type: "src", content: "https://www.iso.org/standard/53798.html" },
+    { type: "obp", content: "https://www.iso.org/obp/ui/#!iso:std:53798:en" },
+    { type: "rss", content: "https://www.iso.org/contents/data/standard/05/37/53798.detail.rss" }
+  ],
+  relations: [
+    { type: "obsoletes", identifier: "ISO 19115:2003", url: "/standard/26020.html" },
+    { type: "obsoletes", identifier: "ISO 19115:2003/Cor 1:2006", url: "/standard/44361.html" },
+    { type: "updates", identifier: "ISO 19115-1:2014/Amd 1:2018", url: "/standard/73118.html" }
+  ]
+)
+----
+
+=== IsoBibliographicItem Localized Strings
+
+[source,ruby]
+----
+item.title
+[<IsoBibItem::IsoLocalizedTitle:0x007fd1d92e2b30
+  @language="en",
+  @script="Latn",
+  @title_intro="Geographic information",
+  @title_main="Metadata",
+  @title_part="Part 1: Fundamentals">,
+ <IsoBibItem::IsoLocalizedTitle:0x007fd1d92e2ae0
+  @language="fr",
+  @script="Latn",
+  @title_intro="Information géographique",
+  @title_main="Métadonnées",
+  @title_part="Partie 1: Principes de base">]
+
+item.title(lang: "en")
+=> <IsoBibItem::IsoLocalizedTitle:0x007fd1d92e2b30
+ @language="en",
+ @script="Latn",
+ @title_intro="Geographic information",
+ @title_main="Metadata",
+ @title_part="Part 1: Fundamentals">
+
+item.title(lang: "en").to_s
+=> "Geographic information -- Metadata -- Part 1: Fundamentals"
+
+item.abstract(lang: "en").to_s
+=> "ISO 19115-1:2014 defines the schema required for describing geographic information and services by means of metadata. It provides information about the identification, the extent, the quality, the spatial and temporal aspects, the content, the spatial reference, the portrayal, distribution, and other properties of digital geographic data and services.
+...
+"
+----
+
+=== IsoBibliographicItem references
+
+[source,ruby]
+----
+item.shortref
+=> "ISO 19115-1:2014"
+----
+
+=== IsoBibliographicItem URLs
+
+[source,ruby]
+----
+item.url
+=> "https://www.iso.org/standard/53798.html"
+
+item.url(:obp)
+=> "https://www.iso.org/obp/ui/#!iso:std:53798:en"
+
+item.url(:rss)
+=> "https://www.iso.org/contents/data/standard/05/37/53798.detail.rss"
+----
+
+
+=== IsoBibliographicItem ICS
+
+[source,ruby]
+----
+item.ics
+[<IsoBibItem::Ics:0x007fd1d92334f0
+  @code="35.240.70",
+  @description="IT applications in science",
+  @description_full="Information technology. Applications of information technology. IT applications in science.",
+  @fieldcode="35",
+  @groupcode="240",
+  @notes=[#<Isoics::Note:0x007fd1d9232f28 @ics_code=nil, @text="Including digital geographic information">],
+  @subgroupcode="70">]
+----
+
+=== IsoBibliographicItem BibliographicDates
+
+[source,ruby]
+----
+item.dates
+=> [<IsoBibItem::BibliographicDate:0x007fd1d92e33c8 @on=2014-01-04 00:00:00 +0100, @type="published">]
+
+item.dates.filter(type: "published").first.on
+=> 2014-01-04 00:00:00 +0100
+----
+
+=== IsoBibliographicItem DocumentStatus
+
+[source,ruby]
+----
+item.status
+=> <IsoBibItem::IsoDocumentStatus:0x007f983c3c2658
+ @stage="60",
+ @status=#<IsoBibItem::LocalizedString:0x007f983c3c2608 @content="Published", @language=[], @script=[]>,
+ @substage="60">
+----
+
+[source,ruby]
+----
+wg = item.workgroup
+=> <IsoBibItem::IsoProjectGroup:0x007f983e0d91b0
+ @abbreviation=#<IsoBibItem::LocalizedString:0x007f983e0d8558 @content="ISO", @language=[], @script=[]>,
+ @contacts=[],
+ @identifiers=[],
+ @name=#<IsoBibItem::LocalizedString:0x007f983e0d8828 @content="International Organization for Standardization", @language=[], @script=[]>,
+ @technical_committe=#<IsoBibItem::IsoSubgroup:0x007f983e0d8148 @name="ISO/TC 211Geographic information/Geomatics", @number=211, @type="technicalCommittee">,
+ @uri=#<URI::Generic www.iso.org>>
+
+wg.uri
+=> <URI::Generic www.iso.org>
+----
+
+=== Document relations of a standard
+
+[source,ruby]
+----
+item.relations
+=> [<IsoBibItem::DocumentRelation:0x007f983c3c2a18 @bib_locality=[], @identifier="ISO 19115:2003", @type="obsoletes", @url="/standard/26020.html">,
+ <IsoBibItem::DocumentRelation:0x007f983c3c2950 @bib_locality=[], @identifier="ISO 19115:2003/Cor 1:2006", @type="obsoletes", @url="/standard/44361.html">,
+ <IsoBibItem::DocumentRelation:0x007f983c3c28d8 @bib_locality=[], @identifier="ISO 19115-1:2014/Amd 1:2018", @type="updates", @url="/standard/73118.html">]
+----
+
+=== Reference modification: convert to all parts reference
+
+In ISO, an All Parts reference is a reference to all parts of a standard. If a standard consists of parts,
+only those parts are referenced in the ISO web site (as retrieved by the isobib gem). A part reference is
+converted to an All Parts reference by making the part reference a partOf relation to a new reference,
+which strips the part number and part title of the original, and its abstract. The operation is destructive.
+
+[source,ruby]
+----
+item.to_all_parts
+item.title(lang: "en")
+=> <IsoBibItem::IsoLocalizedTitle:0x007fd1d92e2b30
+ @language="en",
+ @script="Latn",
+ @title_intro="Geographic information",
+ @title_main="Metadata",
+ @title_part=nil>
+item.shortref
+=> "ISO 19115:2014"
+item.relations.last
+=> <IsoBibItem::DocumentRelation:0x00007f94009a2158 @type="partOf", @identifier=nil, @url=nil, @bib_locality=[], 
+    @bibitem=#<IsoBibItem::IsoBibliographicItem:0x00007f94009f37d8 
+      @id=nil, 
+      @title=[#<IsoBibItem::IsoLocalizedTitle:0x00007f94009f3530 
+        @title_intro="Geographic information", 
+        @title_main="Metadata", 
+        @title_part="Part 1: Fundamentals", 
+        @language="en", 
+        @script="Latn">
+....
+----
+
+=== Reference modification: convert to most recent reference
+
+In ISO, an undated reference is interpreted as a _de dicto_ reference to the most recent instance of the
+reference; if the document is read after a new version of the reference has been issued, the reference is taken
+to refer to that new instance, even if that instance had not been published at the time the bibliography was authored.
+All references on the ISO web site (as retrieved by the isobib gem) are dated. A dated reference is
+converted to a Most Recent referece by making the dated reference an instance relation to a new reference,
+which strips the date of publication of the original, and its abstract. The operation is destructive.
+
+[source,ruby]
+----
+item.dates
+=> [#<IsoBibItem::BibliographicDate:0x00007f9994977680 @type="published", @on=2014-01-04 00:00:00 +1100>]
+item.to_most_recent_reference
+item.dates
+[]
+item.shortref
+=> "ISO 19115-1"
+item.relations.last
+=> <IsoBibItem::DocumentRelation:0x00007f9a33976a60 @type="instance", @identifier=nil, @url=nil, @bib_locality=[], 
+     @bibitem=#<IsoBibItem::IsoBibliographicItem:0x00007f9a3399ea60 
+     @id=nil, 
+     @title=[#<IsoBibItem::IsoLocalizedTitle:0x00007f9a3399e650 @title_intro="Geographic information", @title_main="Metadata", @title_part="Part 1: Fundamentals", @language="en", @script="Latn">, #<IsoBibItem::IsoLocalizedTitle:0x00007f9a3399e2e0 @title_intro="Information géographique", @title_main="Métadonnées", @title_part="Partie 1: Principes de base", @language="fr", @script="Latn">],
+     @docidentifier=#<IsoBibItem::IsoDocumentId:0x00007f9a3399e010 @project_number="19115", @part_number="1">, 
+     @dates=[#<IsoBibItem::BibliographicDate:0x00007f9a3399dd90 @type="published", @on=2014-01-04 00:00:00 +1100>], 
+....
+----
+
+
+=== XML serialization
+
+[source,ruby]
+----
+item.to_xml
+=>"<bibitem type='international-standard' id='ISO19115-1'>
+  <title format='text/plain' language='en' script='Latn'>Geographic information -- Metadata -- Part 1: Fundamentals</title>
+  <title format='text/plain' language='fr' script='Latn'>Information géographique -- Métadonnées -- Partie 1: Principes de base</title>
+  <link type='src'>https://www.iso.org/standard/53798.html</link>
+  <link type='obp'>https://www.iso.org/obp/ui/#!iso:std:53798:en</link>
+  <link type='rss'>https://www.iso.org/contents/data/standard/05/37/53798.detail.rss</link>
+  <docidentifier>ISO 19115-1</docidentifier>
+  <date type='published'>
+    <on>2014</on>
+  </date>
+  <contributor>
+    <role type='publisher'/>
+    <organization>
+      <name>International Organization for Standardization</name>
+      <abbreviation>ISO</abbreviation>
+      <uri>www.iso.org</uri>
+    </organization>
+  </contributor>
+  <edition>1</edition>
+  <language>en</language>
+  <language>fr</language>
+  <script>Latn</script>
+  <abstract format='plain' language='en' script='Latn'>
+    ISO 19115-1:2014 defines the schema required for describing geographic
+    information and services by means of metadata. It provides information about
+    the identification, the extent, the quality, the spatial and temporal
+    aspects, the content, the spatial reference, the portrayal, distribution,
+    and other properties of digital geographic data and services.ISO
+    19115-1:2014 is applicable to:-the cataloguing of all types of resources,
+    clearinghouse activities, and the full description of datasets and
+    services;-geographic services, geographic datasets, dataset series, and
+    individual geographic features and feature properties.ISO 19115-1:2014
+    defines:-mandatory and conditional metadata sections, metadata entities, and
+    metadata elements;-the minimum set of metadata required to serve most
+    metadata applications (data discovery, determining data fitness for use,
+    data access, data transfer, and use of digital data and services);-optional
+    metadata elements to allow for a more extensive standard description of
+    resources, if required;-a method for extending metadata to fit specialized
+    needs.Though ISO 19115-1:2014 is applicable to digital data and services,
+    its principles can be extended to many other types of resources such as
+    maps, charts, and textual documents as well as non-geographic data. Certain
+    conditional metadata elements might not apply to these other forms of data.
+  </abstract>
+  <abstract format='plain' language='fr' script='Latn'>
+    L'ISO 19115-1:2014 définit le schéma requis pour décrire des informations
+    géographiques et des services au moyen de métadonnées. Elle fournit des
+    informations concernant l'identification, l'étendue, la qualité, les aspects
+    spatiaux et temporels, le contenu, la référence spatiale, la représentation
+    des données, la distribution et d'autres propriétés des données
+    géographiques numériques et des services.L'ISO 19115-1:2014 est
+    applicable:-au catalogage de tous les types de ressources, des activités des
+    centres d'informations et à la description complète des jeux de données et
+    des services,-aux services géographiques, jeux de données géographiques,
+    séries de jeux de données, entités géographiques individuelles et propriétés
+    d'entités.L'ISO 19115-1:2014 définit:-des sections relatives aux métadonnées
+    obligatoires et facultatives, aux entités de métadonnées et aux éléments de
+    métadonnées,-le jeu minimal de métadonnées requis pour répondre au besoin de
+    la plupart des applications des métadonnées (la découverte des données, la
+    détermination de l'adéquation des données à une utilisation, l'accès aux
+    données, le transfert des données et l'utilisation des données numériques et
+    des services),-les éléments de métadonnées facultatifs pour permettre une
+    description standard plus poussée des ressources, si cela est nécessaire,-un
+    procédé d'extension des métadonnées pour s'adapter aux besoins
+    spéciaux.L'ISO 19115-1:2014 est applicable aux données numériques et
+    services, ses principes peuvent être étendus à bien d'autres types de
+    ressources telles que les cartes, les graphes et les documents textes, de
+    même qu'à des données non géographiques. Certains éléments de métadonnées
+    conditionnels peuvent ne pas s'appliquer à ces autres formes de données.
+  </abstract>
+  <status>Published</status>
+  <copyright>
+    <from>2014</from>
+    <owner>
+      <organization>
+        <name>ISO</name>
+        <abbreviation/>
+      </organization>
+    </owner>
+  </copyright>
+  <relation type='obsoletes'>
+    <bibitem>
+      <formattedref>ISO 19115:2003</formattedref>
+      <docidentifier>ISO 19115:2003</docidentifier>
+    </bibitem>
+  </relation>
+  <relation type='obsoletes'>
+    <bibitem>
+      <formattedref>ISO 19115:2003/Cor 1:2006</formattedref>
+      <docidentifier>ISO 19115:2003/Cor 1:2006</docidentifier>
+    </bibitem>
+  </relation>
+  <relation type='updates'>
+    <bibitem>
+      <formattedref>ISO 19115-1:2014/Amd 1:2018</formattedref>
+      <docidentifier>ISO 19115-1:2014/Amd 1:2018</docidentifier>
+    </bibitem>
+  </relation>
+  <ics>IT applications in science</ics>
+</bibitem>"
+----
+
+== BibliographicItem
+
+The ISO standards use a subset of the generic bibliographic fields specified in the https://github.com/metanorma/metanorma-model-iso#iso-bibliographic-item[IsoBibliographicItem model]:
+
+* Title:
+** English; French
+** titleIntro; titleMain; titlePart
+* DocIdentifier:
+** project number; part number; technical committee document number
+* Source: the ISO page from which the standard may be purchased or downloaded
+* Type: IsoDocumentType (International Standard, Technical Specification, Technical Report, Publicly Available Specification, International Workshop Agreement, Guide)
+* Project Group:
+** Technical Committee, Subcommittee, Workgroup, Secretariat
+** Technical Committee Number, Subcommittee Number, Workgroup Number
+** Technical Committee Type, Subcommittee Type, Workgroup Type (e.g. JTC)
+** Organization:Name (ISO; other standards organisations, for standards jointly published with ISO)
+* ICS: refer https://www.iso.org/publication/PUB100033.html
+* Status
+** Stage, Substage
+* Edition
+* Date:Published
+* Abstract
+* Relations
+** Obsoletes, Updates
+
+All FormattedString instances are returned by default as  a text/plain string; if required, they are returned as a text/html string.
+
+== Development
+
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+== Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/iso-bib-item.
+
+== License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
