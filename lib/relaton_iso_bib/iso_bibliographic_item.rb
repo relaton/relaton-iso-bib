@@ -286,9 +286,8 @@ module RelatonIsoBib
 
       titles
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    def makeid(id, attribute, _delim = '')
+    def makeid(id, attribute, _delim = "")
       return nil if attribute && !@id_attribute
 
       id ||= @docidentifier.reject { |i| i&.type == "DOI" }[0]
@@ -304,6 +303,7 @@ module RelatonIsoBib
       # if id.part_number&.size&.positive? then idstr += "-#{id.part_number}"
       idstr&.gsub(/:/, "-")&.gsub(/\s/, "")&.strip
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # def xml_attrs(type)
     #   attrs = {}
