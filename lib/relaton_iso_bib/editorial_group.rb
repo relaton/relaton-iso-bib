@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
-module RelatonIso
+module RelatonIsoBib
   # ISO project group.
-  class IsoProjectGroup
-    # @return [Array<RelatonIso::IsoSubgroup>]
+  class EditorialGroup
+    # @return [Array<RelatonIsoBib::IsoSubgroup>]
     attr_reader :technical_committee
 
-    # @return [RelatonIso::IsoSubgroup]
+    # @return [RelatonIsoBib::IsoSubgroup]
     attr_reader :subcommittee
 
-    # @return [RelatonIso::IsoSubgroup]
+    # @return [RelatonIsoBib::IsoSubgroup]
     attr_reader :workgroup
 
     # @return [String]
     attr_reader :secretariat
 
-    # @param technical_committee [Array<Hash, RelatonIso::IsoSubgroup>]
+    # @param technical_committee [Array<Hash, RelatonIsoBib::IsoSubgroup>]
     # @option technical_committee [String] :name
     # @option technical_committee [String] :type
     # @option technical_committee [Integer] :number
     #
-    # @param subcommittee [Array<Hash, RelatonIso::IsoSubgroup>]
+    # @param subcommittee [Array<Hash, RelatonIsoBib::IsoSubgroup>]
     # @option subcommittee [String] :name
     # @option subcommittee [String] :type
     # @option subcommittee [Integer] :number
     #
-    # @param workgroup [Array<Hash, RelatonIso::IsoSubgroup>]
+    # @param workgroup [Array<Hash, RelatonIsoBib::IsoSubgroup>]
     # @option workgroup [String] :name
     # @option workgroup [String] :type
     # @option workgroup [Integer] :number
@@ -35,13 +35,13 @@ module RelatonIso
       @technical_committee = technical_committee.map do |tc|
         tc.is_a?(Hash) ? IsoSubgroup.new(tc) : tc
       end
-      @subcommittee        = args.fetch(:subcommittee, []).map do |sc|
+      @subcommittee = args.fetch(:subcommittee, []).map do |sc|
         sc.is_a?(Hash) ? IsoSubgroup.new(sc) : sc
       end
-      @workgroup           = args.fetch(:workgroup, []).map do |wg|
+      @workgroup = args.fetch(:workgroup, []).map do |wg|
         wg.is_a?(Hash) ? IsoSubgroup.new(wg) : wg
       end
-      @secretariat         = args[:secretariat]
+      @secretariat = args[:secretariat]
     end
 
     # rubocop:disable Metrics/AbcSize

@@ -2,17 +2,17 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "relaton_iso/version"
+require "relaton_iso_bib/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "relaton-iso"
-  spec.version       = RelatonIso::VERSION
+  spec.name          = "relaton-iso-bib"
+  spec.version       = RelatonIsoBib::VERSION
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = %(RelatonIso: Ruby ISOXMLDOC impementation.)
-  spec.description   = %(RelatonIso: Ruby ISOXMLDOC impementation.)
-  spec.homepage      = "https://github.com/metanorma/iso-bib-item"
+  spec.summary       = %(RelatonIsoBib: Ruby ISOXMLDOC impementation.)
+  spec.description   = %(RelatonIsoBib: Ruby ISOXMLDOC impementation.)
+  spec.homepage      = "https://github.com/metanorma/relaton-iso-bib"
   spec.license       = "BSD-2-Clause"
 
   # Specify which files should be added to the gem when it is released.
@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "ruby-debug-ide"
   spec.add_development_dependency "debase"
 
-  spec.add_dependency 'isoics', '~> 0.1.6'
-  spec.add_dependency 'nokogiri', "~> 1.8.4"
-  spec.add_dependency "relaton-bib"
-  spec.add_dependency 'ruby_deep_clone', "~> 0.8.0"
+  spec.add_dependency "isoics", "~> 0.1.6"
+  spec.add_dependency "nokogiri", "~> 1.8.4"
+  spec.add_dependency "relaton-bib", "~>0.1.5"
+  spec.add_dependency "ruby_deep_clone", "~> 0.8.0"
 end

@@ -1,15 +1,17 @@
 PATH
   remote: .
   specs:
-    relaton-iso (0.1.0)
+    relaton-iso-bib (0.1.0)
       isoics (~> 0.1.6)
       nokogiri (~> 1.8.4)
-      relaton-bib
+      relaton-bib (~> 0.1.5)
       ruby_deep_clone (~> 0.8.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     byebug (11.0.1)
     coderay (1.1.2)
     debase (0.2.2)
@@ -31,8 +33,10 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
+    public_suffix (3.1.0)
     rake (10.5.0)
-    relaton-bib (0.1.0)
+    relaton-bib (0.1.6)
+      addressable
       nokogiri (~> 1.8.4)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
@@ -65,7 +69,7 @@ DEPENDENCIES
   equivalent-xml (~> 0.6)
   pry-byebug
   rake (~> 10.0)
-  relaton-iso!
+  relaton-iso-bib!
   rspec (~> 3.0)
   ruby-debug-ide
   simplecov

@@ -1,4 +1,4 @@
-module RelatonIso
+module RelatonIsoBib
   class IsoDocumentRelation < RelatonBib::DocumentRelation
     # @param builder [Nokogiri::XML::Builder]
     def to_xml(builder)

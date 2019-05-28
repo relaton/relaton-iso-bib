@@ -1,4 +1,4 @@
-module RelatonIso
+module RelatonIsoBib
   # Iso ICS classificator.
   class Ics < Isoics::ICS
     # @param code [String, NilClass]

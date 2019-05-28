@@ -56,7 +56,7 @@ item = IsoBibItem::IsoBibliographicItem.new(
     name: "International Organization for Standardization",
     url: "www.iso.org", abbreviation: "ISO"
   }, roles: ["publisher"]}],
-  workgroup: {
+  editorialgroup: {
     name: "International Organization for Standardization",
     abbreviation: "ISO",
     url: "www.iso.org",
@@ -186,8 +186,8 @@ item.status
 
 [source,ruby]
 ----
-wg = item.workgroup
-=> <IsoBibItem::IsoProjectGroup:0x007f983e0d91b0
+wg = item.editorialgroup
+=> <IsoBibItem::EditorialGroup:0x007f983e0d91b0
  @abbreviation=#<IsoBibItem::LocalizedString:0x007f983e0d8558 @content="ISO", @language=[], @script=[]>,
  @contacts=[],
  @identifiers=[],

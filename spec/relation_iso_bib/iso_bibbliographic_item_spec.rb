@@ -1,14 +1,16 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require "relaton_iso/iso_bibliographic_item"
+require "relaton_iso_bib/iso_bibliographic_item"
 
-RSpec.describe RelatonIso::IsoBibliographicItem do
+RSpec.describe RelatonIsoBib::IsoBibliographicItem do
   context "instance" do
     subject do
-      RelatonIso::IsoBibliographicItem.new(
+      RelatonIsoBib::IsoBibliographicItem.new(
         fetched: "2018-10-21",
-        docid: { project_number: "ISO 1", part_number: 2, prefix: nil, id: "ISO 1-2:2014" },
+        structuredidentifier: RelatonIsoBib::StructuredIdentifier.new(
+          type: "sid", project_number: "ISO 1-2:2014", part: 2, subpart: 2,
+        ),
         docnumber: "123456",
         titles: [
           { title_intro: "Geographic information", title_main: "Metadata",
@@ -17,14 +19,14 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
             title_part: "Information géographique", language: "fr",
             script: "Latn" },
         ],
-        edition:   "1",
-        version:   RelatonBib::BibliographicItem::Version.new("2019-04-01", ["draft"]),
-        language:  %w[en fr],
-        script:    ["Latn"],
-        type:      "international-standard",
-        docstatus: { status: "Published", stage: "60", substage: "60" },
-        dates:     [{ type: "published", on: "2014-04" }],
-        abstract:  [
+        edition: "1",
+        version: RelatonBib::BibliographicItem::Version.new("2019-04-01", ["draft"]),
+        language: %w[en fr],
+        script: ["Latn"],
+        type: "international-standard",
+        docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
+        dates: [{ type: "published", on: "2014-04" }],
+        abstract: [
           { content: "ISO 19115-1:2014 defines the schema required for ...",
             language: "en", script: "Latn", format: "text/plain" },
           { content: "L'ISO 19115-1:2014 définit le schéma requis pour ...",
@@ -55,19 +57,19 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
             "/05/37/53798.detail.rss" },
         ],
         relations: [
-          RelatonIso::IsoDocumentRelation.new(
+          RelatonBib::DocumentRelation.new(
             type: "updates",
-            bibitem: RelatonIso::IsoBibliographicItem.new(
+            bibitem: RelatonIsoBib::IsoBibliographicItem.new(
               formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003"),
-              docstatus: { status: "Published" },
+              docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
             ),
             bib_locality: [
               RelatonBib::BibItemLocality.new("updates", "Reference form"),
             ],
           ),
-          RelatonIso::IsoDocumentRelation.new(
+          RelatonBib::DocumentRelation.new(
             type: "updates",
-            bibitem: RelatonIso::IsoBibliographicItem.new(
+            bibitem: RelatonIsoBib::IsoBibliographicItem.new(
               type: "international-standard",
               formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003/Cor 1:2006"),
             ),
@@ -76,8 +78,8 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
         series: [
           RelatonBib::Series.new(
             type: "main",
-            title: RelatonBib::TypedTitleString.new(
-              type: "original", content: "ISO/IEC FDIS 10118-3", language: "en", script: "Latn",
+            title: RelatonIsoBib::TypedTitleString.new(
+              type: "title-main", content: "ISO/IEC FDIS 10118-3", language: "en", script: "Latn",
             ),
             place: "Serie's place",
             organization: "Serie's organization",
@@ -110,7 +112,7 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
           ends: Time.new(2011, 2, 3, 18,30),
           revision: Time.new(2011, 3, 4, 9, 0),
         ),
-        workgroup: {
+        editorialgroup: {
           technical_committee: [{
             name: " ISO/TC 211 Geographic information/Geomatics",
             type: "technicalCommittee", number: 211
@@ -119,7 +121,7 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
             name: "International Organization for Standardization",
             type: "ISO", number: 122,
           }],
-          workgroup: [RelatonIso::IsoSubgroup.new(
+          workgroup: [RelatonIsoBib::IsoSubgroup.new(
             name: "Workgroup Organization",
             type: "WG", number: 111,
           )],
@@ -129,12 +131,14 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
     end
 
     it "create instance" do
-      expect(subject).to be_instance_of RelatonIso::IsoBibliographicItem
+      expect(subject).to be_instance_of RelatonIsoBib::IsoBibliographicItem
     end
 
     it "has titles" do
       expect(subject.title).to be_instance_of Array
-      expect(subject.title(lang: "en").title_main.to_s).to eq "Metadata"
+      expect(subject.title(lang: "en").detect do |t|
+        t.type == "title-main"
+      end.title.content).to eq "Metadata"
     end
 
     it "has urls" do
@@ -154,8 +158,8 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
     end
 
     it "returns shortref" do
-      expect(subject.shortref(subject.docidentifier.first)).to eq "ISO 1-2-2014:2014"
-      expect(subject.shortref(subject.docidentifier.first, no_year: true)).to eq "ISO 1-2-2014"
+      expect(subject.shortref(subject.structuredidentifier)).to eq "ISO1-2-2014:2014"
+      expect(subject.shortref(subject.structuredidentifier, no_year: true)).to eq "ISO1-2-2014"
       subject.instance_variable_set :@docidentifier, []
       expect(subject.shortref(nil)).to eq ":2014"
     end
@@ -166,19 +170,19 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
 
     it "returns xml" do
       file = "spec/examples/iso_bib_item.xml"
-      File.write file, subject.to_xml, encoding: "utf-8" unless File.exist? file
+      File.write file, subject.to_xml(bibdata: true), encoding: "utf-8" unless File.exist? file
       xml = File.read file, encoding: "UTF-8"
-      expect(subject.to_xml).to be_equivalent_to xml
+      expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml
     end
 
     it "return xml with note" do
       file = "spec/examples/iso_bib_item_note.xml"
-      File.write file, subject.to_xml(note: "test note"), encoding: "utf-8" unless File.exist? file
-      xml_res = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |builder|
-        subject.to_xml builder, note: "test note"
-      end.doc.root.to_xml
-      xml = File.read file, encoding: "UTF-8"
-      expect(xml_res).to be_equivalent_to xml
+      xml_res = subject.to_xml(
+        note: [{ type: "note type", text: "test note" }], bibdata: true,
+      )
+      File.write file, xml_res, encoding: "utf-8" unless File.exist? file
+      expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8")
+      expect(xml_res).to include "<note format=\"text/plain\" type=\"note type\">test note</note>"
     end
 
     it "has dates" do
@@ -186,19 +190,15 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
     end
 
     it "converts to all_parts reference" do
-      expect(subject.title.first.title_part).not_to be nil
+      expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
       expect(subject.relations.last.type).not_to eq "partOf"
-      expect(subject.to_xml).not_to include "<allparts>true</allparts>"
-      expect(subject.to_xml).to include "<iso-standard type=\"international-standard\">"
       subject.to_all_parts
       expect(subject.relations.last.type).to eq "partOf"
-      expect(subject.title.first.title_part).to be nil
-      expect(subject.to_xml).to include "<allparts>true</allparts>"
-      expect(subject.to_xml).to include "<iso-standard type=\"international-standard\">"
+      expect(subject.title.detect { |t| t.type == "title-part" }).to be nil
     end
 
     it "converts to latest year reference" do
-      expect(subject.title.first.title_part).not_to be nil
+      expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
       expect(subject.relations.last.type).not_to eq "instance"
       expect(subject.dates).not_to be_empty
       subject.to_most_recent_reference
@@ -208,14 +208,38 @@ RSpec.describe RelatonIso::IsoBibliographicItem do
   end
 
   it "raises invalid type argument error" do
-    expect { RelatonIso::IsoBibliographicItem.new type: "type" }.to raise_error ArgumentError
+    expect do
+      RelatonIsoBib::IsoBibliographicItem.new type: "type"
+    end.to raise_error ArgumentError
   end
 
-  it "doc identifier remove part/date" do
-    docid = RelatonIso::IsoDocumentId.new(id: "GB 1.2-2014", type: "Chinese Standard")
-    docid.remove_part
-    expect(docid.id).to eq "GB 1-2014"
-    docid.remove_date
-    expect(docid.id).to eq "GB 1"
+  it "raise invalid language argument error" do
+    expect do
+      RelatonIsoBib::IsoBibliographicItem.new(
+        type: "international-standard", language: ["ru"],
+      )
+    end.to raise_error ArgumentError
+  end
+
+  context "doc identifier remove part/date" do
+    it "Chinese Standard" do
+      docid = RelatonIsoBib::StructuredIdentifier.new(
+        project_number: "GB 1.2-2014", type: "Chinese Standard",
+      )
+      docid.remove_part
+      expect(docid.id).to eq "GB 1-2014"
+      docid.remove_date
+      expect(docid.id).to eq "GB 1"
+    end
+
+    it "other standards" do
+      docid = RelatonIsoBib::StructuredIdentifier.new(
+        project_number: "ISO 1-2:2014", part: 2, type: "International Standard"
+      )
+      docid.remove_part
+      expect(docid.id).to eq "ISO 1:2014"
+      docid.remove_date
+      expect(docid.id).to eq "ISO 1"
+    end
   end
 end
