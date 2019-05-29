@@ -57,8 +57,8 @@
     </owner>
   </copyright>
   <relation type="updates">
-    <bibitem>
-      <formattedref>ISO 19115:2003</formattedref>
+    <bibitem id="ISO19115-2003">
+      <formattedref format="text/plain">ISO 19115:2003</formattedref>
       <status>
         <stage>60</stage>
         <substage>60</substage>
@@ -69,12 +69,12 @@
     </locality>
   </relation>
   <relation type="updates">
-    <bibitem>
-      <formattedref>ISO 19115:2003/Cor 1:2006</formattedref>
+    <bibitem id="ISO19115-2003/Cor1-2006">
+      <formattedref format="text/plain">ISO 19115:2003/Cor 1:2006</formattedref>
     </bibitem>
   </relation>
   <series type="main">
-    <title type="title-main" language="en" script="Latn">ISO/IEC FDIS 10118-3</title>
+    <title type="title-main" format="text/plain" language="en" script="Latn">ISO/IEC FDIS 10118-3</title>
     <place>Serie's place</place>
     <organization>Serie's organization</organization>
     <abbreviation language="en" script="Latn">ABVR</abbreviation>
@@ -84,7 +84,7 @@
     <partnumber>part5678</partnumber>
   </series>
   <series type="alt">
-    <formattedref language="en" script="Latn">serieref</formattedref>
+    <formattedref format="text/plain" language="en" script="Latn">serieref</formattedref>
   </series>
   <medium>
     <form>medium form</form>
