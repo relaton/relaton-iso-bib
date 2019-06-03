@@ -175,7 +175,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml
     end
 
-    it "return xml with note" do
+    it "returns xml with note" do
       file = "spec/examples/iso_bib_item_note.xml"
       xml_res = subject.to_xml(
         note: [{ type: "note type", text: "test note" }], bibdata: true,
@@ -183,6 +183,21 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       File.write file, xml_res, encoding: "utf-8" unless File.exist? file
       expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8")
       expect(xml_res).to include "<note format=\"text/plain\" type=\"note type\">test note</note>"
+    end
+
+    it "returs xml with given block" do
+      xml = subject.to_xml bibdata: true do |builder|
+        builder.gbtype "type"
+      end
+      expect(xml).to include "<gbtype>type</gbtype>"
+    end
+
+    it "returns xml with gbcommittee instead editorialgroup (for GB)" do
+      expect(subject).to receive(:respond_to?).with(:committee).and_return(true).at_least :once
+      committee = double
+      expect(committee).to receive(:to_xml) { |bldr| bldr.gbcommittee "committee" }
+      expect(subject).to receive(:committee).and_return committee
+      expect(subject.to_xml(bibdata: true)).to include "<gbcommittee>committee</gbcommittee>"
     end
 
     it "has dates" do

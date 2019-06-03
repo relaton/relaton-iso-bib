@@ -126,15 +126,8 @@ module RelatonIsoBib
         raise ArgumentError, "invalid type: #{args[:type]}"
       end
 
-      args.fetch(:language, []).each do |lang|
-        unless %w[en fr].include? lang
-          raise ArgumentError, "invalid language: #{lang}"
-        end
-      end
-
-      args.fetch(:script, []).each do |scr|
-        raise ArgumentError, "invalid script: #{scr}" unless scr == "Latn"
-      end
+      check_language args.fetch(:language, [])
+      check_script args.fetch(:script, [])
 
       super_args = args.select do |k|
         %i[id docnumber language script docstatus dates abstract contributors
@@ -229,7 +222,7 @@ module RelatonIsoBib
 
     # @return [String]
     def to_xml(builder = nil, **opts, &block)
-      if opts[:note] && !opts[:note].empty?
+      if opts[:note]&.any?
         opts.fetch(:note, []).each do |n|
           @biblionote << RelatonBib::BiblioNote.new(
             content: n[:text], type: n[:type], format: "text/plain",
@@ -240,15 +233,39 @@ module RelatonIsoBib
         if opts[:bibdata]
           b.ext do
             b.doctype doctype if doctype
-            editorialgroup&.to_xml b
+            # GB renders gbcommittee elements istead of an editorialgroup element.
+            if respond_to? :committee
+              committee&.to_xml b
+            else
+              editorialgroup&.to_xml b
+            end
             ics.each { |i| i.to_xml b }
             structuredidentifier.to_xml b
+            yield b if block_given?
           end
         end
       end
     end
 
     private
+
+    # @param language [Array<String>]
+    # @raise ArgumentError
+    def check_language(language)
+      language.each do |lang|
+        unless %w[en fr].include? lang
+          raise ArgumentError, "invalid language: #{lang}"
+        end
+      end
+    end
+
+    # @param script [Array<String>]
+    # @raise ArgumentError
+    def check_script(script)
+      script.each do |scr|
+        raise ArgumentError, "invalid script: #{scr}" unless scr == "Latn"
+      end
+    end
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
@@ -309,54 +326,5 @@ module RelatonIsoBib
       idstr&.gsub(/:/, "-")&.gsub(/\s/, "")&.strip
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-    # def xml_attrs(type)
-    #   attrs = {}
-    #   attrs[:type] = type if type
-    #   # attr_id = makeid(nil, true)&.gsub(/ /, "")
-    #   # attrs[:id] = attr_id if attr_id
-    #   attrs
-    # end
-
-    # @param builder [Nokogiri::XML::Builder]
-    # def render_xml(builder, **opts)
-    #   builder.send("iso-standard", xml_attrs(type)) do
-    #     builder.fetched fetched if fetched
-    #     formattedref.to_xml builder if formattedref
-    #     title.each { |t| t.to_xml builder }
-    #     link.each { |s| s.to_xml builder }
-    #     docidentifier.each { |i| i.to_xml builder }
-    #     builder.docnumber docnumber if docnumber
-    #     dates.each { |d| d.to_xml builder, opts }
-    #     contributors.each do |c|
-    #       builder.contributor do
-    #         c.role.each { |r| r.to_xml builder }
-    #         c.to_xml builder
-    #       end
-    #     end
-    #     builder.edition edition if edition
-    #     version.to_xml builder if version
-    #     if opts[:note]
-    #       builder.note("ISO DATE: #{opts[:note]}", format: 'text/plain')
-    #     end
-    #     language.each { |l| builder.language l }
-    #     script.each { |s| builder.script s }
-    #     abstract.each { |a| builder.abstract { a.to_xml(builder) } }
-    #     status.to_xml builder if status
-    #     copyright.to_xml builder if copyright
-    #     relations.each { |r| r.to_xml builder }
-    #     series.each { |s| s.to_xml builder } if series
-    #     medium.to_xml builder if medium
-    #     place.each { |pl| builder.place pl }
-    #     extent.each { |e| e.to_xml builder }
-    #     accesslocation.each { |al| builder.accesslocation al }
-    #     classification.to_xml builder if classification
-    #     validity.to_xml builder if validity
-    #     editorialgroup.to_xml builder if editorialgroup
-    #     ics.each { |i| i.to_xml builder }
-    #     builder.allparts 'true' if @all_parts
-    #     yield(builder) if block_given?
-    #   end
-    # end
   end
 end

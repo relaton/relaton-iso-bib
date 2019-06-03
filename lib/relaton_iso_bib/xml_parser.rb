@@ -67,6 +67,8 @@ module RelatonIsoBib
       # @return [RelatonIsoBib::EditorialGroup]
       def fetch_editorialgroup(ext)
         eg = ext.at("./editorialgroup")
+        return unless eg
+
         tc = eg&.xpath("technical_committee")&.map { |t| iso_subgroup(t) }
         sc = eg&.xpath("subcommittee")&.map { |s| iso_subgroup(s) }
         wg = eg&.xpath("workgroup")&.map { |w| iso_subgroup(w) }
