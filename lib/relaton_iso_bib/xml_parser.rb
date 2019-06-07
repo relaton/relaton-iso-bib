@@ -35,6 +35,8 @@ module RelatonIsoBib
       # @return [RelatonIsoBib::StructuredIdentifier]
       def fetch_structuredidentifier(ext)
         sid = ext.at "./structuredidentifier"
+        return unless sid
+
         pn = sid.at "project-number"
         tdn = sid.at "tc-document-number"
         RelatonIsoBib::StructuredIdentifier.new(

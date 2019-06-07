@@ -122,10 +122,7 @@ module RelatonIsoBib
     #
     # @raise [ArgumentError]
     def initialize(**args)
-      if args[:type] && !TYPES.include?(args[:type])
-        raise ArgumentError, "invalid type: #{args[:type]}"
-      end
-
+      check_type args[:type]
       check_language args.fetch(:language, [])
       check_script args.fetch(:script, [])
 
@@ -136,8 +133,6 @@ module RelatonIsoBib
            validity].include? k
       end
       super(super_args)
-
-      @structuredidentifier = args[:structuredidentifier]
 
       @title = args.fetch(:titles, []).reduce([]) do |a, t|
         if t.is_a? Hash
@@ -154,7 +149,8 @@ module RelatonIsoBib
                           end
       end
 
-      @doctype = args[:type]
+      @structuredidentifier = args[:structuredidentifier]
+      @doctype ||= args[:type]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
       @link = args.fetch(:link, []).map do |s|
         s.is_a?(Hash) ? RelatonBib::TypedUri.new(s) : s
@@ -200,7 +196,7 @@ module RelatonIsoBib
       @abstract = []
       @dates = []
       @docidentifier.each &:remove_date
-      @structuredidentifier.remove_date
+      @structuredidentifier&.remove_date
       @id&.sub! /-[12]\d\d\d/, ""
     end
 
@@ -240,7 +236,7 @@ module RelatonIsoBib
               editorialgroup&.to_xml b
             end
             ics.each { |i| i.to_xml b }
-            structuredidentifier.to_xml b
+            structuredidentifier&.to_xml b
             yield b if block_given?
           end
         end
@@ -264,6 +260,14 @@ module RelatonIsoBib
     def check_script(script)
       script.each do |scr|
         raise ArgumentError, "invalid script: #{scr}" unless scr == "Latn"
+      end
+    end
+
+    # @param script [String]
+    # @raise ArgumentError
+    def check_type(type)
+      if type && !TYPES.include?(type)
+        raise ArgumentError, "invalid type: #{type}"
       end
     end
 

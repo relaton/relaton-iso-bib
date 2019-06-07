@@ -49,6 +49,7 @@ module RelatonIsoBib
     # @param builder [Nokogiri::XML::Builder]
     def to_xml(builder)
       return unless technical_committee || subcommittee || workgroup || secretariat
+
       builder.editorialgroup do
         technical_committee.each do |tc|
           builder.technical_committee { tc.to_xml builder }
