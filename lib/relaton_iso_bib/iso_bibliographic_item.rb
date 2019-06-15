@@ -124,8 +124,8 @@ module RelatonIsoBib
     # @raise [ArgumentError]
     def initialize(**args)
       check_type args[:type]
-      check_language args.fetch(:language, [])
-      check_script args.fetch(:script, [])
+      #check_language args.fetch(:language, [])
+      #check_script args.fetch(:script, [])
 
       super_args = args.select do |k|
         %i[id docnumber language script docstatus dates abstract contributors

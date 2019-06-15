@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-iso-bib (0.2.1)
+    relaton-iso-bib (0.2.2)
       isoics (~> 0.1.6)
       nokogiri (~> 1.8.4)
       relaton-bib (~> 0.2.0)

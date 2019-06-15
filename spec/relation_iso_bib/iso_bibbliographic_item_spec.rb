@@ -229,6 +229,8 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end.to raise_error ArgumentError
   end
 
+  # removed this functionality
+=begin
   it "raise invalid language argument error" do
     expect do
       RelatonIsoBib::IsoBibliographicItem.new(
@@ -236,6 +238,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       )
     end.to raise_error ArgumentError
   end
+=end
 
   context "doc identifier remove part/date" do
     it "Chinese Standard" do
