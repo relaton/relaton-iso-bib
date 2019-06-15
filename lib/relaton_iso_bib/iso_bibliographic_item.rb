@@ -23,6 +23,7 @@ module RelatonIsoBib
   # Bibliographic item.
   class IsoBibliographicItem < RelatonBib::BibliographicItem
     TYPES = %w[
+      standard
       international-standard technical-specification technical-report
       publicly-available-specification international-workshop-agreement guide
     ].freeze
@@ -131,7 +132,7 @@ module RelatonIsoBib
            edition version relations biblionote series medium place copyright
            link fetched docid formattedref extent accesslocation classification
            validity].include? k
-      end
+      end.merge(type: "standard")
       super(super_args)
 
       @title = args.fetch(:titles, []).reduce([]) do |a, t|
