@@ -176,7 +176,7 @@ module RelatonIsoBib
         @title.delete_if { |t| t.type == "title-part" }
         ttl = @title.select { |t| t.type != "main" && t.title.language.include?(l) }
         tm_en = ttl.map { |t| t.title.content }.join " - "
-        @title.detect { |t| t.type == "main" && t.title.language.include?(l) }.title.content = tm_en
+        @title.detect { |t| t.type == "main" && t.title.language.include?(l) }&.title&.content = tm_en
       end
       @abstract = []
       @docidentifier.each(&:remove_part)
