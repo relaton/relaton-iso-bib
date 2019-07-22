@@ -35,7 +35,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "debase"
 
   spec.add_dependency "isoics", "~> 0.1.6"
-  spec.add_dependency "nokogiri"
   spec.add_dependency "relaton-bib", "~>0.2.0"
   spec.add_dependency "ruby_deep_clone", "~> 0.8.0"
 end
