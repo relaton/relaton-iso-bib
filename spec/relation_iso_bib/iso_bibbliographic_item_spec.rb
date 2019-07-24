@@ -12,7 +12,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
           type: "sid", project_number: "ISO 1-2:2014", part: 2, subpart: 2,
         ),
         docnumber: "123456",
-        titles: [
+        title: [
           { title_intro: "Geographic information", title_main: "Metadata",
             title_part: "Part 1: Fundamentals", language: "en", script: "Latn" },
           { title_intro: "Information géographique", title_main: "Métadonnées",
@@ -25,24 +25,24 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
         script: ["Latn"],
         type: "international-standard",
         docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
-        dates: [{ type: "published", on: "2014-04" }],
+        date: [{ type: "published", on: "2014-04" }],
         abstract: [
           { content: "ISO 19115-1:2014 defines the schema required for ...",
             language: "en", script: "Latn", format: "text/plain" },
           { content: "L'ISO 19115-1:2014 définit le schéma requis pour ...",
             language: "fr", script: "Latn", format: "text/plain" },
         ],
-        contributors: [
+        contributor: [
           { entity: { name: "International Organization for Standardization",
                       url: "www.iso.org", abbreviation: "ISO" },
-            roles: ["publisher"] },
+            role: ["publisher"] },
           {
             entity: RelatonBib::Person.new(
               name: RelatonBib::FullName.new(
                 completename: RelatonBib::LocalizedString.new("John Smith"),
               ),
             ),
-            roles: ["author"],
+            role: ["author"],
           },
         ],
         copyright: { owner: {
@@ -56,7 +56,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
           { type: "rss", content: "https://www.iso.org/contents/data/standard"\
             "/05/37/53798.detail.rss" },
         ],
-        relations: [
+        relation: [
           RelatonBib::DocumentRelation.new(
             type: "updates",
             bibitem: RelatonIsoBib::IsoBibliographicItem.new(
@@ -148,7 +148,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has relations" do
-      expect(subject.relations.replaces).to be_instance_of Array
+      expect(subject.relation.replaces).to be_instance_of Array
     end
 
     it "has abstracts" do
@@ -165,7 +165,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has contributors" do
-      expect(subject.contributors.first.entity.url).to eq "www.iso.org"
+      expect(subject.contributor.first.entity.url).to eq "www.iso.org"
     end
 
     it "returns xml" do
@@ -201,25 +201,25 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has dates" do
-      expect(subject.dates.filter(type: "published").first).to be_instance_of RelatonBib::BibliographicDate
+      expect(subject.date.filter(type: "published").first).to be_instance_of RelatonBib::BibliographicDate
     end
 
     it "converts to all_parts reference" do
       expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
-      expect(subject.relations.last.type).not_to eq "partOf"
+      expect(subject.relation.last.type).not_to eq "partOf"
       subject.to_all_parts
-      expect(subject.relations.last.type).to eq "partOf"
+      expect(subject.relation.last.type).to eq "partOf"
       expect(subject.title.detect { |t| t.type == "title-part" }).to be nil
       expect(subject.title.detect { |t| t.type == "main" }.title.content).to eq "Metadata - Geographic information"
     end
 
     it "converts to latest year reference" do
       expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
-      expect(subject.relations.last.type).not_to eq "instance"
-      expect(subject.dates).not_to be_empty
+      expect(subject.relation.last.type).not_to eq "instance"
+      expect(subject.date).not_to be_empty
       subject.to_most_recent_reference
-      expect(subject.relations.last.type).to eq "instance"
-      expect(subject.dates).to be_empty
+      expect(subject.relation.last.type).to eq "instance"
+      expect(subject.date).to be_empty
     end
   end
 

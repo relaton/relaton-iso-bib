@@ -65,12 +65,12 @@ module RelatonIsoBib
     # @param docid [Array<RelatonBib::DocumentIdentifier>]
     # @param structuredidentifier [RelatonIsoBib::StructuredIdentifier]
     #
-    # @param titles [Array<Hash>]
-    # @option titles [String] :title_intro
-    # @option titles [String] :title_main
-    # @option titles [String] :title_part
-    # @option titles [String] :language
-    # @option titles [String] :script
+    # @param title [Array<Hash>]
+    # @option title [String] :title_intro
+    # @option title [String] :title_main
+    # @option title [String] :title_part
+    # @option title [String] :language
+    # @option title [String] :script
     #
     # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup]
     # @option workgrpup [String] :name
@@ -86,10 +86,10 @@ module RelatonIsoBib
     # @option ics [Integer] :group
     # @option ics [Integer] :subgroup
     #
-    # @param dates [Array<Hash>]
-    # @option dates [String] :type
-    # @option dates [String] :from
-    # @option dates [String] :to
+    # @param date [Array<Hash>]
+    # @option date [String] :type
+    # @option date [String] :from
+    # @option date [String] :to
     #
     # @param abstract [Array<Hash>]
     # @option abstract [String] :content
@@ -97,12 +97,12 @@ module RelatonIsoBib
     # @option abstract [String] :script
     # @option abstract [String] :type
     #
-    # @param contributors [Array<Hash>]
-    # @option contributors [Hash] :entity
+    # @param contributor [Array<Hash>]
+    # @option contributor [Hash] :entity
     # @option entity [String] :name
     # @option entity [String] :url
     # @option entity [String] :abbreviation
-    # @option contributors [Array<String>] :roles
+    # @option contributor [Array<String>] :role
     #
     # @param copyright [Hash]
     # @option copyright [Hash] :owner
@@ -112,14 +112,14 @@ module RelatonIsoBib
     # @option copyright [String] :from
     # @option copyright [String] :to
     #
-    # @param link [Array<Hash, RelatonIsoBib::TypedUri>]
+    # @param link [Array<Hash, RelatonBib::TypedUri>]
     # @option link [String] :type
     # @option link [String] :content
     #
-    # @param relations [Array<Hash>]
-    # @option relations [String] :type
-    # @option relations [RelatonIsoBib::IsoBibliographicItem] :bibitem
-    # @option relations [Array<RelatonBib::BibItemLocality>] :bib_locality
+    # @param relation [Array<Hash>]
+    # @option relation [String] :type
+    # @option relation [RelatonIsoBib::IsoBibliographicItem] :bibitem
+    # @option relation [Array<RelatonBib::BibItemLocality>] :bib_locality
     #
     # @raise [ArgumentError]
     def initialize(**args)
@@ -128,14 +128,14 @@ module RelatonIsoBib
       #check_script args.fetch(:script, [])
 
       super_args = args.select do |k|
-        %i[id docnumber language script docstatus dates abstract contributors
-           edition version relations biblionote series medium place copyright
+        %i[id docnumber language script docstatus date abstract contributor
+           edition version relation biblionote series medium place copyright
            link fetched docid formattedref extent accesslocation classification
            validity].include? k
       end.merge(type: "standard")
       super(super_args)
 
-      @title = args.fetch(:titles, []).reduce([]) do |a, t|
+      @title = args.fetch(:title, []).reduce([]) do |a, t|
         if t.is_a? Hash
           a + typed_titles(t)
         else
@@ -153,9 +153,9 @@ module RelatonIsoBib
       @structuredidentifier = args[:structuredidentifier]
       @doctype ||= args[:type]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
-      @link = args.fetch(:link, []).map do |s|
-        s.is_a?(Hash) ? RelatonBib::TypedUri.new(s) : s
-      end
+      # @link = args.fetch(:link, []).map do |s|
+      #   s.is_a?(Hash) ? RelatonBib::TypedUri.new(s) : s
+      # end
       @id_attribute = true
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -169,7 +169,7 @@ module RelatonIsoBib
     def to_all_parts
       me = DeepClone.clone(self)
       me.disable_id_attribute
-      @relations << RelatonBib::DocumentRelation.new(
+      @relation << RelatonBib::DocumentRelation.new(
         type: "partOf", bibitem: me,
       )
       @language.each do |l|
@@ -193,9 +193,9 @@ module RelatonIsoBib
     def to_most_recent_reference
       me = DeepClone.clone(self)
       me.disable_id_attribute
-      @relations << RelatonBib::DocumentRelation.new(type: "instance", bibitem: me)
+      @relation << RelatonBib::DocumentRelation.new(type: "instance", bibitem: me)
       @abstract = []
-      @dates = []
+      @date = []
       @docidentifier.each &:remove_date
       @structuredidentifier&.remove_date
       @id&.sub! /-[12]\d\d\d/, ""
