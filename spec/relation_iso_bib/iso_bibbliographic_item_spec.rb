@@ -210,7 +210,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       subject.to_all_parts
       expect(subject.relation.last.type).to eq "partOf"
       expect(subject.title.detect { |t| t.type == "title-part" }).to be nil
-      expect(subject.title.detect { |t| t.type == "main" }.title.content).to eq "Metadata - Geographic information"
+      expect(subject.title.detect { |t| t.type == "main" }.title.content).to eq "Geographic information - Metadata"
     end
 
     it "converts to latest year reference" do

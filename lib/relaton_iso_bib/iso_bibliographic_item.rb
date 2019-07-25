@@ -283,16 +283,16 @@ module RelatonIsoBib
     # @return [Array<RelatonIsoBib::TypedTitleStrig>]
     def typed_titles(title)
       titles = []
-      if title[:title_main]
+      if title[:title_intro]
         titles << TypedTitleString.new(
-          type: "title-main", content: title[:title_main],
+          type: "title-intro", content: title[:title_intro],
           language: title[:language], script: title[:script], format: "text/plain",
         )
       end
 
-      if title[:title_intro]
+      if title[:title_main]
         titles << TypedTitleString.new(
-          type: "title-intro", content: title[:title_intro],
+          type: "title-main", content: title[:title_main],
           language: title[:language], script: title[:script], format: "text/plain",
         )
       end
