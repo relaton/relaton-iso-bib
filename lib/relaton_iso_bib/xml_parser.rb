@@ -29,8 +29,6 @@ module RelatonIsoBib
         data
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-
       # @param ext [Nokogiri::XML::Element]
       # @return [RelatonIsoBib::StructuredIdentifier]
       def fetch_structuredidentifier(ext)
@@ -44,7 +42,6 @@ module RelatonIsoBib
           subpart: pn[:subpart], tc_document_number: tdn&.text
         )
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       # Override RelatonBib::XMLParser.ttitle method.
       # @param title [Nokogiri::XML::Element]

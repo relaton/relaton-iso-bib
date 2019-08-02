@@ -35,14 +35,14 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
         contributor: [
           { entity: { name: "International Organization for Standardization",
                       url: "www.iso.org", abbreviation: "ISO" },
-            role: ["publisher"] },
+            role: [type: "publisher"] },
           {
             entity: RelatonBib::Person.new(
               name: RelatonBib::FullName.new(
                 completename: RelatonBib::LocalizedString.new("John Smith"),
               ),
             ),
-            role: ["author"],
+            role: [type: "author"],
           },
         ],
         copyright: { owner: {

@@ -511,6 +511,22 @@ item.to_xml(bibdata: true, note: [{ type: "note type", text: "test note" }])
   ...
 ----
 
+=== Create bibliographic item form YAML
+[source,ruby]
+----
+hash = YAML.load_file 'spec/examples/iso_bib_item.yml'
+=> {"id"=>"ISO/TC211",
+...
+
+bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
+=> {:id=>"ISO/TC211",
+...
+
+RelatonIsoBib::IsoBibliographicItem.new bib_hash
+=> #<RelatonIsoBib::IsoBibliographicItem:0x007fdb95ba98e8
+...
+----
+
 == BibliographicItem
 
 The ISO standards use a subset of the generic bibliographic fields specified in the https://github.com/metanorma/metanorma-model-iso#iso-bibliographic-item[IsoBibliographicItem model]:

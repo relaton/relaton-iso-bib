@@ -9,6 +9,7 @@ require "relaton_iso_bib/editorial_group"
 require "relaton_iso_bib/xml_parser"
 require "relaton_iso_bib/structured_identifier"
 require "relaton_iso_bib/ics"
+require "relaton_iso_bib/hash_converter"
 
 # Add filter method to Array.
 class Array
@@ -72,7 +73,7 @@ module RelatonIsoBib
     # @option title [String] :language
     # @option title [String] :script
     #
-    # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup]
+    # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup, RelatonItu::EditorialGroup]
     # @option workgrpup [String] :name
     # @option workgrpup [String] :abbreviation
     # @option workgrpup [String] :url
