@@ -125,8 +125,8 @@ module RelatonIsoBib
     # @raise [ArgumentError]
     def initialize(**args)
       check_type args[:type]
-      #check_language args.fetch(:language, [])
-      #check_script args.fetch(:script, [])
+      # check_language args.fetch(:language, [])
+      # check_script args.fetch(:script, [])
 
       super_args = args.select do |k|
         %i[id docnumber language script docstatus date abstract contributor
@@ -245,25 +245,35 @@ module RelatonIsoBib
       end
     end
 
+    # @return [Hash]
+    def to_hash
+      hash = super
+      hash[:editorialgroup] = editorialgroup.to_hash if editorialgroup
+      hash[:ics] = ics.map(&:to_hash) if ics&.any?
+      hash[:structuredidentifier] = structuredidentifier.to_hash if structuredidentifier
+      hash[:type] = doctype if doctype
+      hash
+    end
+
     private
 
     # @param language [Array<String>]
     # @raise ArgumentError
-    def check_language(language)
-      language.each do |lang|
-        unless %w[en fr].include? lang
-          raise ArgumentError, "invalid language: #{lang}"
-        end
-      end
-    end
+    # def check_language(language)
+    #   language.each do |lang|
+    #     unless %w[en fr].include? lang
+    #       raise ArgumentError, "invalid language: #{lang}"
+    #     end
+    #   end
+    # end
 
     # @param script [Array<String>]
     # @raise ArgumentError
-    def check_script(script)
-      script.each do |scr|
-        raise ArgumentError, "invalid script: #{scr}" unless scr == "Latn"
-      end
-    end
+    # def check_script(script)
+    #   script.each do |scr|
+    #     raise ArgumentError, "invalid script: #{scr}" unless scr == "Latn"
+    #   end
+    # end
 
     # @param script [String]
     # @raise ArgumentError

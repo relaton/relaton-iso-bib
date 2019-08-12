@@ -1,5 +1,7 @@
 <bibdata type="standard">
-  <fetched>2019-07-30</fetched>
+  <fetched>2019-08-12</fetched>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Geographic information</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="fr" script="Latn">Information géographique</title>
   <title type="main" format="text/plain" language="fr" script="Latn">Information géographique</title>
   <uri type="src">https://www.iso.org/standard/53798.html</uri>
@@ -110,7 +112,7 @@
     </owner>
   </copyright>
   <relation type="updates">
-    <bibitem>
+    <bibitem type="standard">
       <formattedref format="text/plain">ISO 19115:2003</formattedref>
     </bibitem>
     <locality type="updates">
@@ -123,7 +125,7 @@
     </bibitem>
   </relation>
   <series type="main">
-    <title type="original" format="text/plain" language="en" script="Latn">ISO/IEC FDIS 10118-3</title>
+    <title type="main" format="text/plain" language="en" script="Latn">ISO/IEC FDIS 10118-3</title>
     <place>Serie's place</place>
     <organization>Serie's organization</organization>
     <abbreviation language="en" script="Latn">ABVR</abbreviation>

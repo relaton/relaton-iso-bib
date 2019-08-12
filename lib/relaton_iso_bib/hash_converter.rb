@@ -44,23 +44,68 @@ module RelatonIsoBib
 
       private
 
+      #
+      # Ovverides superclass's method
+      #
+      # @param ret [Hash]
       def title_hash_to_bib(ret)
         return unless ret[:title]
 
         ret[:title] = array(ret[:title])
-        ret[:title] = ret[:title].map do |t|
-          titleparts = {}
-          titleparts = split_title(t) unless t.is_a?(Hash)
-          if t.is_a?(Hash) && t[:content]
-            titleparts = split_title(t[:content], t[:language], t[:script])
-          end
-          if t.is_a?(Hash) then t.merge(titleparts)
-          else
-            { content: t, language: "en", script: "Latn", format: "text/plain", type: "main" }
+        ret[:title] = ret[:title].reduce([]) do |a, t|
+          if t.is_a?(String)
+            a << split_title(t)
+          elsif t.is_a?(Hash) && t[:type]
+            idx = a.index { |i| i[:language] == t[:language] }
+            title_key = t[:type].sub("-", "_").to_sym
+            if idx
+              a[idx][title_key] = t[:content]
+              a
+            else
+              a << { title_key => t[:content], language: t[:language], script: t[:script] }
+            end
+          elsif t.is_a?(Hash) && t[:content]
+            a << split_title(t[:content], t[:language], t[:script])
           end
         end
       end
 
+      #
+      # Ovverides superclass's method
+      #
+      # @param ret [Hash]
+      # @param r [Hash] relation
+      # @param i [Integr] index of relation
+      # def relation_bibitem_hash_to_bib(ret, r, i)
+      #   if r[:bibitem]
+      #     ret[:relation][i][:bibitem] = IsoBibliographicItem.new(
+      #       hash_to_bib(r[:bibitem], true),
+      #     )
+      #   else
+      #     warn "bibitem missing: #{r}"
+      #     ret[:relation][i][:bibitem] = nil
+      #   end
+      # end
+
+      #
+      # Ovverides superclass's method
+      #
+      # @param item [Hash]
+      # @retirn [RelatonIsoBib::IsoBibliographicItem]
+      def bib_item(item)
+        IsoBibliographicItem.new(item)
+      end
+
+      #
+      # Ovverides superclass's method
+      #
+      # @param title [Hash]
+      # @return [RelatonIsoBib::TypedTitleString]
+      def typed_title_strig(title)
+        TypedTitleString.new title
+      end
+
+      # @param ret [Hash]
       def editorialgroup_hash_to_bib(ret)
         eg = ret[:editorialgroup]
         return unless eg
@@ -73,12 +118,14 @@ module RelatonIsoBib
         )
       end
 
+      # @param ret [Hash]
       def ics_hash_to_bib(ret)
         ret[:ics] = ret.fetch(:ics, []).map do |ics|
           ics[:code] ? Ics.new(ics[:code]) : Ics.new(ics)
         end
       end
 
+      # @param ret [Hash]
       def structuredidentifier_hash_to_bib(ret)
         return unless ret[:structuredidentifier]
 

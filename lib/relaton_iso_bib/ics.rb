@@ -10,7 +10,7 @@ module RelatonIsoBib
         raise ArgumentError, "wrong arguments (should be string or { fieldcode: [String] }"
       end
 
-      field, group, subgroup = code.split '.' if code
+      field, group, subgroup = code.split "." if code
       super fieldcode: field, groupcode: group, subgroupcode: subgroup
     end
 
@@ -20,6 +20,13 @@ module RelatonIsoBib
         builder.code code
         builder.text_ description
       end
+    end
+
+    # @return [Hash]
+    def to_hash
+      hash = {}
+      hash[:code] = code if code
+      hash
     end
   end
 end

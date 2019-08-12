@@ -155,7 +155,7 @@ relation:
 series:
   - type: main
     title:
-      type: original
+      type: main
       content: ISO/IEC FDIS 10118-3
       language: en
       script: Latn

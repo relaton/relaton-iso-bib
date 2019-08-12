@@ -6,13 +6,13 @@ module RelatonIsoBib
     # @return [Array<RelatonIsoBib::IsoSubgroup>]
     attr_reader :technical_committee
 
-    # @return [RelatonIsoBib::IsoSubgroup]
+    # @return [Array<RelatonIsoBib::IsoSubgroup>]
     attr_reader :subcommittee
 
-    # @return [RelatonIsoBib::IsoSubgroup]
+    # @return [Array<RelatonIsoBib::IsoSubgroup>]
     attr_reader :workgroup
 
-    # @return [String]
+    # @return [String, NilClass]
     attr_reader :secretariat
 
     # @param technical_committee [Array<Hash, RelatonIsoBib::IsoSubgroup>]
@@ -44,7 +44,7 @@ module RelatonIsoBib
       @secretariat = args[:secretariat]
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
     # @param builder [Nokogiri::XML::Builder]
     def to_xml(builder)
@@ -63,7 +63,16 @@ module RelatonIsoBib
         builder.secretariat secretariat if secretariat
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    # @return [Hash]
+    def to_hash
+      hash = { technical_committee: technical_committee.map(&:to_hash) }
+      hash[:subcommittee] = subcommittee.map(&:to_hash) if subcommittee&.any?
+      hash[:workgroup] = workgroup.map(&:to_hash) if workgroup&.any?
+      hash[:secretariat] = secretariat if secretariat
+      hash
+    end
   end
 
   # ISO subgroup.
@@ -91,6 +100,14 @@ module RelatonIsoBib
       builder.parent[:number] = number if number
       builder.parent[:type] = type if type
       builder.text name
+    end
+
+    # @return [Hash]
+    def to_hash
+      hash = { name: name }
+      hash[:type] = type if type
+      hash[:number] = number if number
+      hash
     end
   end
 end

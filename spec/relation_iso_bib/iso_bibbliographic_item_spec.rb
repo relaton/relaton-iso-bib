@@ -1,13 +1,14 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
+require "yaml"
 require "relaton_iso_bib/iso_bibliographic_item"
 
 RSpec.describe RelatonIsoBib::IsoBibliographicItem do
   context "instance" do
     subject do
       RelatonIsoBib::IsoBibliographicItem.new(
-        fetched: "2018-10-21",
+        fetched: Date.today.to_s,
         structuredidentifier: RelatonIsoBib::StructuredIdentifier.new(
           type: "sid", project_number: "ISO 1-2:2014", part: 2, subpart: 2,
         ),
@@ -220,6 +221,16 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       subject.to_most_recent_reference
       expect(subject.relation.last.type).to eq "instance"
       expect(subject.date).to be_empty
+    end
+
+    it "returns hash" do
+      hash = subject.to_hash
+      file = "spec/examples/hash.yml"
+      File.write file, hash.to_yaml unless File.exist? file
+      h = RelatonIsoBib::HashConverter.hash_to_bib(YAML.load_file("spec/examples/hash.yml"))
+      h[:fetched] = Date.today.to_s
+      b = RelatonIsoBib::IsoBibliographicItem.new(h)
+      expect(hash).to eq b.to_hash
     end
   end
 
