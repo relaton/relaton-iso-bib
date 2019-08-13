@@ -73,23 +73,6 @@ module RelatonIsoBib
       #
       # Ovverides superclass's method
       #
-      # @param ret [Hash]
-      # @param r [Hash] relation
-      # @param i [Integr] index of relation
-      # def relation_bibitem_hash_to_bib(ret, r, i)
-      #   if r[:bibitem]
-      #     ret[:relation][i][:bibitem] = IsoBibliographicItem.new(
-      #       hash_to_bib(r[:bibitem], true),
-      #     )
-      #   else
-      #     warn "bibitem missing: #{r}"
-      #     ret[:relation][i][:bibitem] = nil
-      #   end
-      # end
-
-      #
-      # Ovverides superclass's method
-      #
       # @param item [Hash]
       # @retirn [RelatonIsoBib::IsoBibliographicItem]
       def bib_item(item)

@@ -173,7 +173,9 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       file = "spec/examples/iso_bib_item.xml"
       File.write file, subject.to_xml(bibdata: true), encoding: "utf-8" unless File.exist? file
       xml = File.read file, encoding: "UTF-8"
-      expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml
+      expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml.sub(
+        %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
+      )
     end
 
     it "returns xml with note" do
@@ -182,7 +184,9 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
         note: [{ type: "note type", text: "test note" }], bibdata: true,
       )
       File.write file, xml_res, encoding: "utf-8" unless File.exist? file
-      expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8")
+      expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8").sub(
+        %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
+      )
       expect(xml_res).to include "<note format=\"text/plain\" type=\"note type\">test note</note>"
     end
 
