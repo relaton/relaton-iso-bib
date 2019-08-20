@@ -71,11 +71,11 @@ module RelatonIsoBib
     # @return [Hash]
     def to_hash
       hash = {}
-      hash[:tc_document_number] = tc_document_number if tc_document_number
-      hash[:project_number] = project_number if project_number
-      hash[:part] = part if part
-      hash[:subpart] = subpart if subpart
-      hash[:type] = type if type
+      hash["tc_document_number"] = tc_document_number if tc_document_number
+      hash["project_number"] = project_number if project_number
+      hash["part"] = part if part
+      hash["subpart"] = subpart if subpart
+      hash["type"] = type if type
       hash
     end
   end

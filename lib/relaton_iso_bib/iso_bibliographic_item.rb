@@ -248,10 +248,10 @@ module RelatonIsoBib
     # @return [Hash]
     def to_hash
       hash = super
-      hash[:editorialgroup] = editorialgroup.to_hash if editorialgroup
-      hash[:ics] = ics.map(&:to_hash) if ics&.any?
-      hash[:structuredidentifier] = structuredidentifier.to_hash if structuredidentifier
-      hash[:type] = doctype if doctype
+      hash["editorialgroup"] = editorialgroup.to_hash if editorialgroup
+      hash["ics"] = single_element_array(ics) if ics&.any?
+      hash["structuredidentifier"] = structuredidentifier.to_hash if structuredidentifier
+      hash["type"] = doctype if doctype
       hash
     end
 

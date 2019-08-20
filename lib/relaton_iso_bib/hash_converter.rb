@@ -94,16 +94,16 @@ module RelatonIsoBib
         return unless eg
 
         ret[:editorialgroup] = EditorialGroup.new(
-          technical_committee: eg[:technical_committee],
-          subcommittee: eg[:subcommittee],
-          workgroup: eg[:workgroup],
+          technical_committee: array(eg[:technical_committee]),
+          subcommittee: array(eg[:subcommittee]),
+          workgroup: array(eg[:workgroup]),
           secretariat: eg[:secretariat],
         )
       end
 
       # @param ret [Hash]
       def ics_hash_to_bib(ret)
-        ret[:ics] = ret.fetch(:ics, []).map do |ics|
+        ret[:ics] = array(ret[:ics]).map do |ics|
           ics[:code] ? Ics.new(ics[:code]) : Ics.new(ics)
         end
       end

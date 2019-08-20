@@ -3,6 +3,8 @@
 module RelatonIsoBib
   # ISO project group.
   class EditorialGroup
+    include RelatonBib
+
     # @return [Array<RelatonIsoBib::IsoSubgroup>]
     attr_reader :technical_committee
 
@@ -67,10 +69,10 @@ module RelatonIsoBib
 
     # @return [Hash]
     def to_hash
-      hash = { technical_committee: technical_committee.map(&:to_hash) }
-      hash[:subcommittee] = subcommittee.map(&:to_hash) if subcommittee&.any?
-      hash[:workgroup] = workgroup.map(&:to_hash) if workgroup&.any?
-      hash[:secretariat] = secretariat if secretariat
+      hash = { "technical_committee" => single_element_array(technical_committee) }
+      hash["subcommittee"] = single_element_array(subcommittee) if subcommittee&.any?
+      hash["workgroup"] = single_element_array(workgroup) if workgroup&.any?
+      hash["secretariat"] = secretariat if secretariat
       hash
     end
   end
@@ -104,9 +106,9 @@ module RelatonIsoBib
 
     # @return [Hash]
     def to_hash
-      hash = { name: name }
-      hash[:type] = type if type
-      hash[:number] = number if number
+      hash = { "name" => name }
+      hash["type"] = type if type
+      hash["number"] = number if number
       hash
     end
   end
