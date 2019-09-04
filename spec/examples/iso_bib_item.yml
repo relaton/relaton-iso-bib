@@ -62,8 +62,8 @@ contributor:
       subdivision: division
     role:
       -
-        - publisher
-        - 
+        type: publisher
+        description:
           - Publisher role
 
   - person:
