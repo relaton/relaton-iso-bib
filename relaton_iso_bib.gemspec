@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %(RelatonIsoBib: Ruby ISOXMLDOC impementation.)
   spec.description   = %(RelatonIsoBib: Ruby ISOXMLDOC impementation.)
-  spec.homepage      = "https://github.com/metanorma/relaton-iso-bib"
+  spec.homepage      = "https://github.com/relaton/relaton-iso-bib"
   spec.license       = "BSD-2-Clause"
 
   # Specify which files should be added to the gem when it is released.

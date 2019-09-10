@@ -278,7 +278,7 @@ module RelatonIsoBib
     # @param script [String]
     # @raise ArgumentError
     def check_type(type)
-      if type && !TYPES.include?(type)
+      if type && !self.class::TYPES.include?(type)
         raise ArgumentError, "invalid type: #{type}"
       end
     end
