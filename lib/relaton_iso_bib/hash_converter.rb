@@ -16,7 +16,7 @@ module RelatonIsoBib
       end
 
       def split_title(content, lang = "en", script = "Latn")
-        titles = content&.split " -- "
+        titles = content&.split(/ (?:--|—|–) /)
         case titles&.size
         when nil, 0
           intro, main, part = nil, "", nil
