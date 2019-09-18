@@ -176,7 +176,7 @@ module RelatonIsoBib
       @language.each do |l|
         @title.delete_if { |t| t.type == "title-part" }
         ttl = @title.select { |t| t.type != "main" && t.title.language.include?(l) }
-        tm_en = ttl.map { |t| t.title.content }.join " - "
+        tm_en = ttl.map { |t| t.title.content }.join " – "
         @title.detect { |t| t.type == "main" && t.title.language.include?(l) }&.title&.content = tm_en
       end
       @abstract = []
@@ -317,7 +317,7 @@ module RelatonIsoBib
 
       unless titles.empty?
         titles << TypedTitleString.new(
-          type: "main", content: titles.map { |t| t.title.content }.join(" - "),
+          type: "main", content: titles.map { |t| t.title.content }.join(" – "),
           language: title[:language], script: title[:script], format: "text/plain",
         )
       end
