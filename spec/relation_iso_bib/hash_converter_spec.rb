@@ -39,5 +39,10 @@ RSpec.describe RelatonIsoBib::HashConverter do
       title = RelatonIsoBib::HashConverter.split_title "Intro -- Main -- Part -- More"
       expect(title).to include(title_intro: "Intro", title_main: "Main", title_part: "Part -- More")
     end
+
+    it "pats by em-dash" do
+      title = RelatonIsoBib::HashConverter.split_title "Main — Part 1:"
+      expect(title).to include(title_main: "Main", title_part: "Part 1:")
+    end
   end
 end
