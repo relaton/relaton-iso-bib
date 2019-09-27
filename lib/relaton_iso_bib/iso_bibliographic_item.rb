@@ -171,7 +171,7 @@ module RelatonIsoBib
       me = DeepClone.clone(self)
       me.disable_id_attribute
       @relation << RelatonBib::DocumentRelation.new(
-        type: "partOf", bibitem: me,
+        type: "instance", bibitem: me,
       )
       @language.each do |l|
         @title.delete_if { |t| t.type == "title-part" }
@@ -184,6 +184,8 @@ module RelatonIsoBib
       @docidentifier.each(&:all_parts)
       @structuredidentifier.remove_part
       @structuredidentifier.all_parts
+      @docidentifier.each &:remove_date
+      @structuredidentifier&.remove_date
       @all_parts = true
     end
 
