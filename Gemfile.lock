@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relaton-iso-bib (0.3.6)
+    relaton-iso-bib (0.3.7)
       isoics (~> 0.1.6)
       relaton-bib (~> 0.3.0)
       ruby_deep_clone (~> 0.8.0)
