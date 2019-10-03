@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2019-08-12</fetched>
+  <fetched>2019-10-03</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -33,7 +33,7 @@
   </contributor>
   <edition>1</edition>
   <version>
-    <revision_date>2019-04-01</revision_date>
+    <revision-date>2019-04-01</revision-date>
     <draft>draft</draft>
   </version>
   <language>en</language>
@@ -106,7 +106,7 @@
   <ext>
     <doctype>international-standard</doctype>
     <editorialgroup>
-      <technical_committee number="211" type="technicalCommittee"> ISO/TC 211 Geographic information/Geomatics</technical_committee>
+      <technical-committee number="211" type="technicalCommittee"> ISO/TC 211 Geographic information/Geomatics</technical-committee>
       <subcommittee number="122" type="ISO">International Organization for Standardization</subcommittee>
       <workgroup number="111" type="WG">Workgroup Organization</workgroup>
     </editorialgroup>

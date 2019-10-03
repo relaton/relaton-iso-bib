@@ -54,7 +54,7 @@ module RelatonIsoBib
 
       builder.editorialgroup do
         technical_committee.each do |tc|
-          builder.technical_committee { tc.to_xml builder }
+          builder.send("technical-committee") { tc.to_xml builder }
         end
         subcommittee.each do |sc|
           builder.subcommittee { sc.to_xml builder }

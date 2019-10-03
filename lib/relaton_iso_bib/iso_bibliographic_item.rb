@@ -133,8 +133,8 @@ module RelatonIsoBib
            edition version relation biblionote series medium place copyright
            link fetched docid formattedref extent accesslocation classification
            validity].include? k
-      end.merge(type: "standard")
-      super(super_args)
+      end
+      super({ type: "standard" }.merge(super_args))
 
       @title = args.fetch(:title, []).reduce([]) do |a, t|
         if t.is_a? Hash
