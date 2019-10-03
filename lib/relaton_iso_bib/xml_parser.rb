@@ -83,7 +83,7 @@ module RelatonIsoBib
         return nil if com.nil?
 
         IsoSubgroup.new(name: com.text, type: com[:type],
-                        number: com[:number].to_i)
+                        number: com[:number]&.to_i)
       end
     end
   end
