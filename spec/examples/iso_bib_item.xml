@@ -1,4 +1,4 @@
-<bibdata type="standard">
+<bibdata type="international-standard">
   <fetched>2019-10-03</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
@@ -68,7 +68,7 @@
     </locality>
   </relation>
   <relation type="updates">
-    <bibitem type="standard">
+    <bibitem type="international-standard">
       <formattedref format="text/plain">ISO 19115:2003/Cor 1:2006</formattedref>
     </bibitem>
   </relation>

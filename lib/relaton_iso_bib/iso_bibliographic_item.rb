@@ -129,7 +129,7 @@ module RelatonIsoBib
       # check_script args.fetch(:script, [])
 
       super_args = args.select do |k|
-        %i[id docnumber language script docstatus date abstract contributor
+        %i[id type docnumber language script docstatus date abstract contributor
            edition version relation biblionote series medium place copyright
            link fetched docid formattedref extent accesslocation classification
            validity].include? k
