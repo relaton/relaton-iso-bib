@@ -8,6 +8,7 @@ module RelatonIsoBib
       # @return [RelatonIsoBib::IsoBibliographicItem]
       def from_xml(xml)
         doc = Nokogiri::XML(xml)
+        doc.remove_namespaces!
         isoitem = doc.at "/bibitem|/bibdata"
         IsoBibliographicItem.new item_data(isoitem)
       end
