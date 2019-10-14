@@ -23,7 +23,7 @@ module RelatonIsoBib
         ext = isoitem.at "./ext"
         return data unless ext
 
-        data[:type] = ext.at("./doctype")&.text
+        data[:doctype] = ext.at("./doctype")&.text
         data[:editorialgroup] = fetch_editorialgroup ext
         data[:ics] = fetch_ics ext
         data[:structuredidentifier] = fetch_structuredidentifier ext

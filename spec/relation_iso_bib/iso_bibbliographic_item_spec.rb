@@ -24,7 +24,8 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
         version: RelatonBib::BibliographicItem::Version.new("2019-04-01", ["draft"]),
         language: %w[en fr],
         script: ["Latn"],
-        type: "international-standard",
+        type: "standard",
+        doctype: "international-standard",
         docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
         date: [{ type: "published", on: "2014-04" }],
         abstract: [
@@ -240,7 +241,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
 
   it "raises invalid type argument error" do
     expect do
-      RelatonIsoBib::IsoBibliographicItem.new type: "type"
+      RelatonIsoBib::IsoBibliographicItem.new doctype: "type"
     end.to raise_error ArgumentError
   end
 

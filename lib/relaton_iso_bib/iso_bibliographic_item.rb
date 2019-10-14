@@ -124,7 +124,7 @@ module RelatonIsoBib
     #
     # @raise [ArgumentError]
     def initialize(**args)
-      check_type args[:type]
+      check_doctype args[:doctype]
       # check_language args.fetch(:language, [])
       # check_script args.fetch(:script, [])
 
@@ -154,7 +154,7 @@ module RelatonIsoBib
       end
 
       @structuredidentifier = args[:structuredidentifier]
-      @doctype ||= args[:type]
+      @doctype ||= args[:doctype]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
       # @link = args.fetch(:link, []).map do |s|
       #   s.is_a?(Hash) ? RelatonBib::TypedUri.new(s) : s
@@ -279,11 +279,11 @@ module RelatonIsoBib
     #   end
     # end
 
-    # @param script [String]
+    # @param doctype [String]
     # @raise ArgumentError
-    def check_type(type)
-      if type && !self.class::TYPES.include?(type)
-        raise ArgumentError, "invalid type: #{type}"
+    def check_doctype(doctype)
+      if doctype && !self.class::TYPES.include?(doctype)
+        raise ArgumentError, "invalid doctype: #{doctype}"
       end
     end
 
