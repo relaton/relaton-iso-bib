@@ -232,7 +232,8 @@ module RelatonIsoBib
         end
       end
       super builder, **opts do |b|
-        if opts[:bibdata]
+        if opts[:bibdata] && (doctype || respond_to?(:committee) && committee ||
+          editorialgroup || ics.any? || structuredidentifier || block_given?)
           b.ext do
             b.doctype doctype if doctype
             # GB renders gbcommittee elements istead of an editorialgroup element.
