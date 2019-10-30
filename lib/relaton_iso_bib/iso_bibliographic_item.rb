@@ -256,7 +256,7 @@ module RelatonIsoBib
       hash["editorialgroup"] = editorialgroup.to_hash if editorialgroup
       hash["ics"] = single_element_array(ics) if ics&.any?
       hash["structuredidentifier"] = structuredidentifier.to_hash if structuredidentifier
-      hash["type"] = doctype if doctype
+      hash["doctype"] = doctype if doctype
       hash
     end
 

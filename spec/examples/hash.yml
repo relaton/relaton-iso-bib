@@ -16,7 +16,7 @@ title:
   script: Latn
   format: text/plain
 - type: main
-  content: 'Geographic information - Metadata - Part 1: Fundamentals'
+  content: 'Geographic information – Metadata – Part 1: Fundamentals'
   language: en
   script: Latn
   format: text/plain
@@ -36,7 +36,7 @@ title:
   script: Latn
   format: text/plain
 - type: main
-  content: Information géographique - Métadonnées - Information géographique
+  content: Information géographique – Métadonnées – Information géographique
   language: fr
   script: Latn
   format: text/plain
@@ -47,7 +47,7 @@ link:
   content: https://www.iso.org/obp/ui/#!iso:std:53798:en
 - type: rss
   content: https://www.iso.org/contents/data/standard/05/37/53798.detail.rss
-type: international-standard
+type: standard
 docnumber: '123456'
 date:
   type: published
@@ -66,6 +66,7 @@ edition: '1'
 version:
   revision_date: '2019-04-01'
   draft: draft
+revdate: '2019-04-01'
 language:
 - en
 - fr
@@ -152,7 +153,7 @@ validity:
   begins: 2010-10-10 12:21
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
-fetched: '2019-08-16'
+fetched: '2019-10-30'
 editorialgroup:
   technical_committee:
     name: " ISO/TC 211 Geographic information/Geomatics"
@@ -173,3 +174,4 @@ structuredidentifier:
   part: 2
   subpart: 2
   type: sid
+doctype: international-standard
