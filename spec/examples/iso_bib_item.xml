@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2019-10-14</fetched>
+  <fetched>2019-12-03</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -63,12 +63,12 @@
         <substage>60</substage>
       </status>
     </bibitem>
-    <locality type="updates">
+    <locality type="section">
       <referenceFrom>Reference form</referenceFrom>
     </locality>
   </relation>
   <relation type="updates">
-    <bibitem type="international-standard">
+    <bibitem type="standard">
       <formattedref format="text/plain">ISO 19115:2003/Cor 1:2006</formattedref>
     </bibitem>
   </relation>
@@ -91,17 +91,17 @@
     <scale>medium scale</scale>
   </medium>
   <place>bib place</place>
-  <locality type="section">
+  <extent type="section">
     <referenceFrom>Reference from</referenceFrom>
     <referenceTo>Reference to</referenceTo>
-  </locality>
+  </extent>
   <accesslocation>accesslocation1</accesslocation>
   <accesslocation>accesslocation2</accesslocation>
   <classification type="type">value</classification>
   <validity>
     <validityBegins>2010-10-10 12:21</validityBegins>
     <validityEnds>2011-02-03 18:30</validityEnds>
-    <validityRevision>2011-03-04 09:00</validityRevision>
+    <revision>2011-03-04 09:00</revision>
   </validity>
   <ext>
     <doctype>international-standard</doctype>

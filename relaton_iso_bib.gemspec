@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "equivalent-xml", "~> 0.6"
   spec.add_development_dependency "ruby-debug-ide"
   spec.add_development_dependency "debase"
+  spec.add_development_dependency "ruby-jing"
 
   spec.add_dependency "isoics", "~> 0.1.6"
   spec.add_dependency "relaton-bib", "~>0.3.0"

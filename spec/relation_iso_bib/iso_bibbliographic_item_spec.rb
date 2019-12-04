@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "yaml"
+require "jing"
 require "relaton_iso_bib/iso_bibliographic_item"
 
 RSpec.describe RelatonIsoBib::IsoBibliographicItem do
@@ -66,13 +67,13 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
               docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
             ),
             bib_locality: [
-              RelatonBib::BibItemLocality.new("updates", "Reference form"),
+              RelatonBib::BibItemLocality.new("section", "Reference form"),
             ],
           ),
           RelatonBib::DocumentRelation.new(
             type: "updates",
             bibitem: RelatonIsoBib::IsoBibliographicItem.new(
-              type: "international-standard",
+              type: "standard",
               formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003/Cor 1:2006"),
             ),
           ),
@@ -177,6 +178,9 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml.sub(
         %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
       )
+      schema = Jing.new "spec/examples/isobib.rng"
+      errors = schema.validate file
+      expect(errors).to eq []
     end
 
     it "returns xml with note" do
@@ -189,6 +193,9 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
         %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
       )
       expect(xml_res).to include "<note format=\"text/plain\" type=\"note type\">test note</note>"
+      schema = Jing.new "spec/examples/isobib.rng"
+      errors = schema.validate file
+      expect(errors).to eq []
     end
 
     it "returs xml with given block" do
