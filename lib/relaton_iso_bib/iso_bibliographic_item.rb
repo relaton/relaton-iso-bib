@@ -284,7 +284,7 @@ module RelatonIsoBib
     # @raise ArgumentError
     def check_doctype(doctype)
       if doctype && !self.class::TYPES.include?(doctype)
-        raise ArgumentError, "invalid doctype: #{doctype}"
+        warn "Invalid doctype: #{doctype}"
       end
     end
 
