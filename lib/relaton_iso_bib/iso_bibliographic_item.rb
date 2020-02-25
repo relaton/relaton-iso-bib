@@ -2,7 +2,7 @@
 
 require "nokogiri"
 require "isoics"
-require "deep_clone"
+# require "deep_clone"
 require "relaton_bib"
 require "relaton_iso_bib/typed_title_string"
 require "relaton_iso_bib/editorial_group"
@@ -170,7 +170,7 @@ module RelatonIsoBib
 
     # remove title part components and abstract
     def to_all_parts
-      me = DeepClone.clone(self)
+      me = deep_clone
       me.disable_id_attribute
       @relation << RelatonBib::DocumentRelation.new(
         type: "instance", bibitem: me,
@@ -191,12 +191,17 @@ module RelatonIsoBib
       @all_parts = true
     end
 
+    def deep_clone
+      dump = Marshal.dump self
+      Marshal.load dump
+    end
+
     # convert ISO:yyyy reference to reference to most recent
     # instance of reference, removing date-specific infomration:
     # date of publication, abstracts. Make dated reference Instance relation
     # of the redacated document
     def to_most_recent_reference
-      me = DeepClone.clone(self)
+      me = deep_clone
       me.disable_id_attribute
       @relation << RelatonBib::DocumentRelation.new(type: "instance", bibitem: me)
       @abstract = []
