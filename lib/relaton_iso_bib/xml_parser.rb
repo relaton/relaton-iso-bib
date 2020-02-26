@@ -10,7 +10,11 @@ module RelatonIsoBib
         doc = Nokogiri::XML(xml)
         doc.remove_namespaces!
         isoitem = doc.at "/bibitem|/bibdata"
-        IsoBibliographicItem.new item_data(isoitem)
+        if isoitem
+          IsoBibliographicItem.new item_data(isoitem)
+        else
+          warn "[relato-bib] can't find bibitem or bibdata element in the XML"
+        end
       end
 
       private
