@@ -220,19 +220,19 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     it "converts to all_parts reference" do
       expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
       expect(subject.relation.last.type).not_to eq "partOf"
-      subject.to_all_parts
-      expect(subject.relation.last.type).to eq "instance"
-      expect(subject.title.detect { |t| t.type == "title-part" }).to be nil
-      expect(subject.title.detect { |t| t.type == "main" }.title.content).to eq "Geographic information – Metadata"
+      all_parts_item = subject.to_all_parts
+      expect(all_parts_item.relation.last.type).to eq "instance"
+      expect(all_parts_item.title.detect { |t| t.type == "title-part" }).to be nil
+      expect(all_parts_item.title.detect { |t| t.type == "main" }.title.content).to eq "Geographic information – Metadata"
     end
 
     it "converts to latest year reference" do
       expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
       expect(subject.relation.last.type).not_to eq "instance"
       expect(subject.date).not_to be_empty
-      subject.to_most_recent_reference
-      expect(subject.relation.last.type).to eq "instance"
-      expect(subject.date).to be_empty
+      most_recent_ref = subject.to_most_recent_reference
+      expect(most_recent_ref.relation.last.type).to eq "instance"
+      expect(most_recent_ref.date).to be_empty
     end
 
     it "returns hash" do

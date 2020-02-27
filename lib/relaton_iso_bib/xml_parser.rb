@@ -13,7 +13,7 @@ module RelatonIsoBib
         if isoitem
           IsoBibliographicItem.new item_data(isoitem)
         else
-          warn "[relato-bib] can't find bibitem or bibdata element in the XML"
+          warn "[relato-iso-bib] can't find bibitem or bibdata element in the XML"
         end
       end
 

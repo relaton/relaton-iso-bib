@@ -2,7 +2,6 @@
 
 require "nokogiri"
 require "isoics"
-# require "deep_clone"
 require "relaton_bib"
 require "relaton_iso_bib/typed_title_string"
 require "relaton_iso_bib/editorial_group"
@@ -43,6 +42,9 @@ module RelatonIsoBib
 
     # @return [Array<RelatonIsoBib::Ics>]
     attr_reader :ics
+
+    # @return [TrueClass, FalseClass, NilClass]
+    attr_accessor :all_parts
 
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
@@ -172,23 +174,28 @@ module RelatonIsoBib
     def to_all_parts
       me = deep_clone
       me.disable_id_attribute
-      @relation << RelatonBib::DocumentRelation.new(
-        type: "instance", bibitem: me,
+      me.relation << RelatonBib::DocumentRelation.new(
+        type: "instance", bibitem: self,
       )
-      @language.each do |l|
-        @title.delete_if { |t| t.type == "title-part" }
-        ttl = @title.select { |t| t.type != "main" && t.title.language.include?(l) }
+      me.language.each do |l|
+        me.title.delete_if { |t| t.type == "title-part" }
+        ttl = me.title.select { |t| t.type != "main" && t.title.language.include?(l) }
         tm_en = ttl.map { |t| t.title.content }.join " – "
-        @title.detect { |t| t.type == "main" && t.title.language.include?(l) }&.title&.content = tm_en
+        me.title.detect { |t| t.type == "main" && t.title.language.include?(l) }&.title&.content = tm_en
       end
-      @abstract = []
-      @docidentifier.each(&:remove_part)
-      @docidentifier.each(&:all_parts)
-      @structuredidentifier.remove_part
-      @structuredidentifier.all_parts
-      @docidentifier.each &:remove_date
-      @structuredidentifier&.remove_date
-      @all_parts = true
+      me.abstract = []
+      me.docidentifier.each(&:remove_part)
+      me.docidentifier.each(&:all_parts)
+      me.structuredidentifier.remove_part
+      me.structuredidentifier.all_parts
+      me.docidentifier.each &:remove_date
+      me.structuredidentifier&.remove_date
+      me.all_parts = true
+      me
+    end
+
+    def abstract=(value)
+      @abstract = value
     end
 
     def deep_clone
@@ -202,13 +209,14 @@ module RelatonIsoBib
     # of the redacated document
     def to_most_recent_reference
       me = deep_clone
-      me.disable_id_attribute
-      @relation << RelatonBib::DocumentRelation.new(type: "instance", bibitem: me)
-      @abstract = []
-      @date = []
-      @docidentifier.each &:remove_date
-      @structuredidentifier&.remove_date
-      @id&.sub! /-[12]\d\d\d/, ""
+      self.disable_id_attribute
+      me.relation << RelatonBib::DocumentRelation.new(type: "instance", bibitem: self)
+      me.abstract = []
+      me.date = []
+      me.docidentifier.each &:remove_date
+      me.structuredidentifier&.remove_date
+      me.id&.sub! /-[12]\d\d\d/, ""
+      me
     end
 
     # @param lang [String] language code Iso639
