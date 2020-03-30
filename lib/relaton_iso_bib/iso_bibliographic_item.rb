@@ -158,9 +158,6 @@ module RelatonIsoBib
       @structuredidentifier = args[:structuredidentifier]
       @doctype ||= args[:doctype]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
-      # @link = args.fetch(:link, []).map do |s|
-      #   s.is_a?(Hash) ? RelatonBib::TypedUri.new(s) : s
-      # end
       @id_attribute = true
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -297,7 +294,7 @@ module RelatonIsoBib
     # @raise ArgumentError
     def check_doctype(doctype)
       if doctype && !self.class::TYPES.include?(doctype)
-        warn "Invalid doctype: #{doctype}"
+        warn "[relaton-iso-bib] invalid doctype: #{doctype}"
       end
     end
 

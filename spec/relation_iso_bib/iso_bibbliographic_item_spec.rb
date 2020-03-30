@@ -249,7 +249,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
   it "raises invalid type argument error" do
     expect do
       RelatonIsoBib::IsoBibliographicItem.new doctype: "type"
-    end.to output(/Invalid doctype: type/).to_stderr
+    end.to output(/invalid doctype: type/).to_stderr
   end
 
   # removed this functionality

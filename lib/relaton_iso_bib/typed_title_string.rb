@@ -1,6 +1,6 @@
 module RelatonIsoBib
   class TypedTitleString < RelatonBib::TypedTitleString
-    TITLE_TYPES = %w[title-main title-intro title-part main].freeze
+    # TITLE_TYPES = %w[title-main title-intro title-part main].freeze
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
@@ -10,9 +10,9 @@ module RelatonIsoBib
     # @param language [String]
     # @param script [String]
     def initialize(**args)
-      if args[:type] && !TITLE_TYPES.include?(args[:type])
-        raise ArgumentError, %{The type #{args[:type]} is invalid.}
-      end
+      # if args[:type] && !TITLE_TYPES.include?(args[:type])
+      #   raise ArgumentError, %{The type #{args[:type]} is invalid.}
+      # end
 
       unless args[:title] || args[:content]
         raise ArgumentError, %{Keyword "title" or "content" should be passed.}
