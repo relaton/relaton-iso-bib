@@ -246,6 +246,7 @@ module RelatonIsoBib
           editorialgroup || ics.any? || structuredidentifier || block_given?)
           b.ext do
             b.doctype doctype if doctype
+            b.docsubtype docsubtype if respond_to?(:docsubtype) && docsubtype
             # GB renders gbcommittee elements istead of an editorialgroup element.
             if respond_to? :committee
               committee&.to_xml b

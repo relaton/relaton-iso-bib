@@ -206,6 +206,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "returns xml with gbcommittee instead editorialgroup (for GB)" do
+      expect(subject).to receive(:respond_to?).with(:docsubtype).and_return(false).at_least :once
       expect(subject).to receive(:respond_to?).with(:committee).and_return(true).at_least :once
       committee = double
       expect(committee).to receive(:to_xml) { |bldr| bldr.gbcommittee "committee" }
