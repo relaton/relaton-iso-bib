@@ -134,7 +134,7 @@ module RelatonIsoBib
         %i[id docnumber language script docstatus date abstract contributor
            edition version relation biblionote series medium place copyright
            link fetched docid formattedref extent accesslocation classification
-           validity].include? k
+           validity keyword].include? k
       end
       super super_args
 
