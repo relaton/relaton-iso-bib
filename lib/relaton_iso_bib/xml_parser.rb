@@ -3,20 +3,6 @@ require "nokogiri"
 module RelatonIsoBib
   class XMLParser < RelatonBib::XMLParser
     class << self
-      # Override RelatonBib::XMLParser.form_xml method.
-      # @param xml [String]
-      # @return [RelatonIsoBib::IsoBibliographicItem]
-      def from_xml(xml)
-        doc = Nokogiri::XML(xml)
-        doc.remove_namespaces!
-        isoitem = doc.at "/bibitem|/bibdata"
-        if isoitem
-          IsoBibliographicItem.new item_data(isoitem)
-        else
-          warn "[relato-iso-bib] can't find bibitem or bibdata element in the XML"
-        end
-      end
-
       private
 
       # Override RelatonBib::XMLParser.item_data method.
@@ -32,6 +18,13 @@ module RelatonIsoBib
         data[:ics] = fetch_ics ext
         data[:structuredidentifier] = fetch_structuredidentifier ext
         data
+      end
+
+      # override RelatonBib::BibliographicItem.bib_item method
+      # @param item_hash [Hash]
+      # @return [RelatonIsoBib::IsoBibliographicItem]
+      def bib_item(item_hash)
+        IsoBibliographicItem.new item_hash
       end
 
       # @param ext [Nokogiri::XML::Element]
@@ -77,9 +70,8 @@ module RelatonIsoBib
         sc = eg&.xpath("subcommittee")&.map { |s| iso_subgroup(s) }
         wg = eg&.xpath("workgroup")&.map { |w| iso_subgroup(w) }
         sr = eg&.at "secretariat"
-        EditorialGroup.new(
-          technical_committee: tc, subcommittee: sc, workgroup: wg, secretariat: sr&.text,
-        )
+        EditorialGroup.new(technical_committee: tc, subcommittee: sc,
+                           workgroup: wg, secretariat: sr&.text)
       end
 
       # @param com [Nokogiri::XML::Element]

@@ -145,8 +145,9 @@ relation:
   - type: updates
     bibitem:
       formattedref: ISO 19115:2003
-    bib_locality:
-      - type: section
+    locality:
+      locality_stack:
+        type: section
         reference_from: Reference from
   - type: updates
     bibitem:

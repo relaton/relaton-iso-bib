@@ -66,8 +66,10 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
               formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003"),
               docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
             ),
-            bib_locality: [
-              RelatonBib::BibItemLocality.new("section", "Reference form"),
+            locality: [
+              RelatonBib::LocalityStack.new(
+                [RelatonBib::Locality.new("section", "Reference form")],
+              ),
             ],
           ),
           RelatonBib::DocumentRelation.new(
@@ -151,7 +153,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has relations" do
-      expect(subject.relation.replaces).to be_instance_of Array
+      expect(subject.relation.replaces).to be_instance_of RelatonBib::DocRelationCollection
     end
 
     it "has abstracts" do
