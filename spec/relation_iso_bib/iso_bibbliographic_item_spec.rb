@@ -132,6 +132,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
           )],
         },
         ics: [{ field: 35, group: 240, subgroup: 70 }],
+        stagename: "International Standard published",
       )
     end
 
@@ -242,7 +243,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       hash = subject.to_hash
       file = "spec/examples/hash.yml"
       File.write file, hash.to_yaml unless File.exist? file
-      h = RelatonIsoBib::HashConverter.hash_to_bib(YAML.load_file("spec/examples/hash.yml"))
+      h = RelatonIsoBib::HashConverter.hash_to_bib(YAML.load_file(file))
       h[:fetched] = Date.today.to_s
       b = RelatonIsoBib::IsoBibliographicItem.new(h)
       expect(hash).to eq b.to_hash

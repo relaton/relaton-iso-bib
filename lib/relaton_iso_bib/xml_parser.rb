@@ -17,6 +17,7 @@ module RelatonIsoBib
         data[:editorialgroup] = fetch_editorialgroup ext
         data[:ics] = fetch_ics ext
         data[:structuredidentifier] = fetch_structuredidentifier ext
+        data[:stagename] = ext.at("./stagename")&.text
         data
       end
 

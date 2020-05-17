@@ -35,7 +35,7 @@ module RelatonIsoBib
     #   @return [Array<RelatonIsoBib::TypedTitleString>]
 
     # @return [String, NilClass]
-    attr_reader :doctype
+    attr_reader :doctype, :stagename
 
     # @return [RelatonIsoBib::EditorialGroup]
     attr_reader :editorialgroup
@@ -67,6 +67,7 @@ module RelatonIsoBib
     # @param validity [RelatonBib:Validity, NilClass]
     # @param docid [Array<RelatonBib::DocumentIdentifier>]
     # @param structuredidentifier [RelatonIsoBib::StructuredIdentifier]
+    # @param stagename [String, NilClass]
     #
     # @param title [Array<Hash>]
     # @option title [String] :title_intro
@@ -158,6 +159,7 @@ module RelatonIsoBib
       @structuredidentifier = args[:structuredidentifier]
       @doctype ||= args[:doctype]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
+      @stagename = args[:stagename]
       @id_attribute = true
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -243,7 +245,8 @@ module RelatonIsoBib
       end
       super builder, **opts do |b|
         if opts[:bibdata] && (doctype || respond_to?(:committee) && committee ||
-          editorialgroup || ics.any? || structuredidentifier || block_given?)
+          editorialgroup || ics.any? || structuredidentifier || stagename ||
+          block_given?)
           b.ext do
             b.doctype doctype if doctype
             b.docsubtype docsubtype if respond_to?(:docsubtype) && docsubtype
@@ -255,6 +258,7 @@ module RelatonIsoBib
             end
             ics.each { |i| i.to_xml b }
             structuredidentifier&.to_xml b
+            b.stagename stagename if stagename
             yield b if block_given?
           end
         end
@@ -268,6 +272,7 @@ module RelatonIsoBib
       hash["ics"] = single_element_array(ics) if ics&.any?
       hash["structuredidentifier"] = structuredidentifier.to_hash if structuredidentifier
       hash["doctype"] = doctype if doctype
+      hash["stagename"] = stagename if stagename
       hash
     end
 
