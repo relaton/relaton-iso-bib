@@ -81,8 +81,10 @@ abstract:
   script: Latn
   format: text/plain
 docstatus:
-  stage: '60'
-  substage: '60'
+  stage:
+    value: '60'
+  substage:
+    value: '60'
 copyright:
   owner:
     name: International Organization for Standardization
@@ -98,8 +100,10 @@ relation:
       content: ISO 19115:2003
       format: text/plain
     docstatus:
-      stage: '60'
-      substage: '60'
+      stage:
+        value: '60'
+      substage:
+        value: '60'
   locality:
     locality_stack:
       type: section

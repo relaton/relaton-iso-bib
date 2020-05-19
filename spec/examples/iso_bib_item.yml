@@ -34,8 +34,10 @@ biblionote:
     type: bibnote
 
 docstatus:
-  stage: stage
-  substage: substage
+  stage:
+    value: stage
+  substage:
+    value: substage
   iteration: final
 
 date:
