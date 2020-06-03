@@ -48,10 +48,10 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
             role: [type: "author"],
           },
         ],
-        copyright: { owner: {
+        copyright: [{ owner: [{
           name: "International Organization for Standardization",
           abbreviation: "ISO", url: "www.iso.org"
-        }, from: "2014" },
+        }], from: "2014" }],
         link: [
           { type: "src", content: "https://www.iso.org/standard/53798.html" },
           { type: "obp",
