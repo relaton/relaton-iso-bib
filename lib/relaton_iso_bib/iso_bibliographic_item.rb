@@ -23,9 +23,9 @@ module RelatonIsoBib
   # Bibliographic item.
   class IsoBibliographicItem < RelatonBib::BibliographicItem
     TYPES = %w[
-      standard
       international-standard technical-specification technical-report
       publicly-available-specification international-workshop-agreement guide
+      amendment technical-corrigendum
     ].freeze
 
     # @return [RelatonIsoBib::StructuredIdentifier]
