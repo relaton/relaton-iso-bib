@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2020-05-17</fetched>
+  <fetched>2020-06-15</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -11,12 +11,21 @@
   <uri type="src">https://www.iso.org/standard/53798.html</uri>
   <uri type="obp">https://www.iso.org/obp/ui/#!iso:std:53798:en</uri>
   <uri type="rss">https://www.iso.org/contents/data/standard/05/37/53798.detail.rss</uri>
+  <docidentifier type="ISO">TC211</docidentifier>
   <docnumber>123456</docnumber>
+  <date type="issued">
+    <on>2014</on>
+  </date>
   <date type="published">
     <on>2014</on>
   </date>
+  <date type="accessed">
+    <on>2015</on>
+  </date>
   <contributor>
-    <role type="publisher"/>
+    <role type="publisher">
+      <description>Publisher role</description>
+    </role>
     <organization>
       <name>International Organization for Standardization</name>
       <abbreviation>ISO</abbreviation>
@@ -27,8 +36,55 @@
     <role type="author"/>
     <person>
       <name>
-        <completename>John Smith</completename>
+        <completename language="en">A. Bierman</completename>
       </name>
+      <affiliation>
+        <organization>
+          <name>IETF</name>
+          <abbreviation>IETF</abbreviation>
+          <identifier type="uri">www.ietf.org</identifier>
+        </organization>
+      </affiliation>
+      <address>
+        <street>Street</street>
+        <city>City</city>
+        <state>State</state>
+        <country>Country</country>
+        <postcode>123456</postcode>
+      </address>
+      <phone>223322</phone>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>IETF</name>
+      <abbreviation>IETF</abbreviation>
+      <identifier type="uri">www.ietf.org</identifier>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <initial language="en">A.</initial>
+        <surname language="en">Bierman</surname>
+      </name>
+      <affiliation>
+        <organization>
+          <name>IETF</name>
+          <abbreviation>IETF</abbreviation>
+        </organization>
+      </affiliation>
+      <identifier type="uri">www.person.com</identifier>
+      <address>
+        <street>Street</street>
+        <city>City</city>
+        <state>State</state>
+        <country>Country</country>
+        <postcode>123456</postcode>
+      </address>
+      <phone>223322</phone>
     </person>
   </contributor>
   <edition>1</edition>
@@ -36,6 +92,7 @@
     <revision-date>2019-04-01</revision-date>
     <draft>draft</draft>
   </version>
+  <note type="bibnote">note</note>
   <note format="text/plain" type="note type">test note</note>
   <language>en</language>
   <language>fr</language>
@@ -45,9 +102,11 @@
   <status>
     <stage>60</stage>
     <substage>60</substage>
+    <iteration>final</iteration>
   </status>
   <copyright>
     <from>2014</from>
+    <to>2020</to>
     <owner>
       <organization>
         <name>International Organization for Standardization</name>
@@ -59,14 +118,10 @@
   <relation type="updates">
     <bibitem type="standard">
       <formattedref format="text/plain">ISO 19115:2003</formattedref>
-      <status>
-        <stage>60</stage>
-        <substage>60</substage>
-      </status>
     </bibitem>
     <localityStack>
       <locality type="section">
-        <referenceFrom>Reference form</referenceFrom>
+        <referenceFrom>Reference from</referenceFrom>
       </locality>
     </localityStack>
   </relation>
@@ -109,7 +164,7 @@
   <ext>
     <doctype>international-standard</doctype>
     <editorialgroup>
-      <technical-committee number="211" type="technicalCommittee"> ISO/TC 211 Geographic information/Geomatics</technical-committee>
+      <technical-committee number="211" type="technicalCommittee">ISO/TC 211 Geographic information/Geomatics</technical-committee>
       <subcommittee number="122" type="ISO">International Organization for Standardization</subcommittee>
       <workgroup number="111" type="WG">Workgroup Organization</workgroup>
     </editorialgroup>

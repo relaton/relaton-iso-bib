@@ -26,7 +26,6 @@ module RelatonIsoBib
       @project_number = args[:project_number]
       @part = args[:part]
       @subpart = args[:subpart]
-      # @prefix = args[:prefix]
       @type = args[:type]
     end
 
@@ -42,10 +41,10 @@ module RelatonIsoBib
     end
 
     def remove_date
-      case @type
-      when "Chinese Standard" then @project_number = @project_number.sub(/-[12]\d\d\d/, "")
+      if @type == "Chinese Standard"
+        @project_number.sub!(/-[12]\d\d\d/, "")
       else
-        @project_number = @project_number.sub(/:[12]\d\d\d/, "")
+        @project_number.sub!(/:[12]\d\d\d/, "")
       end
     end
 
@@ -77,6 +76,10 @@ module RelatonIsoBib
       hash["subpart"] = subpart if subpart
       hash["type"] = type if type
       hash
+    end
+
+    def presence?
+      true
     end
   end
 end

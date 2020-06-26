@@ -1,4 +1,5 @@
 ---
+id: ISO/TC211
 title:
 - type: title-intro
   content: Geographic information
@@ -48,25 +49,87 @@ link:
 - content: https://www.iso.org/contents/data/standard/05/37/53798.detail.rss
   type: rss
 type: standard
+docid:
+  id: TC211
+  type: ISO
 docnumber: '123456'
 date:
-  type: published
+- type: issued
+  value: '2014-01-01'
+- type: published
   value: '2014-04-01'
+- type: accessed
+  value: '2015-05-20'
 contributor:
 - organization:
     name: International Organization for Standardization
     abbreviation: ISO
     url: www.iso.org
+  role:
+    description: Publisher role
+    type: publisher
+- person:
+    name:
+      completename:
+        content: A. Bierman
+        language: en
+    affiliation:
+      organization:
+        name: IETF
+        abbreviation: IETF
+        identifier:
+          type: uri
+          id: www.ietf.org
+    contact:
+    - street:
+      - Street
+      city: City
+      state: State
+      country: Country
+      postcode: '123456'
+    - type: phone
+      value: '223322'
+  role: author
+- organization:
+    name: IETF
+    abbreviation: IETF
+    identifier:
+      type: uri
+      id: www.ietf.org
   role: publisher
 - person:
     name:
-      completename: John Smith
+      initial:
+        content: A.
+        language: en
+      surname:
+        content: Bierman
+        language: en
+    affiliation:
+      organization:
+        name: IETF
+        abbreviation: IETF
+    identifier:
+      type: uri
+      id: www.person.com
+    contact:
+    - street:
+      - Street
+      city: City
+      state: State
+      country: Country
+      postcode: '123456'
+    - type: phone
+      value: '223322'
   role: author
 edition: '1'
 version:
   revision_date: '2019-04-01'
   draft: draft
 revdate: '2019-04-01'
+biblionote:
+  content: note
+  type: bibnote
 language:
 - en
 - fr
@@ -82,15 +145,17 @@ abstract:
   format: text/plain
 docstatus:
   stage:
-    value: '60'
+    value: 60
   substage:
-    value: '60'
+    value: 60
+  iteration: final
 copyright:
   owner:
     name: International Organization for Standardization
     abbreviation: ISO
     url: www.iso.org
   from: '2014'
+  to: '2020'
 relation:
 - type: updates
   bibitem:
@@ -99,15 +164,10 @@ relation:
     formattedref:
       content: ISO 19115:2003
       format: text/plain
-    docstatus:
-      stage:
-        value: '60'
-      substage:
-        value: '60'
   locality:
     locality_stack:
       type: section
-      reference_from: Reference form
+      reference_from: Reference from
 - type: updates
   bibitem:
     id: ISO19115-2003/Cor1-2006
@@ -158,26 +218,26 @@ validity:
   begins: 2010-10-10 12:21
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
-fetched: '2020-05-17'
+fetched: '2020-06-24'
+doctype: international-standard
 editorialgroup:
   technical_committee:
-    name: " ISO/TC 211 Geographic information/Geomatics"
+    name: ISO/TC 211 Geographic information/Geomatics
     type: technicalCommittee
-    number: 211
+    number: '211'
   subcommittee:
     name: International Organization for Standardization
     type: ISO
-    number: 122
+    number: '122'
   workgroup:
     name: Workgroup Organization
     type: WG
-    number: 111
+    number: '111'
 ics:
   code: 35.240.70
 structuredidentifier:
   project_number: ISO 1-2:2014
-  part: 2
-  subpart: 2
+  part: '2'
+  subpart: '2'
   type: sid
-doctype: international-standard
 stagename: International Standard published

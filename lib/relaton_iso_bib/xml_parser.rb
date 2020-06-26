@@ -15,7 +15,6 @@ module RelatonIsoBib
 
         data[:doctype] = ext.at("./doctype")&.text
         data[:editorialgroup] = fetch_editorialgroup ext
-        data[:ics] = fetch_ics ext
         data[:structuredidentifier] = fetch_structuredidentifier ext
         data[:stagename] = ext.at("./stagename")&.text
         data
@@ -31,7 +30,7 @@ module RelatonIsoBib
       # @param ext [Nokogiri::XML::Element]
       # @return [RelatonIsoBib::StructuredIdentifier]
       def fetch_structuredidentifier(ext)
-        sid = ext.at "./structuredidentifier"
+        sid = ext&.at "./structuredidentifier"
         return unless sid
 
         pn = sid.at "project-number"
@@ -44,27 +43,21 @@ module RelatonIsoBib
 
       # Override RelatonBib::XMLParser.ttitle method.
       # @param title [Nokogiri::XML::Element]
-      # @return [RelatonIsoBib::TypedTitleString]
+      # @return [RelatonBib::TypedTitleString]
       def ttitle(title)
         return unless title
 
-        TypedTitleString.new(
+        RelatonBib::TypedTitleString.new(
           type: title[:type], content: title.text, language: title[:language],
           script: title[:script], format: title[:format]
         )
-      end
-
-      # @param item [Nokogiri::XML::Element]
-      # @return [Array<RelatonIsoBib::Ics>]
-      def fetch_ics(ext)
-        ext.xpath("./ics/code").map { |ics| Ics.new ics.text }
       end
 
       # @TODO Organization doesn't recreated
       # @param ext [Nokogiri::XML::Element]
       # @return [RelatonIsoBib::EditorialGroup]
       def fetch_editorialgroup(ext)
-        eg = ext.at("./editorialgroup")
+        eg = ext&.at("./editorialgroup")
         return unless eg
 
         tc = eg&.xpath("technical-committee")&.map { |t| iso_subgroup(t) }

@@ -3,7 +3,7 @@
 require "nokogiri"
 require "isoics"
 require "relaton_bib"
-require "relaton_iso_bib/typed_title_string"
+# require "relaton_iso_bib/typed_title_string"
 require "relaton_iso_bib/editorial_group"
 require "relaton_iso_bib/xml_parser"
 require "relaton_iso_bib/structured_identifier"
@@ -32,7 +32,7 @@ module RelatonIsoBib
     attr_reader :structuredidentifier
 
     # @!attribute [r] title
-    #   @return [Array<RelatonIsoBib::TypedTitleString>]
+    #   @return [Array<RelatonBib::TypedTitleString>]
 
     # @return [String, NilClass]
     attr_reader :doctype, :stagename
@@ -42,9 +42,6 @@ module RelatonIsoBib
 
     # @return [Array<RelatonIsoBib::Ics>]
     attr_reader :ics
-
-    # @return [TrueClass, FalseClass, NilClass]
-    attr_accessor :all_parts
 
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
@@ -76,7 +73,7 @@ module RelatonIsoBib
     # @option title [String] :language
     # @option title [String] :script
     #
-    # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup, RelatonItu::EditorialGroup]
+    # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup]
     # @option workgrpup [String] :name
     # @option workgrpup [String] :abbreviation
     # @option workgrpup [String] :url
@@ -128,24 +125,23 @@ module RelatonIsoBib
     # @raise [ArgumentError]
     def initialize(**args)
       check_doctype args[:doctype]
-      # check_language args.fetch(:language, [])
-      # check_script args.fetch(:script, [])
 
       super_args = args.select do |k|
         %i[id docnumber language script docstatus date abstract contributor
            edition version relation biblionote series medium place copyright
            link fetched docid formattedref extent accesslocation classification
-           validity keyword].include? k
+           validity doctype keyword].include? k
       end
       super super_args
 
       @type = args[:type] || "standard"
 
-      @title = args.fetch(:title, []).reduce([]) do |a, t|
+      @title = args.fetch(:title, []).map do |t|
         if t.is_a? Hash
-          a + typed_titles(t)
+          # a + typed_titles(t)
+          RelatonBib::TypedTitleString.new t
         else
-          a << t
+          t
         end
       end
 
@@ -157,81 +153,10 @@ module RelatonIsoBib
       end
 
       @structuredidentifier = args[:structuredidentifier]
-      @doctype ||= args[:doctype]
+      # @doctype = args[:doctype] || "international-standard"
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
       @stagename = args[:stagename]
       @id_attribute = true
-    end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
-
-    def disable_id_attribute
-      @id_attribute = false
-    end
-
-    # remove title part components and abstract
-    def to_all_parts
-      me = deep_clone
-      me.disable_id_attribute
-      me.relation << RelatonBib::DocumentRelation.new(
-        type: "instance", bibitem: self,
-      )
-      me.language.each do |l|
-        me.title.delete_if { |t| t.type == "title-part" }
-        ttl = me.title.select { |t| t.type != "main" && t.title.language.include?(l) }
-        tm_en = ttl.map { |t| t.title.content }.join " – "
-        me.title.detect { |t| t.type == "main" && t.title.language.include?(l) }&.title&.content = tm_en
-      end
-      me.abstract = []
-      me.docidentifier.each(&:remove_part)
-      me.docidentifier.each(&:all_parts)
-      me.structuredidentifier.remove_part
-      me.structuredidentifier.all_parts
-      me.docidentifier.each &:remove_date
-      me.structuredidentifier&.remove_date
-      me.all_parts = true
-      me
-    end
-
-    def abstract=(value)
-      @abstract = value
-    end
-
-    def deep_clone
-      dump = Marshal.dump self
-      Marshal.load dump
-    end
-
-    # convert ISO:yyyy reference to reference to most recent
-    # instance of reference, removing date-specific infomration:
-    # date of publication, abstracts. Make dated reference Instance relation
-    # of the redacated document
-    def to_most_recent_reference
-      me = deep_clone
-      self.disable_id_attribute
-      me.relation << RelatonBib::DocumentRelation.new(type: "instance", bibitem: self)
-      me.abstract = []
-      me.date = []
-      me.docidentifier.each &:remove_date
-      me.structuredidentifier&.remove_date
-      me.id&.sub! /-[12]\d\d\d/, ""
-      me
-    end
-
-    # @param lang [String] language code Iso639
-    # @return [Array<RelatonIsoBib::TypedTitleString>]
-    def title(lang: nil)
-      if lang
-        @title.select { |t| t.title.language.include? lang }
-      else
-        @title
-      end
-    end
-
-    # @param type [Symbol] type of url, can be :src/:obp/:rss
-    # @return [String]
-    def url(type = :src)
-      @link.detect { |s| s.type == type.to_s }.content.to_s
     end
 
     # @return [String]
@@ -265,36 +190,19 @@ module RelatonIsoBib
       end
     end
 
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
     # @return [Hash]
     def to_hash
       hash = super
       hash["editorialgroup"] = editorialgroup.to_hash if editorialgroup
       hash["ics"] = single_element_array(ics) if ics&.any?
-      hash["structuredidentifier"] = structuredidentifier.to_hash if structuredidentifier
-      hash["doctype"] = doctype if doctype
       hash["stagename"] = stagename if stagename
       hash
     end
 
     private
-
-    # @param language [Array<String>]
-    # @raise ArgumentError
-    # def check_language(language)
-    #   language.each do |lang|
-    #     unless %w[en fr].include? lang
-    #       raise ArgumentError, "invalid language: #{lang}"
-    #     end
-    #   end
-    # end
-
-    # @param script [Array<String>]
-    # @raise ArgumentError
-    # def check_script(script)
-    #   script.each do |scr|
-    #     raise ArgumentError, "invalid script: #{scr}" unless scr == "Latn"
-    #   end
-    # end
 
     # @param doctype [String]
     # @raise ArgumentError
@@ -304,64 +212,17 @@ module RelatonIsoBib
       end
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-
-    # @param title [Hash]
-    # @option title [String] :title_intro
-    # @option title [String] :title_main
-    # @option title [String] :title_part
-    # @option title [String] :language
-    # @option title [String] :script
-    # @return [Array<RelatonIsoBib::TypedTitleStrig>]
-    def typed_titles(title)
-      titles = []
-      if title[:title_intro]
-        titles << TypedTitleString.new(
-          type: "title-intro", content: title[:title_intro],
-          language: title[:language], script: title[:script], format: "text/plain",
-        )
-      end
-
-      if title[:title_main]
-        titles << TypedTitleString.new(
-          type: "title-main", content: title[:title_main],
-          language: title[:language], script: title[:script], format: "text/plain",
-        )
-      end
-
-      if title[:title_part]
-        titles << TypedTitleString.new(
-          type: "title-part", content: title[:title_part],
-          language: title[:language], script: title[:script], format: "text/plain",
-        )
-      end
-
-      unless titles.empty?
-        titles << TypedTitleString.new(
-          type: "main", content: titles.map { |t| t.title.content }.join(" – "),
-          language: title[:language], script: title[:script], format: "text/plain",
-        )
-      end
-
-      titles
-    end
-
     def makeid(id, attribute, _delim = "")
       return nil if attribute && !@id_attribute
 
       id ||= @docidentifier.reject { |i| i&.type == "DOI" }[0]
-      # contribs = publishers.map { |p| p&.entity&.abbreviation }.join '/'
-      # idstr = "#{contribs}#{delim}#{id.project_number}"
-      # idstr = id.project_number.to_s
       if id
         idstr = id.id
         idstr = "IEV" if structuredidentifier&.project_number == "IEV"
       else
         idstr = formattedref&.content
       end
-      # if id.part_number&.size&.positive? then idstr += "-#{id.part_number}"
       idstr&.gsub(/:/, "-")&.gsub(/\s/, "")&.strip
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

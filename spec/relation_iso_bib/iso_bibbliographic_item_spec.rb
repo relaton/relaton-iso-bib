@@ -8,149 +8,13 @@ require "relaton_iso_bib/iso_bibliographic_item"
 RSpec.describe RelatonIsoBib::IsoBibliographicItem do
   context "instance" do
     subject do
-      RelatonIsoBib::IsoBibliographicItem.new(
-        fetched: Date.today.to_s,
-        structuredidentifier: RelatonIsoBib::StructuredIdentifier.new(
-          type: "sid", project_number: "ISO 1-2:2014", part: 2, subpart: 2,
-        ),
-        docnumber: "123456",
-        title: [
-          { title_intro: "Geographic information", title_main: "Metadata",
-            title_part: "Part 1: Fundamentals", language: "en", script: "Latn" },
-          { title_intro: "Information géographique", title_main: "Métadonnées",
-            title_part: "Information géographique", language: "fr",
-            script: "Latn" },
-        ],
-        edition: "1",
-        version: RelatonBib::BibliographicItem::Version.new("2019-04-01", ["draft"]),
-        language: %w[en fr],
-        script: ["Latn"],
-        type: "standard",
-        doctype: "international-standard",
-        docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
-        date: [{ type: "published", on: "2014-04" }],
-        abstract: [
-          { content: "ISO 19115-1:2014 defines the schema required for ...",
-            language: "en", script: "Latn", format: "text/plain" },
-          { content: "L'ISO 19115-1:2014 définit le schéma requis pour ...",
-            language: "fr", script: "Latn", format: "text/plain" },
-        ],
-        contributor: [
-          { entity: { name: "International Organization for Standardization",
-                      url: "www.iso.org", abbreviation: "ISO" },
-            role: [type: "publisher"] },
-          {
-            entity: RelatonBib::Person.new(
-              name: RelatonBib::FullName.new(
-                completename: RelatonBib::LocalizedString.new("John Smith"),
-              ),
-            ),
-            role: [type: "author"],
-          },
-        ],
-        copyright: [{ owner: [{
-          name: "International Organization for Standardization",
-          abbreviation: "ISO", url: "www.iso.org"
-        }], from: "2014" }],
-        link: [
-          { type: "src", content: "https://www.iso.org/standard/53798.html" },
-          { type: "obp",
-            content: "https://www.iso.org/obp/ui/#!iso:std:53798:en" },
-          { type: "rss", content: "https://www.iso.org/contents/data/standard"\
-            "/05/37/53798.detail.rss" },
-        ],
-        relation: [
-          RelatonBib::DocumentRelation.new(
-            type: "updates",
-            bibitem: RelatonIsoBib::IsoBibliographicItem.new(
-              formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003"),
-              docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
-            ),
-            locality: [
-              RelatonBib::LocalityStack.new(
-                [RelatonBib::Locality.new("section", "Reference form")],
-              ),
-            ],
-          ),
-          RelatonBib::DocumentRelation.new(
-            type: "updates",
-            bibitem: RelatonIsoBib::IsoBibliographicItem.new(
-              type: "standard",
-              formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003/Cor 1:2006"),
-            ),
-          ),
-        ],
-        series: [
-          RelatonBib::Series.new(
-            type: "main",
-            title: RelatonIsoBib::TypedTitleString.new(
-              type: "title-main", content: "ISO/IEC FDIS 10118-3", language: "en", script: "Latn",
-            ),
-            place: "Serie's place",
-            organization: "Serie's organization",
-            abbreviation: RelatonBib::LocalizedString.new("ABVR", "en", "Latn"),
-            from: "2009-02-01",
-            to: "2010-12-20",
-            number: "serie1234",
-            partnumber: "part5678",
-          ),
-          RelatonBib::Series.new(
-            type: "alt",
-            formattedref: RelatonBib::FormattedRef.new(
-              content: "serieref", language: "en", script: "Latn",
-            ),
-          )
-        ],
-        medium: RelatonBib::Medium.new(
-          form: "medium form", size: "medium size", scale: "medium scale",
-        ),
-        place: ["bib place"],
-        extent: [
-          RelatonBib::BibItemLocality.new(
-            "section", "Reference from", "Reference to"
-          ),
-        ],
-        accesslocation: ["accesslocation1", "accesslocation2"],
-        classification: [RelatonBib::Classification.new(type: "type", value: "value")],
-        validity: RelatonBib::Validity.new(
-          begins: Time.new(2010, 10, 10, 12, 21),
-          ends: Time.new(2011, 2, 3, 18,30),
-          revision: Time.new(2011, 3, 4, 9, 0),
-        ),
-        editorialgroup: {
-          technical_committee: [{
-            name: " ISO/TC 211 Geographic information/Geomatics",
-            type: "technicalCommittee", number: 211
-          }],
-          subcommittee: [{
-            name: "International Organization for Standardization",
-            type: "ISO", number: 122,
-          }],
-          workgroup: [RelatonIsoBib::IsoSubgroup.new(
-            name: "Workgroup Organization",
-            type: "WG", number: 111,
-          )],
-        },
-        ics: [{ field: 35, group: 240, subgroup: 70 }],
-        stagename: "International Standard published",
-      )
+      hash = YAML.load_file "spec/examples/iso_bib_item.yml"
+      bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
+      RelatonIsoBib::IsoBibliographicItem.new bib_hash
     end
 
     it "create instance" do
       expect(subject).to be_instance_of RelatonIsoBib::IsoBibliographicItem
-    end
-
-    it "has titles" do
-      expect(subject.title).to be_instance_of Array
-      expect(subject.title(lang: "en").detect do |t|
-        t.type == "title-main"
-      end.title.content).to eq "Metadata"
-    end
-
-    it "has urls" do
-      expect(subject.url).to eq "https://www.iso.org/standard/53798.html"
-      expect(subject.url(:rss)).to eq "https://www.iso.org/contents/data/"\
-                                          "standard/05/37/53798.detail.rss"
     end
 
     it "has relations" do
@@ -250,22 +114,18 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
   end
 
+  it "create editorial group from Hash" do
+    item = RelatonIsoBib::IsoBibliographicItem.new(
+      editorialgroup: { technical_committee: [{ name: "Committee" }] },
+    )
+    expect(item.editorialgroup).to be_instance_of RelatonIsoBib::EditorialGroup
+  end
+
   it "raises invalid type argument error" do
     expect do
       RelatonIsoBib::IsoBibliographicItem.new doctype: "type"
     end.to output(/invalid doctype: type/).to_stderr
   end
-
-  # removed this functionality
-=begin
-  it "raise invalid language argument error" do
-    expect do
-      RelatonIsoBib::IsoBibliographicItem.new(
-        type: "international-standard", language: ["ru"],
-      )
-    end.to raise_error ArgumentError
-  end
-=end
 
   context "doc identifier remove part/date" do
     it "Chinese Standard" do
@@ -280,7 +140,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
 
     it "other standards" do
       docid = RelatonIsoBib::StructuredIdentifier.new(
-        project_number: "ISO 1-2:2014", part: 2, type: "International Standard"
+        project_number: "ISO 1-2:2014", part: 2, type: "International Standard",
       )
       docid.remove_part
       expect(docid.id).to eq "ISO 1:2014"

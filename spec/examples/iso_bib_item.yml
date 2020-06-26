@@ -1,10 +1,51 @@
 id: ISO/TC211
 
 title:
-  - Geographic information
-  - content: Information géographique
-    language: fr
-    script: Latn
+- type: title-intro
+  content: Geographic information
+  language: en
+  script: Latn
+  format: text/plain
+- type: title-main
+  content: Metadata
+  language: en
+  script: Latn
+  format: text/plain
+- type: title-part
+  content: 'Part 1: Fundamentals'
+  language: en
+  script: Latn
+  format: text/plain
+- type: main
+  content: 'Geographic information – Metadata – Part 1: Fundamentals'
+  language: en
+  script: Latn
+  format: text/plain
+- type: title-intro
+  content: Information géographique
+  language: fr
+  script: Latn
+  format: text/plain
+- type: title-main
+  content: Métadonnées
+  language: fr
+  script: Latn
+  format: text/plain
+- type: title-part
+  content: Information géographique
+  language: fr
+  script: Latn
+  format: text/plain
+- type: main
+  content: Information géographique – Métadonnées – Information géographique
+  language: fr
+  script: Latn
+  format: text/plain
+  # - Geographic information
+  # - content: Information géographique
+  #   type: main
+  #   language: fr
+  #   script: Latn
 
 type: standard
 
@@ -35,9 +76,9 @@ biblionote:
 
 docstatus:
   stage:
-    value: stage
+    value: 60
   substage:
-    value: substage
+    value: 60
   iteration: final
 
 date:
@@ -159,7 +200,7 @@ relation:
 series:
   - type: main
     title:
-      type: main
+      type: title-main
       content: ISO/IEC FDIS 10118-3
       language: en
       script: Latn
@@ -228,3 +269,5 @@ structuredidentifier:
   project_number: ISO 1-2:2014
   part: "2"
   subpart: "2"
+
+stagename: International Standard published
