@@ -514,6 +514,33 @@ item.to_xml(bibdata: true, note: [{ type: "note type", text: "test note" }])
   <note format="text/plain" type="note type">test note</note>
   ...
 ----
+=== Export bibliographic item to BibTeX
+
+[source,ruby]
+----
+item.to_bibtex
+@misc{ISOTC211,
+  tile = {Geographic information},
+  edition = {1},
+  author = {Bierman, A. and Bierman, Forename},
+  ...
+----
+
+=== Exporting bibliographic item to AsciiBib
+
+[source,ruby]
+----
+item.to_asciibib
+[%bibitem]
+== {blank}
+id:: ISOTC211
+fetched:: 2020-08-19
+title::
+title.type:: title-main
+title.conten:: Geographic information
+title.format:: text/plain
+...
+----
 
 === Create bibliographic item form YAML
 [source,ruby]
