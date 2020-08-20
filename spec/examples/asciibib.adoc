@@ -1,0 +1,208 @@
+[%bibitem]
+== {blank}
+id:: ISO/TC211
+fetched:: 2020-08-14
+title::
+title.type:: title-intro
+title.conten:: Geographic information
+title.language:: en
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: title-main
+title.conten:: Metadata
+title.language:: en
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: title-part
+title.conten:: Part 1: Fundamentals
+title.language:: en
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: main
+title.conten:: Geographic information – Metadata – Part 1: Fundamentals
+title.language:: en
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: title-intro
+title.conten:: Information géographique
+title.language:: fr
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: title-main
+title.conten:: Métadonnées
+title.language:: fr
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: title-part
+title.conten:: Information géographique
+title.language:: fr
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: main
+title.conten:: Information géographique – Métadonnées – Information géographique
+title.language:: fr
+title.script:: Latn
+title.format:: text/plain
+type:: standard
+docid.type:: ISO
+docid.id:: TC211
+docnumber:: 123456
+edition:: 1
+language:: en
+language:: fr
+script:: Latn
+version.revision_date:: 2019-04-01
+version.draft:: draft
+biblionote.conten:: note
+docstatus.stage:: 60
+docstatus.substage:: 60
+docstatus.iteration:: final
+date::
+date.type:: issued
+date.on:: 2014-01-01
+date::
+date.type:: published
+date.on:: 2014-04-01
+date::
+date.type:: accessed
+date.on:: 2015-05-20
+abstract::
+abstract.conten:: ISO 19115-1:2014 defines the schema required for ...
+abstract.language:: en
+abstract.script:: Latn
+abstract.format:: text/plain
+abstract::
+abstract.conten:: L'ISO 19115-1:2014 définit le schéma requis pour ...
+abstract.language:: fr
+abstract.script:: Latn
+abstract.format:: text/plain
+copyright.owner.name.conten:: International Organization for Standardization
+copyright.owner.abbreviation.conten:: ISO
+copyright.owner.url:: www.iso.org
+copyright.role.type:: publisher
+copyright.from:: 2014
+copyright.to:: 2020
+link::
+link.type:: src
+link.content:: https://www.iso.org/standard/53798.html
+link::
+link.type:: obp
+link.content:: https://www.iso.org/obp/ui/#!iso:std:53798:en
+link::
+link.type:: rss
+link.content:: https://www.iso.org/contents/data/standard/05/37/53798.detail.rss
+medium.form:: medium form
+medium.size:: medium size
+medium.scale:: medium scale
+place.name:: bib place
+extent.type:: section
+extent.reference_from:: Reference from
+extent.reference_to:: Reference to
+accesslocation:: accesslocation1
+accesslocation:: accesslocation2
+classification.type:: type
+classification.value:: value
+validity.begins:: 2010-10-10 12:21
+validity.ends:: 2011-02-03 18:30
+validity.revision:: 2011-03-04 09:00
+contributor::
+contributor.organization.name.conten:: International Organization for Standardization
+contributor.organization.abbreviation.conten:: ISO
+contributor.organization.url:: www.iso.org
+contributor.role.description.conten:: Publisher role
+contributor.role.type:: publisher
+contributor::
+contributor.person.completename.conten:: A. Bierman
+contributor.person.completename.language:: en
+contributor.person.affiliation.organization.name.conten:: IETF
+contributor.person.affiliation.organization.abbreviation.conten:: IETF
+contributor.person.affiliation.organization.identifier.type:: uri
+contributor.person.affiliation.organization.identifier.value:: www.ietf.org
+contributor.person.address.street:: Street
+contributor.person.address.city:: City
+contributor.person.address.state:: State
+contributor.person.address.country:: Country
+contributor.person.address.postcode:: 123456
+contributor.person.contact.type:: phone
+contributor.person.contact.value:: 223322
+contributor.role.type:: author
+contributor::
+contributor.organization.name.conten:: IETF
+contributor.organization.abbreviation.conten:: IETF
+contributor.organization.identifier.type:: uri
+contributor.organization.identifier.value:: www.ietf.org
+contributor.role.type:: publisher
+contributor::
+contributor.person.initial.conten:: A.
+contributor.person.initial.language:: en
+contributor.person.surname.conten:: Bierman
+contributor.person.surname.language:: en
+contributor.person.affiliation.organization.name.conten:: IETF
+contributor.person.affiliation.organization.abbreviation.conten:: IETF
+contributor.person.type:: uri
+contributor.person.value:: www.person.com
+contributor.person.address.street:: Street
+contributor.person.address.city:: City
+contributor.person.address.state:: State
+contributor.person.address.country:: Country
+contributor.person.address.postcode:: 123456
+contributor.person.contact.type:: phone
+contributor.person.contact.value:: 223322
+contributor.role.type:: author
+relation::
+relation.type:: updates
+relation.bibitem.id:: ISO19115-2003
+relation.bibitem.type:: standard
+relation.bibitem.formattedref:: ISO 19115:2003
+relation::
+relation.type:: updates
+relation.bibitem.id:: ISO19115-2003/Cor1-2006
+relation.bibitem.type:: standard
+relation.bibitem.formattedref:: ISO 19115:2003/Cor 1:2006
+series::
+series.type:: main
+series.title.type:: title-main
+series.title.conten:: ISO/IEC FDIS 10118-3
+series.title.language:: en
+series.title.script:: Latn
+series.title.format:: text/plain
+series.place:: Serie's place
+series.organization:: Serie's organization
+series.abbreviation.conten:: ABVR
+series.abbreviation.language:: en
+series.abbreviation.script:: Latn
+series.from:: 2009-02-01
+series.to:: 2010-12-20
+series.number:: serie1234
+series.partnumber:: part5678
+series::
+series.type:: alt
+series.formattedref.conten:: serieref
+series.formattedref.language:: en
+series.formattedref.script:: Latn
+series.formattedref.format:: text/plain
+doctype:: international-standard
+editorialgroup.technical_committee.type:: technicalCommittee
+editorialgroup.technical_committee.number:: 211
+editorialgroup.technical_committee.name:: ISO/TC 211 Geographic information/Geomatics
+editorialgroup.subcommittee.type:: ISO
+editorialgroup.subcommittee.number:: 122
+editorialgroup.subcommittee.name:: International Organization for Standardization
+editorialgroup.workgroup.type:: WG
+editorialgroup.workgroup.number:: 111
+editorialgroup.workgroup.name:: Workgroup Organization
+ics.code:: 35.240.70
+ics.description:: IT applications in science
+structured_identifier.tc_document_number:: 1234
+structured_identifier.project_number:: ISO 1-2:2014
+structured_identifier.part:: 2
+structured_identifier.subpart:: 2
+structured_identifier.type:: sid
+stagename:: International Standard published

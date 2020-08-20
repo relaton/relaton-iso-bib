@@ -3,7 +3,6 @@
 require "nokogiri"
 require "isoics"
 require "relaton_bib"
-# require "relaton_iso_bib/typed_title_string"
 require "relaton_iso_bib/editorial_group"
 require "relaton_iso_bib/xml_parser"
 require "relaton_iso_bib/structured_identifier"
@@ -160,11 +159,11 @@ module RelatonIsoBib
     end
 
     # @return [String]
-    def to_xml(builder = nil, **opts, &block)
+    def to_xml(builder = nil, **opts)
       if opts[:note]&.any?
         opts.fetch(:note, []).each do |n|
           @biblionote << RelatonBib::BiblioNote.new(
-            content: n[:text], type: n[:type], format: "text/plain",
+            content: n[:text], type: n[:type], format: "text/plain"
           )
         end
       end
@@ -175,7 +174,7 @@ module RelatonIsoBib
           b.ext do
             b.doctype doctype if doctype
             b.docsubtype docsubtype if respond_to?(:docsubtype) && docsubtype
-            # GB renders gbcommittee elements istead of an editorialgroup element.
+            # GB renders gbcommittee elements istead of an editorialgroup
             if respond_to? :committee
               committee&.to_xml b
             else
@@ -196,10 +195,17 @@ module RelatonIsoBib
     # @return [Hash]
     def to_hash
       hash = super
-      hash["editorialgroup"] = editorialgroup.to_hash if editorialgroup
-      hash["ics"] = single_element_array(ics) if ics&.any?
       hash["stagename"] = stagename if stagename
       hash
+    end
+
+    # @param prefix [String]
+    # @return [String]
+    def to_asciibib(prefix = "")
+      pref = prefix.empty? ? prefix : prefix + "."
+      out = super
+      out += "#{pref}stagename:: #{stagename}\n" if stagename
+      out
     end
 
     private
@@ -212,7 +218,7 @@ module RelatonIsoBib
       end
     end
 
-    def makeid(id, attribute, _delim = "")
+    def makeid(id, attribute, _delim = "") # rubocop:disable Metrics/CyclomaticComplexity
       return nil if attribute && !@id_attribute
 
       id ||= @docidentifier.reject { |i| i&.type == "DOI" }[0]

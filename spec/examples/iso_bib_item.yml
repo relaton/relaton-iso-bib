@@ -265,6 +265,7 @@ ics:
   - code: "35.240.70"
 
 structuredidentifier:
+  tc_document_number: "1234"
   type: sid
   project_number: ISO 1-2:2014
   part: "2"

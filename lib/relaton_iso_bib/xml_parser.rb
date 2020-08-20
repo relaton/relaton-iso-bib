@@ -56,7 +56,7 @@ module RelatonIsoBib
       # @TODO Organization doesn't recreated
       # @param ext [Nokogiri::XML::Element]
       # @return [RelatonIsoBib::EditorialGroup]
-      def fetch_editorialgroup(ext)
+      def fetch_editorialgroup(ext) # rubocop:disable Metrics/CyclomaticComplexity
         eg = ext&.at("./editorialgroup")
         return unless eg
 

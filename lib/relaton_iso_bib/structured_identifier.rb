@@ -33,11 +33,12 @@ module RelatonIsoBib
     def remove_part
       @part_number = nil
       @subpart_number = nil
-      case @type
-      when "Chinese Standard" then @project_number = @project_number.sub(/\.\d+/, "")
-      else
-        @project_number = @project_number.sub(/-\d+/, "")
-      end
+      @project_number = case @type
+                        when "Chinese Standard"
+                          @project_number.sub(/\.\d+/, "")
+                        else
+                          @project_number = @project_number.sub(/-\d+/, "")
+                        end
     end
 
     def remove_date
@@ -62,7 +63,9 @@ module RelatonIsoBib
         pn = builder.send "project-number", project_number
         pn[:part] = part if part
         pn[:subpart] = subpart if subpart
-        builder.send "tc-document-number", tc_document_number if tc_document_number
+        if tc_document_number
+          builder.send "tc-document-number", tc_document_number
+        end
       end
       xml[:type] = type if type
     end
@@ -76,6 +79,24 @@ module RelatonIsoBib
       hash["subpart"] = subpart if subpart
       hash["type"] = type if type
       hash
+    end
+
+    # @param prefix [String]
+    # @return [String]
+    def to_asciibib(prefix = "") # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+      pref = prefix.empty? ? prefix : prefix + "."
+      pref += "structured_identifier"
+      out = ""
+      if tc_document_number
+        out += "#{pref}.tc_document_number:: #{tc_document_number}\n"
+      end
+      if project_number
+        out += "#{pref}.project_number:: #{project_number}\n"
+      end
+      out += "#{pref}.part:: #{part}\n" if part
+      out += "#{pref}.subpart:: #{subpart}\n" if subpart
+      out += "#{pref}.type:: #{type}\n" if type
+      out
     end
 
     def presence?

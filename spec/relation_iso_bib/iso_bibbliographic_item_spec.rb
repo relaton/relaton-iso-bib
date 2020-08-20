@@ -18,18 +18,22 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has relations" do
-      expect(subject.relation.replaces).to be_instance_of RelatonBib::DocRelationCollection
+      expect(subject.relation.replaces).to be_instance_of(
+        RelatonBib::DocRelationCollection
+      )
     end
 
     it "has abstracts" do
       expect(subject.abstract(lang: "en")).to be_instance_of(
-        RelatonBib::FormattedString,
+        RelatonBib::FormattedString
       )
     end
 
     it "returns shortref" do
-      expect(subject.shortref(subject.structuredidentifier)).to eq "ISO1-2-2014:2014"
-      expect(subject.shortref(subject.structuredidentifier, no_year: true)).to eq "ISO1-2-2014"
+      expect(subject.shortref(subject.structuredidentifier))
+        .to eq "ISO1-2-2014:2014"
+      expect(subject.shortref(subject.structuredidentifier, no_year: true))
+        .to eq "ISO1-2-2014"
       subject.instance_variable_set :@docidentifier, []
       expect(subject.shortref(nil)).to eq ":2014"
     end
@@ -40,7 +44,9 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
 
     it "returns xml" do
       file = "spec/examples/iso_bib_item.xml"
-      File.write file, subject.to_xml(bibdata: true), encoding: "utf-8" unless File.exist? file
+      unless File.exist? file
+        File.write file, subject.to_xml(bibdata: true), encoding: "utf-8"
+      end
       xml = File.read file, encoding: "UTF-8"
       expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml.sub(
         %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
@@ -53,13 +59,14 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     it "returns xml with note" do
       file = "spec/examples/iso_bib_item_note.xml"
       xml_res = subject.to_xml(
-        note: [{ type: "note type", text: "test note" }], bibdata: true,
+        note: [{ type: "note type", text: "test note" }], bibdata: true
       )
       File.write file, xml_res, encoding: "utf-8" unless File.exist? file
-      expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8").sub(
-        %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
+      expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8")
+        .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
+      expect(xml_res).to include(
+        "<note format=\"text/plain\" type=\"note type\">test note</note>"
       )
-      expect(xml_res).to include "<note format=\"text/plain\" type=\"note type\">test note</note>"
       schema = Jing.new "spec/examples/isobib.rng"
       errors = schema.validate file
       expect(errors).to eq []
@@ -73,16 +80,22 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "returns xml with gbcommittee instead editorialgroup (for GB)" do
-      expect(subject).to receive(:respond_to?).with(:docsubtype).and_return(false).at_least :once
-      expect(subject).to receive(:respond_to?).with(:committee).and_return(true).at_least :once
+      expect(subject).to receive(:respond_to?).with(:docsubtype)
+        .and_return(false).at_least :once
+      expect(subject).to receive(:respond_to?).with(:committee).and_return(true)
+        .at_least :once
       committee = double
-      expect(committee).to receive(:to_xml) { |bldr| bldr.gbcommittee "committee" }
+      expect(committee).to receive(:to_xml) do |bldr|
+        bldr.gbcommittee "committee"
+      end
       expect(subject).to receive(:committee).and_return committee
-      expect(subject.to_xml(bibdata: true)).to include "<gbcommittee>committee</gbcommittee>"
+      expect(subject.to_xml(bibdata: true))
+        .to include "<gbcommittee>committee</gbcommittee>"
     end
 
     it "has dates" do
-      expect(subject.date.filter(type: "published").first).to be_instance_of RelatonBib::BibliographicDate
+      expect(subject.date.filter(type: "published").first)
+        .to be_instance_of RelatonBib::BibliographicDate
     end
 
     it "converts to all_parts reference" do
@@ -90,8 +103,11 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(subject.relation.last.type).not_to eq "partOf"
       all_parts_item = subject.to_all_parts
       expect(all_parts_item.relation.last.type).to eq "instance"
-      expect(all_parts_item.title.detect { |t| t.type == "title-part" }).to be nil
-      expect(all_parts_item.title.detect { |t| t.type == "main" }.title.content).to eq "Geographic information – Metadata"
+      expect(all_parts_item.title.detect { |t| t.type == "title-part" })
+        .to be_nil
+      expect(
+        all_parts_item.title.detect { |t| t.type == "main" }.title.content
+      ).to eq "Geographic information – Metadata"
     end
 
     it "converts to latest year reference" do
@@ -112,11 +128,19 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       b = RelatonIsoBib::IsoBibliographicItem.new(h)
       expect(hash).to eq b.to_hash
     end
+
+    it "returns AsciiBib" do
+      file = "spec/examples/asciibib.adoc"
+      bib = subject.to_asciibib
+      File.write file, bib, encoding: "UTF-8" unless File.exist? file
+      expect(bib).to eq File.read(file, encoding: "UTF-8")
+        .gsub(/(?<=fetched::\s)\d{4}-\d{2}-\d{2}/, Date.today.to_s)
+    end
   end
 
   it "create editorial group from Hash" do
     item = RelatonIsoBib::IsoBibliographicItem.new(
-      editorialgroup: { technical_committee: [{ name: "Committee" }] },
+      editorialgroup: { technical_committee: [{ name: "Committee" }] }
     )
     expect(item.editorialgroup).to be_instance_of RelatonIsoBib::EditorialGroup
   end
@@ -130,7 +154,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
   context "doc identifier remove part/date" do
     it "Chinese Standard" do
       docid = RelatonIsoBib::StructuredIdentifier.new(
-        project_number: "GB 1.2-2014", type: "Chinese Standard",
+        project_number: "GB 1.2-2014", type: "Chinese Standard"
       )
       docid.remove_part
       expect(docid.id).to eq "GB 1-2014"
@@ -140,7 +164,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
 
     it "other standards" do
       docid = RelatonIsoBib::StructuredIdentifier.new(
-        project_number: "ISO 1-2:2014", part: 2, type: "International Standard",
+        project_number: "ISO 1-2:2014", part: 2, type: "International Standard"
       )
       docid.remove_part
       expect(docid.id).to eq "ISO 1:2014"

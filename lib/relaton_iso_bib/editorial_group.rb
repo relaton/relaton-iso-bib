@@ -33,7 +33,7 @@ module RelatonIsoBib
     # @option workgroup [Integer] :number
     #
     # @param secretariat [String, NilClass]
-    def initialize(technical_committee:, **args)
+    def initialize(technical_committee:, **args) # rubocop:disable Metrics/CyclomaticComplexity
       @technical_committee = technical_committee.map do |tc|
         tc.is_a?(Hash) ? IsoSubgroup.new(tc) : tc
       end
@@ -49,8 +49,9 @@ module RelatonIsoBib
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
     # @param builder [Nokogiri::XML::Builder]
-    def to_xml(builder)
-      return unless technical_committee || subcommittee || workgroup || secretariat
+    def to_xml(builder) # rubocop:disable Metrics/CyclomaticComplexity
+      return unless technical_committee || subcommittee || workgroup ||
+        secretariat
 
       builder.editorialgroup do
         technical_committee.each do |tc|
@@ -69,11 +70,35 @@ module RelatonIsoBib
 
     # @return [Hash]
     def to_hash
-      hash = { "technical_committee" => single_element_array(technical_committee) }
-      hash["subcommittee"] = single_element_array(subcommittee) if subcommittee&.any?
+      hash = {
+        "technical_committee" => single_element_array(technical_committee),
+      }
+      if subcommittee&.any?
+        hash["subcommittee"] = single_element_array(subcommittee)
+      end
       hash["workgroup"] = single_element_array(workgroup) if workgroup&.any?
       hash["secretariat"] = secretariat if secretariat
       hash
+    end
+
+    # @param prefix [String]
+    # @return [String]
+    def to_asciibib(prefix = "") # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      pref = prefix.empty? ? prefix : prefix + "."
+      pref += "editorialgroup"
+      out = ""
+      technical_committee.each do |tc|
+        out += tc.to_asciibib "#{pref}.technical_committee",
+                              technical_committee.size
+      end
+      subcommittee.each do |sc|
+        out += sc.to_asciibib "#{pref}.subcommittee", subcommittee.size
+      end
+      workgroup.each do |wg|
+        out += wg.to_asciibib "#{pref}.workgroup", workgroup.size
+      end
+      out += "#{pref}.secretariat:: #{secretariat}\n" if secretariat
+      out
     end
   end
 
@@ -110,6 +135,16 @@ module RelatonIsoBib
       hash["type"] = type if type
       hash["number"] = number if number
       hash
+    end
+
+    # @param prefix [String]
+    # @param count [Integer] number of the elements
+    def to_asciibib(prefix, count = 1)
+      out = count > 1 ? "#{prefix}::\n" : ""
+      out += "#{prefix}.type:: #{type}\n" if type
+      out += "#{prefix}.number:: #{number}\n" if number
+      out += "#{prefix}.name:: #{name}\n"
+      out
     end
   end
 end
