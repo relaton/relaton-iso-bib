@@ -211,7 +211,7 @@ module RelatonIsoBib
       end
     end
 
-    def makeid(id, attribute, _delim = "") # rubocop:disable Metrics/CyclomaticComplexity
+    def makeid(id, attribute, _delim = "") # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
       return nil if attribute && !@id_attribute
 
       id ||= @docidentifier.reject { |i| i&.type == "DOI" }[0]
