@@ -160,13 +160,6 @@ module RelatonIsoBib
 
     # @return [String]
     def to_xml(builder = nil, **opts)
-      if opts[:note]&.any?
-        opts.fetch(:note, []).each do |n|
-          @biblionote << RelatonBib::BiblioNote.new(
-            content: n[:text], type: n[:type], format: "text/plain"
-          )
-        end
-      end
       super builder, **opts do |b|
         if opts[:bibdata] && (doctype || respond_to?(:committee) && committee ||
           editorialgroup || ics.any? || structuredidentifier || stagename ||

@@ -33,7 +33,7 @@ module RelatonIsoBib
     # @option workgroup [Integer] :number
     #
     # @param secretariat [String, NilClass]
-    def initialize(technical_committee:, **args) # rubocop:disable Metrics/CyclomaticComplexity
+    def initialize(technical_committee:, **args) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
       @technical_committee = technical_committee.map do |tc|
         tc.is_a?(Hash) ? IsoSubgroup.new(tc) : tc
       end
@@ -46,10 +46,13 @@ module RelatonIsoBib
       @secretariat = args[:secretariat]
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # @return [true]
+    def presence?
+      true
+    end
 
     # @param builder [Nokogiri::XML::Builder]
-    def to_xml(builder) # rubocop:disable Metrics/CyclomaticComplexity
+    def to_xml(builder) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize, Metrics/MethodLength
       return unless technical_committee || subcommittee || workgroup ||
         secretariat
 
@@ -66,10 +69,9 @@ module RelatonIsoBib
         builder.secretariat secretariat if secretariat
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # @return [Hash]
-    def to_hash
+    def to_hash # rubocop:disable Metrics/AbcSize
       hash = {
         "technical_committee" => single_element_array(technical_committee),
       }

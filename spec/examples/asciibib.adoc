@@ -1,52 +1,52 @@
 [%bibitem]
 == {blank}
 id:: ISO/TC211
-fetched:: 2020-08-14
+fetched:: 2020-09-07
 title::
 title.type:: title-intro
-title.conten:: Geographic information
+title.content:: Geographic information
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: title-main
-title.conten:: Metadata
+title.content:: Metadata
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: title-part
-title.conten:: Part 1: Fundamentals
+title.content:: Part 1: Fundamentals
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: main
-title.conten:: Geographic information – Metadata – Part 1: Fundamentals
+title.content:: Geographic information – Metadata – Part 1: Fundamentals
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: title-intro
-title.conten:: Information géographique
+title.content:: Information géographique
 title.language:: fr
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: title-main
-title.conten:: Métadonnées
+title.content:: Métadonnées
 title.language:: fr
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: title-part
-title.conten:: Information géographique
+title.content:: Information géographique
 title.language:: fr
 title.script:: Latn
 title.format:: text/plain
 title::
 title.type:: main
-title.conten:: Information géographique – Métadonnées – Information géographique
+title.content:: Information géographique – Métadonnées – Information géographique
 title.language:: fr
 title.script:: Latn
 title.format:: text/plain
@@ -60,7 +60,7 @@ language:: fr
 script:: Latn
 version.revision_date:: 2019-04-01
 version.draft:: draft
-biblionote.conten:: note
+biblionote.content:: note
 docstatus.stage:: 60
 docstatus.substage:: 60
 docstatus.iteration:: final
@@ -74,17 +74,17 @@ date::
 date.type:: accessed
 date.on:: 2015-05-20
 abstract::
-abstract.conten:: ISO 19115-1:2014 defines the schema required for ...
+abstract.content:: ISO 19115-1:2014 defines the schema required for ...
 abstract.language:: en
 abstract.script:: Latn
 abstract.format:: text/plain
 abstract::
-abstract.conten:: L'ISO 19115-1:2014 définit le schéma requis pour ...
+abstract.content:: L'ISO 19115-1:2014 définit le schéma requis pour ...
 abstract.language:: fr
 abstract.script:: Latn
 abstract.format:: text/plain
-copyright.owner.name.conten:: International Organization for Standardization
-copyright.owner.abbreviation.conten:: ISO
+copyright.owner.name.content:: International Organization for Standardization
+copyright.owner.abbreviation.content:: ISO
 copyright.owner.url:: www.iso.org
 copyright.role.type:: publisher
 copyright.from:: 2014
@@ -113,16 +113,16 @@ validity.begins:: 2010-10-10 12:21
 validity.ends:: 2011-02-03 18:30
 validity.revision:: 2011-03-04 09:00
 contributor::
-contributor.organization.name.conten:: International Organization for Standardization
-contributor.organization.abbreviation.conten:: ISO
+contributor.organization.name.content:: International Organization for Standardization
+contributor.organization.abbreviation.content:: ISO
 contributor.organization.url:: www.iso.org
-contributor.role.description.conten:: Publisher role
+contributor.role.description.content:: Publisher role
 contributor.role.type:: publisher
 contributor::
-contributor.person.completename.conten:: A. Bierman
-contributor.person.completename.language:: en
-contributor.person.affiliation.organization.name.conten:: IETF
-contributor.person.affiliation.organization.abbreviation.conten:: IETF
+contributor.person.name.completename.content:: A. Bierman
+contributor.person.name.completename.language:: en
+contributor.person.affiliation.organization.name.content:: IETF
+contributor.person.affiliation.organization.abbreviation.content:: IETF
 contributor.person.affiliation.organization.identifier.type:: uri
 contributor.person.affiliation.organization.identifier.value:: www.ietf.org
 contributor.person.address.street:: Street
@@ -134,18 +134,18 @@ contributor.person.contact.type:: phone
 contributor.person.contact.value:: 223322
 contributor.role.type:: author
 contributor::
-contributor.organization.name.conten:: IETF
-contributor.organization.abbreviation.conten:: IETF
+contributor.organization.name.content:: IETF
+contributor.organization.abbreviation.content:: IETF
 contributor.organization.identifier.type:: uri
 contributor.organization.identifier.value:: www.ietf.org
 contributor.role.type:: publisher
 contributor::
-contributor.person.initial.conten:: A.
-contributor.person.initial.language:: en
-contributor.person.surname.conten:: Bierman
-contributor.person.surname.language:: en
-contributor.person.affiliation.organization.name.conten:: IETF
-contributor.person.affiliation.organization.abbreviation.conten:: IETF
+contributor.person.name.initial.content:: A.
+contributor.person.name.initial.language:: en
+contributor.person.name.surname.content:: Bierman
+contributor.person.name.surname.language:: en
+contributor.person.affiliation.organization.name.content:: IETF
+contributor.person.affiliation.organization.abbreviation.content:: IETF
 contributor.person.type:: uri
 contributor.person.value:: www.person.com
 contributor.person.address.street:: Street
@@ -169,13 +169,13 @@ relation.bibitem.formattedref:: ISO 19115:2003/Cor 1:2006
 series::
 series.type:: main
 series.title.type:: title-main
-series.title.conten:: ISO/IEC FDIS 10118-3
+series.title.content:: ISO/IEC FDIS 10118-3
 series.title.language:: en
 series.title.script:: Latn
 series.title.format:: text/plain
 series.place:: Serie's place
 series.organization:: Serie's organization
-series.abbreviation.conten:: ABVR
+series.abbreviation.content:: ABVR
 series.abbreviation.language:: en
 series.abbreviation.script:: Latn
 series.from:: 2009-02-01
@@ -184,7 +184,7 @@ series.number:: serie1234
 series.partnumber:: part5678
 series::
 series.type:: alt
-series.formattedref.conten:: serieref
+series.formattedref.content:: serieref
 series.formattedref.language:: en
 series.formattedref.script:: Latn
 series.formattedref.format:: text/plain
