@@ -126,23 +126,14 @@ module RelatonIsoBib
       check_doctype args[:doctype]
 
       super_args = args.select do |k|
-        %i[id docnumber language script docstatus date abstract contributor
-           edition version relation biblionote series medium place copyright
-           link fetched docid formattedref extent accesslocation classification
-           validity doctype keyword].include? k
+        %i[id title docnumber language script docstatus date abstract
+           contributor edition version relation biblionote series medium place
+           copyright link fetched docid formattedref extent accesslocation
+           classification validity doctype keyword].include? k
       end
       super super_args
 
       @type = args[:type] || "standard"
-
-      @title = args.fetch(:title, []).map do |t|
-        if t.is_a? Hash
-          # a + typed_titles(t)
-          RelatonBib::TypedTitleString.new t
-        else
-          t
-        end
-      end
 
       if args[:editorialgroup]
         @editorialgroup = if args[:editorialgroup].is_a?(Hash)
@@ -158,9 +149,13 @@ module RelatonIsoBib
       @id_attribute = true
     end
 
-    # @return [String]
-    def to_xml(builder = nil, **opts)
-      super builder, **opts do |b|
+    # @param opts [Hash]
+    # @option opts [Nokogiri::XML::Builder] :builder XML builder
+    # @option opts [Boolean] :bibdata
+    # @option opts [String] :lang language
+    # @return [String] XML
+    def to_xml(**opts)
+      super **opts do |b|
         if opts[:bibdata] && (doctype || respond_to?(:committee) && committee ||
           editorialgroup || ics.any? || structuredidentifier || stagename ||
           block_given?)

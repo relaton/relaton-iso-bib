@@ -41,22 +41,10 @@ module RelatonIsoBib
         )
       end
 
-      # Override RelatonBib::XMLParser.ttitle method.
-      # @param title [Nokogiri::XML::Element]
-      # @return [RelatonBib::TypedTitleString]
-      def ttitle(title)
-        return unless title
-
-        RelatonBib::TypedTitleString.new(
-          type: title[:type], content: title.text, language: title[:language],
-          script: title[:script], format: title[:format]
-        )
-      end
-
       # @TODO Organization doesn't recreated
       # @param ext [Nokogiri::XML::Element]
       # @return [RelatonIsoBib::EditorialGroup]
-      def fetch_editorialgroup(ext) # rubocop:disable Metrics/CyclomaticComplexity
+      def fetch_editorialgroup(ext) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
         eg = ext&.at("./editorialgroup")
         return unless eg
 
