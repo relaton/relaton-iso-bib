@@ -35,13 +35,13 @@ module RelatonIsoBib
     # @param secretariat [String, NilClass]
     def initialize(technical_committee:, **args) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
       @technical_committee = technical_committee.map do |tc|
-        tc.is_a?(Hash) ? IsoSubgroup.new(tc) : tc
+        tc.is_a?(Hash) ? IsoSubgroup.new(**tc) : tc
       end
       @subcommittee = args.fetch(:subcommittee, []).map do |sc|
-        sc.is_a?(Hash) ? IsoSubgroup.new(sc) : sc
+        sc.is_a?(Hash) ? IsoSubgroup.new(**sc) : sc
       end
       @workgroup = args.fetch(:workgroup, []).map do |wg|
-        wg.is_a?(Hash) ? IsoSubgroup.new(wg) : wg
+        wg.is_a?(Hash) ? IsoSubgroup.new(**wg) : wg
       end
       @secretariat = args[:secretariat]
     end

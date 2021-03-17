@@ -454,7 +454,7 @@ bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
 => {:id=>"ISO/TC211",
 ...
 
-RelatonIsoBib::IsoBibliographicItem.new bib_hash
+RelatonIsoBib::IsoBibliographicItem.new **bib_hash
 => #<RelatonIsoBib::IsoBibliographicItem:0x007fdb95ba98e8
 ...
 ----

@@ -24,7 +24,7 @@ module RelatonIsoBib
       # @param item_hash [Hash]
       # @return [RelatonIsoBib::IsoBibliographicItem]
       def bib_item(item_hash)
-        IsoBibliographicItem.new item_hash
+        IsoBibliographicItem.new **item_hash
       end
 
       # @param ext [Nokogiri::XML::Element]

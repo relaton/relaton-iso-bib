@@ -9,7 +9,7 @@ module RelatonIsoBib
       # @param item [Hash]
       # @retirn [RelatonIsoBib::IsoBibliographicItem]
       def bib_item(item)
-        IsoBibliographicItem.new(item)
+        IsoBibliographicItem.new(**item)
       end
 
       #
@@ -18,7 +18,7 @@ module RelatonIsoBib
       # @param title [Hash]
       # @return [RelatonBib::TypedTitleString]
       def typed_title_strig(title)
-        RelatonBib::TypedTitleString.new title
+        RelatonBib::TypedTitleString.new **title
       end
 
       # @param ret [Hash]
@@ -45,9 +45,7 @@ module RelatonIsoBib
       def structuredidentifier_hash_to_bib(ret)
         return unless ret[:structuredidentifier]
 
-        ret[:structuredidentifier] = RelatonIsoBib::StructuredIdentifier.new(
-          ret[:structuredidentifier],
-        )
+        ret[:structuredidentifier] = RelatonIsoBib::StructuredIdentifier.new(**ret[:structuredidentifier])
       end
     end
   end

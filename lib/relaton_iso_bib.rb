@@ -10,7 +10,7 @@ module RelatonIsoBib
   def self.grammar_hash
     gem_path = File.expand_path "..", __dir__
     grammars_path = File.join gem_path, "grammars", "*"
-    grammars = Dir[grammars_path].sort.map { |gp| File.read gp }.join
+    grammars = Dir[grammars_path].sort.map { |gp| File.read gp, encoding: "UTF-8" }.join
     Digest::MD5.hexdigest grammars
   end
 end

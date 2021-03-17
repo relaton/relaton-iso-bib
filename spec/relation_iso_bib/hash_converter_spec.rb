@@ -5,7 +5,7 @@ RSpec.describe RelatonIsoBib::HashConverter do
   it "creates IsoBibliographicItem form hash" do
     hash = YAML.load_file "spec/examples/iso_bib_item.yml"
     item_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-    item = RelatonIsoBib::IsoBibliographicItem.new item_hash
+    item = RelatonIsoBib::IsoBibliographicItem.new **item_hash
     xml = item.to_xml bibdata: true
     file = "spec/examples/from_yaml.xml"
     File.write file, xml, encoding: "UTF-8" unless File.exist? file

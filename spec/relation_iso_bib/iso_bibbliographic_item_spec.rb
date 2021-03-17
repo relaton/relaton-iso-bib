@@ -10,7 +10,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     subject do
       hash = YAML.load_file "spec/examples/iso_bib_item.yml"
       bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-      RelatonIsoBib::IsoBibliographicItem.new bib_hash
+      RelatonIsoBib::IsoBibliographicItem.new **bib_hash
     end
 
     it "create instance" do
@@ -125,7 +125,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       File.write file, hash.to_yaml unless File.exist? file
       h = RelatonIsoBib::HashConverter.hash_to_bib(YAML.load_file(file))
       h[:fetched] = Date.today.to_s
-      b = RelatonIsoBib::IsoBibliographicItem.new(h)
+      b = RelatonIsoBib::IsoBibliographicItem.new(**h)
       expect(hash).to eq b.to_hash
     end
 

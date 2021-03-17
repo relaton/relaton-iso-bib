@@ -131,20 +131,20 @@ module RelatonIsoBib
            copyright link fetched docid formattedref extent accesslocation
            classification validity doctype keyword].include? k
       end
-      super super_args
+      super **super_args
 
       @type = args[:type] || "standard"
 
       if args[:editorialgroup]
         @editorialgroup = if args[:editorialgroup].is_a?(Hash)
-                            EditorialGroup.new(args[:editorialgroup])
+                            EditorialGroup.new(**args[:editorialgroup])
                           else args[:editorialgroup]
                           end
       end
 
       @structuredidentifier = args[:structuredidentifier]
       # @doctype = args[:doctype] || "international-standard"
-      @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(i) : i }
+      @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(**i) : i }
       @stagename = args[:stagename]
       @id_attribute = true
     end
