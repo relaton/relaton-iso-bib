@@ -24,7 +24,7 @@ module RelatonIsoBib
     TYPES = %w[
       international-standard technical-specification technical-report
       publicly-available-specification international-workshop-agreement guide
-      amendment technical-corrigendum
+      amendment technical-corrigendum directive
     ].freeze
 
     # @return [RelatonIsoBib::StructuredIdentifier]
@@ -35,6 +35,9 @@ module RelatonIsoBib
 
     # @return [String, NilClass]
     attr_reader :doctype, :stagename
+
+    # @return [Boolean, nil]
+    attr_reader :horizontal
 
     # @return [RelatonIsoBib::EditorialGroup]
     attr_reader :editorialgroup
@@ -62,6 +65,8 @@ module RelatonIsoBib
     # @param classification [RelatonBib::Classification, NilClass]
     # @param validity [RelatonBib:Validity, NilClass]
     # @param docid [Array<RelatonBib::DocumentIdentifier>]
+    # @param doctype [String, nil]
+    # @param horizontal [Boolean, nil]
     # @param structuredidentifier [RelatonIsoBib::StructuredIdentifier]
     # @param stagename [String, NilClass]
     #
@@ -143,7 +148,7 @@ module RelatonIsoBib
       end
 
       @structuredidentifier = args[:structuredidentifier]
-      # @doctype = args[:doctype] || "international-standard"
+      @horizontal = args[:horizontal]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(**i) : i }
       @stagename = args[:stagename]
       @id_attribute = true
@@ -156,22 +161,22 @@ module RelatonIsoBib
     # @return [String] XML
     def to_xml(**opts)
       super **opts do |b|
-        if opts[:bibdata] && (doctype || respond_to?(:committee) && committee ||
-          editorialgroup || ics.any? || structuredidentifier || stagename ||
-          block_given?)
+        if block_given? then yield b
+        elsif opts[:bibdata] && has_ext_attrs?
           b.ext do
             b.doctype doctype if doctype
-            b.docsubtype docsubtype if respond_to?(:docsubtype) && docsubtype
+            b.horizontal horizontal unless horizontal.nil?
+            # b.docsubtype docsubtype if respond_to?(:docsubtype) && docsubtype
             # GB renders gbcommittee elements istead of an editorialgroup
-            if respond_to? :committee
-              committee&.to_xml b
-            else
-              editorialgroup&.to_xml b
-            end
+            # if respond_to? :committee
+            #   committee&.to_xml b
+            # else
+            editorialgroup&.to_xml b
+            # end
             ics.each { |i| i.to_xml b }
             structuredidentifier&.to_xml b
             b.stagename stagename if stagename
-            yield b if block_given?
+            # yield b if block_given?
           end
         end
       end
@@ -183,6 +188,7 @@ module RelatonIsoBib
     # @return [Hash]
     def to_hash
       hash = super
+      hash["horizontal"] = horizontal unless horizontal.nil?
       hash["stagename"] = stagename if stagename
       hash
     end
@@ -190,7 +196,7 @@ module RelatonIsoBib
     # @param prefix [String]
     # @return [String]
     def to_asciibib(prefix = "")
-      pref = prefix.empty? ? prefix : prefix + "."
+      pref = prefix.empty? ? prefix : "#{prefix}."
       out = super
       out += "#{pref}stagename:: #{stagename}\n" if stagename
       out
@@ -217,6 +223,14 @@ module RelatonIsoBib
         idstr = formattedref&.content
       end
       idstr&.gsub(/:/, "-")&.gsub(/\s/, "")&.strip
+    end
+
+    #
+    # @return [Boolean]
+    #
+    def has_ext_attrs? # rubocop:disable Metrics/CyclomaticComplexity
+      (doctype || !horizontal.nil? || editorialgroup || ics.any? ||
+        structuredidentifier || stagename || horizontal)
     end
   end
 end

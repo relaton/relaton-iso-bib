@@ -247,6 +247,8 @@ validity:
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
 
+horizontal: false
+
 editorialgroup:
   technical_committee:
     - type: technicalCommittee

@@ -13,9 +13,8 @@ module RelatonIsoBib
         ext = isoitem.at "./ext"
         return data unless ext
 
-        data[:doctype] = ext.at("./doctype")&.text
-        data[:editorialgroup] = fetch_editorialgroup ext
-        data[:structuredidentifier] = fetch_structuredidentifier ext
+        hrzt = ext.at("./horizontal")
+        data[:horizontal] = hrzt.text == "true" if hrzt
         data[:stagename] = ext.at("./stagename")&.text
         data
       end
