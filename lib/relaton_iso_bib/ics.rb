@@ -27,6 +27,7 @@ module RelatonIsoBib
     def to_hash
       hash = {}
       hash["code"] = code if code
+      hash["text"] = description if description
       hash
     end
 
