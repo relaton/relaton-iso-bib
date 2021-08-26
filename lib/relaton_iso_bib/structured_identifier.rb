@@ -31,8 +31,8 @@ module RelatonIsoBib
 
     # in docid manipulations, assume ISO as the default: id-part:year
     def remove_part
-      @part_number = nil
-      @subpart_number = nil
+      @part = nil
+      @subpart = nil
       @project_number = case @type
                         when "Chinese Standard"
                           @project_number.sub(/\.\d+/, "")

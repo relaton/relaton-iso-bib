@@ -10,7 +10,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     subject do
       hash = YAML.load_file "spec/examples/iso_bib_item.yml"
       bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-      RelatonIsoBib::IsoBibliographicItem.new **bib_hash
+      RelatonIsoBib::IsoBibliographicItem.new(**bib_hash)
     end
 
     it "create instance" do
@@ -79,20 +79,6 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(xml).to include "<gbtype>type</gbtype>"
     end
 
-    # it "returns xml with gbcommittee instead editorialgroup (for GB)" do
-    #   expect(subject).to receive(:respond_to?).with(:docsubtype)
-    #     .and_return(false).at_least :once
-    #   expect(subject).to receive(:respond_to?).with(:committee).and_return(true)
-    #     .at_least :once
-    #   committee = double
-    #   expect(committee).to receive(:to_xml) do |bldr|
-    #     bldr.gbcommittee "committee"
-    #   end
-    #   expect(subject).to receive(:committee).and_return committee
-    #   expect(subject.to_xml(bibdata: true))
-    #     .to include "<gbcommittee>committee</gbcommittee>"
-    # end
-
     it "has dates" do
       expect(subject.date.filter(type: "published").first)
         .to be_instance_of RelatonBib::BibliographicDate
@@ -145,10 +131,17 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     expect(item.editorialgroup).to be_instance_of RelatonIsoBib::EditorialGroup
   end
 
-  it "raises invalid type argument error" do
+  it "warn invalid doctype argument" do
     expect do
       RelatonIsoBib::IsoBibliographicItem.new doctype: "type"
     end.to output(/invalid doctype: type/).to_stderr
+  end
+
+  it "warn invalid subdoctype argument" do
+    expect do
+      RelatonIsoBib::IsoBibliographicItem.new subdoctype: "type"
+    end.to output("Invald subdoctype 'type'. Allowed values are: "\
+      "specification, method-of-test, vocabulary, code-of-practice\n").to_stderr
   end
 
   context "doc identifier remove part/date" do

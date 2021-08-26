@@ -23,7 +23,7 @@ module RelatonIsoBib
       # @param item_hash [Hash]
       # @return [RelatonIsoBib::IsoBibliographicItem]
       def bib_item(item_hash)
-        IsoBibliographicItem.new **item_hash
+        IsoBibliographicItem.new(**item_hash)
       end
 
       # @param ext [Nokogiri::XML::Element]
@@ -60,8 +60,8 @@ module RelatonIsoBib
       def iso_subgroup(com)
         return nil if com.nil?
 
-        IsoSubgroup.new(name: com.text, type: com[:type],
-                        number: com[:number]&.to_i)
+        RelatonBib::WorkGroup.new(name: com.text, type: com[:type],
+                                  number: com[:number]&.to_i)
       end
     end
   end

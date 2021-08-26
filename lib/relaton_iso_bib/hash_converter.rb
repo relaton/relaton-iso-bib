@@ -18,7 +18,7 @@ module RelatonIsoBib
       # @param title [Hash]
       # @return [RelatonBib::TypedTitleString]
       def typed_title_strig(title)
-        RelatonBib::TypedTitleString.new **title
+        RelatonBib::TypedTitleString.new(**title)
       end
 
       # @param ret [Hash]

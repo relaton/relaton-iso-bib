@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2021-05-07</fetched>
+  <fetched>2021-08-03</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -163,6 +163,7 @@
   </validity>
   <ext>
     <doctype>international-standard</doctype>
+    <subdoctype>specification</subdoctype>
     <horizontal>false</horizontal>
     <editorialgroup>
       <technical-committee number="211" type="technicalCommittee">ISO/TC 211 Geographic information/Geomatics</technical-committee>

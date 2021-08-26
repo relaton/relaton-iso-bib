@@ -35,13 +35,13 @@ module RelatonIsoBib
     # @param secretariat [String, NilClass]
     def initialize(technical_committee:, **args) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
       @technical_committee = technical_committee.map do |tc|
-        tc.is_a?(Hash) ? IsoSubgroup.new(**tc) : tc
+        tc.is_a?(Hash) ? RelatonBib::WorkGroup.new(**tc) : tc
       end
       @subcommittee = args.fetch(:subcommittee, []).map do |sc|
-        sc.is_a?(Hash) ? IsoSubgroup.new(**sc) : sc
+        sc.is_a?(Hash) ? RelatonBib::WorkGroup.new(**sc) : sc
       end
       @workgroup = args.fetch(:workgroup, []).map do |wg|
-        wg.is_a?(Hash) ? IsoSubgroup.new(**wg) : wg
+        wg.is_a?(Hash) ? RelatonBib::WorkGroup.new(**wg) : wg
       end
       @secretariat = args[:secretariat]
     end
@@ -86,7 +86,7 @@ module RelatonIsoBib
     # @param prefix [String]
     # @return [String]
     def to_asciibib(prefix = "") # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      pref = prefix.empty? ? prefix : prefix + "."
+      pref = prefix.empty? ? prefix : "#{prefix}."
       pref += "editorialgroup"
       out = ""
       technical_committee.each do |tc|
@@ -105,48 +105,48 @@ module RelatonIsoBib
   end
 
   # ISO subgroup.
-  class IsoSubgroup
-    # @return [String, NilClass]
-    attr_reader :type
+  # class IsoSubgroup
+  #   # @return [String, NilClass]
+  #   attr_reader :type
 
-    # @return [Integer, NilClass]
-    attr_reader :number
+  #   # @return [Integer, NilClass]
+  #   attr_reader :number
 
-    # @return [String]
-    attr_reader :name
+  #   # @return [String]
+  #   attr_reader :name
 
-    # @param name [String]
-    # @param type [String, NilClass]
-    # @param number [Integer, NilClass]
-    def initialize(name:, type: nil, number: nil)
-      @name   = name
-      @type   = type
-      @number = number
-    end
+  #   # @param name [String]
+  #   # @param type [String, NilClass]
+  #   # @param number [Integer, NilClass]
+  #   def initialize(name:, type: nil, number: nil)
+  #     @name   = name
+  #     @type   = type
+  #     @number = number
+  #   end
 
-    # @param builder [Nokogiri::XML::Builder]
-    def to_xml(builder)
-      builder.parent[:number] = number if number
-      builder.parent[:type] = type if type
-      builder.text name
-    end
+  #   # @param builder [Nokogiri::XML::Builder]
+  #   def to_xml(builder)
+  #     builder.parent[:number] = number if number
+  #     builder.parent[:type] = type if type
+  #     builder.text name
+  #   end
 
-    # @return [Hash]
-    def to_hash
-      hash = { "name" => name }
-      hash["type"] = type if type
-      hash["number"] = number if number
-      hash
-    end
+  #   # @return [Hash]
+  #   def to_hash
+  #     hash = { "name" => name }
+  #     hash["type"] = type if type
+  #     hash["number"] = number if number
+  #     hash
+  #   end
 
-    # @param prefix [String]
-    # @param count [Integer] number of the elements
-    def to_asciibib(prefix, count = 1)
-      out = count > 1 ? "#{prefix}::\n" : ""
-      out += "#{prefix}.type:: #{type}\n" if type
-      out += "#{prefix}.number:: #{number}\n" if number
-      out += "#{prefix}.name:: #{name}\n"
-      out
-    end
-  end
+  #   # @param prefix [String]
+  #   # @param count [Integer] number of the elements
+  #   def to_asciibib(prefix, count = 1)
+  #     out = count > 1 ? "#{prefix}::\n" : ""
+  #     out += "#{prefix}.type:: #{type}\n" if type
+  #     out += "#{prefix}.number:: #{number}\n" if number
+  #     out += "#{prefix}.name:: #{name}\n"
+  #     out
+  #   end
+  # end
 end

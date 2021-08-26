@@ -1,7 +1,7 @@
 [%bibitem]
 == {blank}
 id:: ISO/TC211
-fetched:: 2020-11-17
+fetched:: 2021-08-03
 title::
 title.type:: title-intro
 title.content:: Geographic information
@@ -190,15 +190,16 @@ series.formattedref.language:: en
 series.formattedref.script:: Latn
 series.formattedref.format:: text/plain
 doctype:: international-standard
-editorialgroup.technical_committee.type:: technicalCommittee
-editorialgroup.technical_committee.number:: 211
+subdoctype:: specification
 editorialgroup.technical_committee.name:: ISO/TC 211 Geographic information/Geomatics
-editorialgroup.subcommittee.type:: ISO
-editorialgroup.subcommittee.number:: 122
+editorialgroup.technical_committee.number:: 211
+editorialgroup.technical_committee.type:: technicalCommittee
 editorialgroup.subcommittee.name:: International Organization for Standardization
-editorialgroup.workgroup.type:: WG
-editorialgroup.workgroup.number:: 111
+editorialgroup.subcommittee.number:: 122
+editorialgroup.subcommittee.type:: ISO
 editorialgroup.workgroup.name:: Workgroup Organization
+editorialgroup.workgroup.number:: 111
+editorialgroup.workgroup.type:: WG
 ics.code:: 35.240.70
 ics.description:: IT applications in science
 structured_identifier.tc_document_number:: 1234

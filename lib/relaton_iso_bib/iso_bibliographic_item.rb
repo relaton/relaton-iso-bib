@@ -27,6 +27,8 @@ module RelatonIsoBib
       amendment technical-corrigendum directive
     ].freeze
 
+    SUBDOCTYPES = %w[specification method-of-test vocabulary code-of-practice].freeze
+
     # @return [RelatonIsoBib::StructuredIdentifier]
     attr_reader :structuredidentifier
 
@@ -66,6 +68,7 @@ module RelatonIsoBib
     # @param validity [RelatonBib:Validity, NilClass]
     # @param docid [Array<RelatonBib::DocumentIdentifier>]
     # @param doctype [String, nil]
+    # @param subdoctype [String, nil]
     # @param horizontal [Boolean, nil]
     # @param structuredidentifier [RelatonIsoBib::StructuredIdentifier]
     # @param stagename [String, NilClass]
@@ -130,13 +133,14 @@ module RelatonIsoBib
     def initialize(**args)
       check_doctype args[:doctype]
 
-      super_args = args.select do |k|
-        %i[id title docnumber language script docstatus date abstract
-           contributor edition version relation biblionote series medium place
-           copyright link fetched docid formattedref extent accesslocation
-           classification validity doctype keyword].include? k
-      end
-      super **super_args
+      arg_names = %i[
+        id title docnumber language script docstatus date abstract contributor
+        edition version relation biblionote series medium place copyright link
+        fetched docid formattedref extent accesslocation classification validity
+        editorialgroup doctype keyword
+      ]
+      super_args = args.select { |k| arg_names.include? k }
+      super(**super_args)
 
       @type = args[:type] || "standard"
 
@@ -147,6 +151,10 @@ module RelatonIsoBib
                           end
       end
 
+      if args[:subdoctype] && !SUBDOCTYPES.include?(args[:subdoctype])
+        warn "Invald subdoctype '#{args[:subdoctype]}'. Allowed values are: #{SUBDOCTYPES.join(', ')}"
+      end
+      @subdoctype = args[:subdoctype]
       @structuredidentifier = args[:structuredidentifier]
       @horizontal = args[:horizontal]
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(**i) : i }
@@ -160,23 +168,17 @@ module RelatonIsoBib
     # @option opts [String] :lang language
     # @return [String] XML
     def to_xml(**opts)
-      super **opts do |b|
+      super(**opts) do |b|
         if block_given? then yield b
         elsif opts[:bibdata] && has_ext_attrs?
           b.ext do
             b.doctype doctype if doctype
+            b.subdoctype subdoctype if subdoctype
             b.horizontal horizontal unless horizontal.nil?
-            # b.docsubtype docsubtype if respond_to?(:docsubtype) && docsubtype
-            # GB renders gbcommittee elements istead of an editorialgroup
-            # if respond_to? :committee
-            #   committee&.to_xml b
-            # else
             editorialgroup&.to_xml b
-            # end
             ics.each { |i| i.to_xml b }
             structuredidentifier&.to_xml b
             b.stagename stagename if stagename
-            # yield b if block_given?
           end
         end
       end
@@ -208,7 +210,8 @@ module RelatonIsoBib
     # @raise ArgumentError
     def check_doctype(doctype)
       if doctype && !self.class::TYPES.include?(doctype)
-        warn "[relaton-iso-bib] invalid doctype: #{doctype}"
+        warn "[relaton-iso-bib] WARNING: invalid doctype: #{doctype}"
+        warn "[relaton-iso-bib] Allowed doctypes are: #{self.class::TYPES.join(', ')}"
       end
     end
 

@@ -218,8 +218,9 @@ validity:
   begins: 2010-10-10 12:21
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
-fetched: '2021-05-07'
+fetched: '2021-08-03'
 doctype: international-standard
+subdoctype: specification
 editorialgroup:
   technical_committee:
     name: ISO/TC 211 Geographic information/Geomatics
@@ -235,6 +236,7 @@ editorialgroup:
     number: '111'
 ics:
   code: 35.240.70
+  text: IT applications in science
 structuredidentifier:
   tc_document_number: '1234'
   project_number: ISO 1-2:2014
