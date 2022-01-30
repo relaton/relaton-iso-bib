@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov"
 
   spec.add_dependency "isoics", "~> 0.1.6"
-  spec.add_dependency "relaton-bib", "~> 1.9.0"
+  spec.add_dependency "relaton-bib", "~> 1.10.0"
 end
