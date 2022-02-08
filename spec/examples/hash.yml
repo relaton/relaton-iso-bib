@@ -3,43 +3,59 @@ id: ISO/TC211
 title:
 - type: title-intro
   content: Geographic information
-  language: en
-  script: Latn
+  language:
+  - en
+  script:
+  - Latn
   format: text/plain
 - type: title-main
   content: Metadata
-  language: en
-  script: Latn
+  language:
+  - en
+  script:
+  - Latn
   format: text/plain
 - type: title-part
   content: 'Part 1: Fundamentals'
-  language: en
-  script: Latn
+  language:
+  - en
+  script:
+  - Latn
   format: text/plain
 - type: main
   content: 'Geographic information – Metadata – Part 1: Fundamentals'
-  language: en
-  script: Latn
+  language:
+  - en
+  script:
+  - Latn
   format: text/plain
 - type: title-intro
   content: Information géographique
-  language: fr
-  script: Latn
+  language:
+  - fr
+  script:
+  - Latn
   format: text/plain
 - type: title-main
   content: Métadonnées
-  language: fr
-  script: Latn
+  language:
+  - fr
+  script:
+  - Latn
   format: text/plain
 - type: title-part
   content: Information géographique
-  language: fr
-  script: Latn
+  language:
+  - fr
+  script:
+  - Latn
   format: text/plain
 - type: main
   content: Information géographique – Métadonnées – Information géographique
-  language: fr
-  script: Latn
+  language:
+  - fr
+  script:
+  - Latn
   format: text/plain
 link:
 - content: https://www.iso.org/standard/53798.html
@@ -50,8 +66,9 @@ link:
   type: rss
 type: standard
 docid:
-  id: TC211
+- id: TC211
   type: ISO
+  primary: true
 docnumber: '123456'
 date:
 - type: issued
@@ -62,23 +79,27 @@ date:
   value: '2015-05-20'
 contributor:
 - organization:
-    name: International Organization for Standardization
+    name:
+    - International Organization for Standardization
     abbreviation: ISO
     url: www.iso.org
   role:
-    description: Publisher role
+  - description:
+    - Publisher role
     type: publisher
 - person:
     name:
       completename:
         content: A. Bierman
-        language: en
+        language:
+        - en
     affiliation:
-      organization:
-        name: IETF
+    - organization:
+        name:
+        - IETF
         abbreviation: IETF
         identifier:
-          type: uri
+        - type: uri
           id: www.ietf.org
     contact:
     - street:
@@ -89,28 +110,34 @@ contributor:
       postcode: '123456'
     - type: phone
       value: '223322'
-  role: author
+  role:
+  - author
 - organization:
-    name: IETF
+    name:
+    - IETF
     abbreviation: IETF
     identifier:
-      type: uri
+    - type: uri
       id: www.ietf.org
-  role: publisher
+  role:
+  - publisher
 - person:
     name:
       initial:
-        content: A.
-        language: en
+      - content: A.
+        language:
+        - en
       surname:
         content: Bierman
-        language: en
+        language:
+        - en
     affiliation:
-      organization:
-        name: IETF
+    - organization:
+        name:
+        - IETF
         abbreviation: IETF
     identifier:
-      type: uri
+    - type: uri
       id: www.person.com
     contact:
     - street:
@@ -121,27 +148,34 @@ contributor:
       postcode: '123456'
     - type: phone
       value: '223322'
-  role: author
+  role:
+  - author
 edition: '1'
 version:
   revision_date: '2019-04-01'
-  draft: draft
+  draft:
+  - draft
 revdate: '2019-04-01'
 biblionote:
-  content: note
+- content: note
   type: bibnote
 language:
 - en
 - fr
-script: Latn
+script:
+- Latn
 abstract:
 - content: ISO 19115-1:2014 defines the schema required for ...
-  language: en
-  script: Latn
+  language:
+  - en
+  script:
+  - Latn
   format: text/plain
 - content: L'ISO 19115-1:2014 définit le schéma requis pour ...
-  language: fr
-  script: Latn
+  language:
+  - fr
+  script:
+  - Latn
   format: text/plain
 docstatus:
   stage:
@@ -150,8 +184,9 @@ docstatus:
     value: 60
   iteration: final
 copyright:
-  owner:
-    name: International Organization for Standardization
+- owner:
+  - name:
+    - International Organization for Standardization
     abbreviation: ISO
     url: www.iso.org
   from: '2014'
@@ -165,8 +200,8 @@ relation:
       content: ISO 19115:2003
       format: text/plain
   locality:
-    locality_stack:
-      type: section
+  - locality_stack:
+    - type: section
       reference_from: Reference from
 - type: updates
   bibitem:
@@ -180,15 +215,19 @@ series:
   title:
     type: title-main
     content: ISO/IEC FDIS 10118-3
-    language: en
-    script: Latn
+    language:
+    - en
+    script:
+    - Latn
     format: text/plain
   place: Serie's place
   organization: Serie's organization
   abbreviation:
     content: ABVR
-    language: en
-    script: Latn
+    language:
+    - en
+    script:
+    - Latn
   from: '2009-02-01'
   to: '2010-12-20'
   number: serie1234
@@ -196,46 +235,49 @@ series:
 - type: alt
   formattedref:
     content: serieref
-    language: en
-    script: Latn
+    language:
+    - en
+    script:
+    - Latn
     format: text/plain
 medium:
   form: medium form
   size: medium size
   scale: medium scale
-place: bib place
+place:
+- bib place
 extent:
-  type: section
+- type: section
   reference_from: Reference from
   reference_to: Reference to
 accesslocation:
 - accesslocation1
 - accesslocation2
 classification:
-  value: value
+- value: value
   type: type
 validity:
   begins: 2010-10-10 12:21
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
-fetched: '2021-08-03'
+fetched: '2022-02-01'
 doctype: international-standard
 subdoctype: specification
 editorialgroup:
   technical_committee:
-    name: ISO/TC 211 Geographic information/Geomatics
-    type: technicalCommittee
+  - name: ISO/TC 211 Geographic information/Geomatics
     number: '211'
+    type: technicalCommittee
   subcommittee:
-    name: International Organization for Standardization
-    type: ISO
+  - name: International Organization for Standardization
     number: '122'
+    type: ISO
   workgroup:
-    name: Workgroup Organization
-    type: WG
+  - name: Workgroup Organization
     number: '111'
+    type: WG
 ics:
-  code: 35.240.70
+- code: 35.240.70
   text: IT applications in science
 structuredidentifier:
   tc_document_number: '1234'

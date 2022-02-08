@@ -1,7 +1,7 @@
 [%bibitem]
 == {blank}
 id:: ISO/TC211
-fetched:: 2021-08-03
+fetched:: 2022-02-01
 title::
 title.type:: title-intro
 title.content:: Geographic information
@@ -52,6 +52,7 @@ title.script:: Latn
 title.format:: text/plain
 type:: standard
 docid.type:: ISO
+docid.primary:: true
 docid.id:: TC211
 docnumber:: 123456
 edition:: 1

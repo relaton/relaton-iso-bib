@@ -55,6 +55,7 @@ subdoctype: specification
 docid:
   - id: TC211
     type: ISO
+    primary: true
 
 docnumber: "123456"
 edition: "1"
