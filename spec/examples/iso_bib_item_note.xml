@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2022-02-01</fetched>
+  <fetched>2022-04-08</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -149,9 +149,11 @@
     <scale>medium scale</scale>
   </medium>
   <place>bib place</place>
-  <extent type="section">
-    <referenceFrom>Reference from</referenceFrom>
-    <referenceTo>Reference to</referenceTo>
+  <extent>
+    <locality type="section">
+      <referenceFrom>Reference from</referenceFrom>
+      <referenceTo>Reference to</referenceTo>
+    </locality>
   </extent>
   <accesslocation>accesslocation1</accesslocation>
   <accesslocation>accesslocation2</accesslocation>

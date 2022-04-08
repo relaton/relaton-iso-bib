@@ -1,7 +1,7 @@
 [%bibitem]
 == {blank}
 id:: ISO/TC211
-fetched:: 2022-02-01
+fetched:: 2022-04-08
 title::
 title.type:: title-intro
 title.content:: Geographic information
@@ -104,9 +104,9 @@ medium.form:: medium form
 medium.size:: medium size
 medium.scale:: medium scale
 place.name:: bib place
-extent.type:: section
-extent.reference_from:: Reference from
-extent.reference_to:: Reference to
+extent.locality.type:: section
+extent.locality.reference_from:: Reference from
+extent.locality.reference_to:: Reference to
 accesslocation:: accesslocation1
 accesslocation:: accesslocation2
 classification.type:: type

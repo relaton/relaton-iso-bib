@@ -232,9 +232,10 @@ place:
   - bib place
 
 extent:
-  - type: section
-    reference_from: Reference from
-    reference_to: Reference to
+  - locality:
+      type: section
+      reference_from: Reference from
+      reference_to: Reference to
 
 accesslocation:
   - accesslocation1
