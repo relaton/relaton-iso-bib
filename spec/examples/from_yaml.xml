@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2022-04-08</fetched>
+  <fetched>2022-06-23</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -141,6 +141,7 @@
   </series>
   <series type="alt">
     <formattedref format="text/plain" language="en" script="Latn">serieref</formattedref>
+    <title format="text/plain">Series Title</title>
   </series>
   <medium>
     <form>medium form</form>

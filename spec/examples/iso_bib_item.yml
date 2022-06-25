@@ -1,5 +1,7 @@
 id: ISO/TC211
 
+fetched: '2011-06-22'
+
 title:
 - type: title-intro
   content: Geographic information
@@ -68,9 +70,8 @@ script:
   - Latn
 
 version:
-  revision_date: "2019-04-01"
-  draft:
-     - draft
+  - revision_date: "2019-04-01"
+    draft: draft
 
 biblionote:
   - content: note
@@ -218,6 +219,8 @@ series:
     number: serie1234
     partnumber: part5678
   - type: alt
+    title:
+      content: Series Title
     formattedref:
       content: serieref
       language: en

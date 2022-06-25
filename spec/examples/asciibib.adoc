@@ -1,7 +1,7 @@
 [%bibitem]
 == {blank}
 id:: ISO/TC211
-fetched:: 2022-04-08
+fetched:: 2011-06-22
 title::
 title.type:: title-intro
 title.content:: Geographic information
@@ -55,7 +55,7 @@ docid.type:: ISO
 docid.primary:: true
 docid.id:: TC211
 docnumber:: 123456
-edition:: 1
+edition.content:: 1
 language:: en
 language:: fr
 script:: Latn
@@ -190,6 +190,8 @@ series.formattedref.content:: serieref
 series.formattedref.language:: en
 series.formattedref.script:: Latn
 series.formattedref.format:: text/plain
+series.title.content:: Series Title
+series.title.format:: text/plain
 doctype:: international-standard
 subdoctype:: specification
 editorialgroup.technical_committee.name:: ISO/TC 211 Geographic information/Geomatics

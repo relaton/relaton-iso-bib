@@ -47,10 +47,10 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       unless File.exist? file
         File.write file, subject.to_xml(bibdata: true), encoding: "utf-8"
       end
-      xml = File.read file, encoding: "UTF-8"
-      expect(subject.to_xml(bibdata: true)).to be_equivalent_to xml.sub(
-        %r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s
-      )
+      xml = subject.to_xml(bibdata: true)
+        .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
+      expect(xml).to be_equivalent_to File.read(file, encoding: "UTF-8")
+        .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
       schema = Jing.new "spec/examples/isobib.rng"
       errors = schema.validate file
       expect(errors).to eq []
@@ -60,7 +60,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       file = "spec/examples/iso_bib_item_note.xml"
       xml_res = subject.to_xml(
         note: [{ type: "note type", text: "test note" }], bibdata: true,
-      )
+      ).sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
       File.write file, xml_res, encoding: "utf-8" unless File.exist? file
       expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8")
         .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
@@ -110,7 +110,6 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       file = "spec/examples/hash.yml"
       File.write file, hash.to_yaml unless File.exist? file
       h = RelatonIsoBib::HashConverter.hash_to_bib(YAML.load_file(file))
-      h[:fetched] = Date.today.to_s
       b = RelatonIsoBib::IsoBibliographicItem.new(**h)
       expect(hash).to eq b.to_hash
     end
@@ -120,7 +119,6 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       bib = subject.to_asciibib
       File.write file, bib, encoding: "UTF-8" unless File.exist? file
       expect(bib).to eq File.read(file, encoding: "UTF-8")
-        .gsub(/(?<=fetched::\s)\d{4}-\d{2}-\d{2}/, Date.today.to_s)
     end
   end
 
