@@ -27,17 +27,17 @@ module RelatonIsoBib
         return unless eg
 
         ret[:editorialgroup] = EditorialGroup.new(
-          technical_committee: array(eg[:technical_committee]),
-          subcommittee: array(eg[:subcommittee]),
-          workgroup: array(eg[:workgroup]),
+          technical_committee: RelatonBib.array(eg[:technical_committee]),
+          subcommittee: RelatonBib.array(eg[:subcommittee]),
+          workgroup: RelatonBib.array(eg[:workgroup]),
           secretariat: eg[:secretariat],
         )
       end
 
       # @param ret [Hash]
       def ics_hash_to_bib(ret)
-        ret[:ics] = array(ret[:ics]).map do |ics|
-          ics[:code] ? Ics.new(ics[:code]) : Ics.new(ics)
+        ret[:ics] = RelatonBib.array(ret[:ics]).map do |ics|
+          Ics.new(ics[:code] || ics)
         end
       end
 
