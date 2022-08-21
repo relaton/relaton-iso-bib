@@ -1,62 +1,62 @@
 ---
 id: ISO/TC211
 title:
-- type: title-intro
-  content: Geographic information
+- content: Geographic information
   language:
   - en
   script:
   - Latn
   format: text/plain
-- type: title-main
-  content: Metadata
+  type: title-intro
+- content: Metadata
   language:
   - en
   script:
   - Latn
   format: text/plain
-- type: title-part
-  content: 'Part 1: Fundamentals'
+  type: title-main
+- content: 'Part 1: Fundamentals'
   language:
   - en
   script:
   - Latn
   format: text/plain
-- type: main
-  content: 'Geographic information – Metadata – Part 1: Fundamentals'
+  type: title-part
+- content: 'Geographic information – Metadata – Part 1: Fundamentals'
   language:
   - en
   script:
   - Latn
   format: text/plain
-- type: title-intro
-  content: Information géographique
+  type: main
+- content: Information géographique
   language:
   - fr
   script:
   - Latn
   format: text/plain
-- type: title-main
-  content: Métadonnées
+  type: title-intro
+- content: Métadonnées
   language:
   - fr
   script:
   - Latn
   format: text/plain
-- type: title-part
-  content: Information géographique
+  type: title-main
+- content: Information géographique
   language:
   - fr
   script:
   - Latn
   format: text/plain
-- type: main
-  content: Information géographique – Métadonnées – Information géographique
+  type: title-part
+- content: Information géographique – Métadonnées – Information géographique
   language:
   - fr
   script:
   - Latn
   format: text/plain
+  type: main
 link:
 - content: https://www.iso.org/standard/53798.html
   type: src
@@ -80,12 +80,13 @@ date:
 contributor:
 - organization:
     name:
-    - International Organization for Standardization
-    abbreviation: ISO
+    - content: International Organization for Standardization
+    abbreviation:
+      content: ISO
     url: www.iso.org
   role:
   - description:
-    - Publisher role
+    - content: Publisher role
     type: publisher
 - person:
     name:
@@ -96,26 +97,28 @@ contributor:
     affiliation:
     - organization:
         name:
-        - IETF
-        abbreviation: IETF
+        - content: IETF
+        abbreviation:
+          content: IETF
         identifier:
         - type: uri
           id: www.ietf.org
     contact:
-    - street:
-      - Street
-      city: City
-      state: State
-      country: Country
-      postcode: '123456'
-    - type: phone
-      value: '223322'
+    - address:
+        street:
+        - Street
+        city: City
+        state: State
+        country: Country
+        postcode: '123456'
+    - phone: '223322'
   role:
   - author
 - organization:
     name:
-    - IETF
-    abbreviation: IETF
+    - content: IETF
+    abbreviation:
+      content: IETF
     identifier:
     - type: uri
       id: www.ietf.org
@@ -123,34 +126,34 @@ contributor:
   - publisher
 - person:
     name:
-      initial:
-      - content: A.
-        language:
-        - en
+      given:
+        forename:
+        - content:
+          initial: A
       surname:
         content: Bierman
-        language:
-        - en
     affiliation:
     - organization:
         name:
-        - IETF
-        abbreviation: IETF
+        - content: IETF
+        abbreviation:
+          content: IETF
     identifier:
     - type: uri
       id: www.person.com
     contact:
-    - street:
-      - Street
-      city: City
-      state: State
-      country: Country
-      postcode: '123456'
-    - type: phone
-      value: '223322'
+    - address:
+        street:
+        - Street
+        city: City
+        state: State
+        country: Country
+        postcode: '123456'
+    - phone: '223322'
   role:
   - author
-edition: '1'
+edition:
+  content: '1'
 version:
 - revision_date: '2019-04-01'
   draft: draft
@@ -185,8 +188,9 @@ docstatus:
 copyright:
 - owner:
   - name:
-    - International Organization for Standardization
-    abbreviation: ISO
+    - content: International Organization for Standardization
+    abbreviation:
+      content: ISO
     url: www.iso.org
   from: '2014'
   to: '2020'
@@ -213,13 +217,13 @@ relation:
 series:
 - type: main
   title:
-    type: title-main
     content: ISO/IEC FDIS 10118-3
     language:
     - en
     script:
     - Latn
     format: text/plain
+    type: title-main
   place: Serie's place
   organization: Serie's organization
   abbreviation:

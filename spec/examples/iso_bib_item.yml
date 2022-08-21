@@ -126,14 +126,14 @@ contributor:
               - type: uri
                 id: www.ietf.org
       contact:
-        - street:
-          - Street
-          city: City
-          postcode: "123456"
-          country: Country
-          state: State
-        - type: phone
-          value: "223322"
+        - address:
+            street:
+            - Street
+            city: City
+            postcode: "123456"
+            country: Country
+            state: State
+        - phone: "223322"
     role:
       - author
   
@@ -148,23 +148,23 @@ contributor:
 
   - person:
       name:
-        language: en
-        initial:
-          - A.
+        given:
+          forename:
+            - initial: A
         surname: Bierman
       affiliation:
         - organization:
             name: IETF
             abbreviation: IETF
       contact:
-        - street:
-          - Street
-          city: City
-          postcode: "123456"
-          country: Country
-          state: State
-        - type: phone
-          value: "223322"
+        - address:
+            street:
+            - Street
+            city: City
+            postcode: "123456"
+            country: Country
+            state: State
+        - phone: "223322"
       identifier:
         - type: uri
           id: www.person.com

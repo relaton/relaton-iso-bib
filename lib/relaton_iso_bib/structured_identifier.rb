@@ -1,26 +1,26 @@
 module RelatonIsoBib
   # Document structured identifier.
   class StructuredIdentifier
-    # @return [Integer, NilClass]
+    # @return [Integer, nil]
     attr_reader :tc_document_number
 
     # @return [String]
     attr_reader :project_number
 
-    # @return [Integer, NilClass]
+    # @return [Integer, nil]
     attr_reader :part
 
-    # @return [Integer, NilClass]
+    # @return [Integer, nil]
     attr_reader :subpart
 
-    # @return [String, NilClass]
+    # @return [String, nil]
     attr_reader :type
 
-    # @param tc_document_number [Integer, NilClass]
+    # @param tc_document_number [Integer, nil]
     # @param project_number [String]
-    # @param part [String, NilClass]
-    # @param subpart [String, NilClass]
-    # @param type [String, NilClass]
+    # @param part [String, nil]
+    # @param subpart [String, nil]
+    # @param type [String, nil]
     def initialize(**args)
       @tc_document_number = args[:tc_document_number]
       @project_number = args[:project_number]
@@ -50,7 +50,7 @@ module RelatonIsoBib
     end
 
     def all_parts
-      @project_number = @project_number + " (all parts)"
+      @project_number = "#{@project_number} (all parts)"
     end
 
     def id
@@ -58,20 +58,20 @@ module RelatonIsoBib
     end
 
     # @param builder [Nokogiri::XML::Builder]
-    def to_xml(builder)
+    def to_xml(builder) # rubocop:disable Metrics/AbcSize
       xml = builder.structuredidentifier do
-        pn = builder.send "project-number", project_number
+        pn = builder.send :"project-number", project_number
         pn[:part] = part if part
         pn[:subpart] = subpart if subpart
         if tc_document_number
-          builder.send "tc-document-number", tc_document_number
+          builder.send :"tc-document-number", tc_document_number
         end
       end
       xml[:type] = type if type
     end
 
     # @return [Hash]
-    def to_hash
+    def to_hash # rubocop:disable Metrics/AbcSize
       hash = {}
       hash["tc_document_number"] = tc_document_number if tc_document_number
       hash["project_number"] = project_number if project_number
@@ -84,7 +84,7 @@ module RelatonIsoBib
     # @param prefix [String]
     # @return [String]
     def to_asciibib(prefix = "") # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-      pref = prefix.empty? ? prefix : prefix + "."
+      pref = prefix.empty? ? prefix : "#{prefix}."
       pref += "structured_identifier"
       out = ""
       if tc_document_number

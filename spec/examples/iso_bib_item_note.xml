@@ -1,5 +1,5 @@
 <bibdata type="standard">
-  <fetched>2022-06-24</fetched>
+  <fetched>2022-08-18</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -67,8 +67,8 @@
     <role type="author"/>
     <person>
       <name>
-        <initial language="en">A.</initial>
-        <surname language="en">Bierman</surname>
+        <forename initial="A"/>
+        <surname>Bierman</surname>
       </name>
       <affiliation>
         <organization>
