@@ -21,7 +21,7 @@ end
 module RelatonIsoBib
   # Bibliographic item.
   class IsoBibliographicItem < RelatonBib::BibliographicItem
-    TYPES = %w[
+    DOCTYPES = %w[
       international-standard technical-specification technical-report
       publicly-available-specification international-workshop-agreement guide
       amendment technical-corrigendum directive
@@ -133,16 +133,15 @@ module RelatonIsoBib
     def initialize(**args)
       check_doctype args[:doctype]
 
+      args[:type] ||= "standard"
       arg_names = %i[
         id title docnumber language script docstatus date abstract contributor
         edition version relation biblionote series medium place copyright link
         fetched docid formattedref extent accesslocation classification validity
-        editorialgroup doctype keyword
+        editorialgroup doctype keyword type
       ]
       super_args = args.select { |k| arg_names.include? k }
       super(**super_args)
-
-      @type = args[:type] || "standard"
 
       if args[:editorialgroup]
         @editorialgroup = if args[:editorialgroup].is_a?(Hash)
@@ -209,9 +208,9 @@ module RelatonIsoBib
     # @param doctype [String]
     # @raise ArgumentError
     def check_doctype(doctype)
-      if doctype && !self.class::TYPES.include?(doctype)
+      if doctype && !self.class::DOCTYPES.include?(doctype)
         warn "[relaton-iso-bib] WARNING: invalid doctype: #{doctype}"
-        warn "[relaton-iso-bib] Allowed doctypes are: #{self.class::TYPES.join(', ')}"
+        warn "[relaton-iso-bib] Allowed doctypes are: #{self.class::DOCTYPES.join(', ')}"
       end
     end
 

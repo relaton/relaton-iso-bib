@@ -32,7 +32,7 @@ module RelatonIsoBib
     # @option workgroup [String] :type
     # @option workgroup [Integer] :number
     #
-    # @param secretariat [String, NilClass]
+    # @param secretariat [String, nil]
     def initialize(technical_committee:, **args) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
       @technical_committee = technical_committee.map do |tc|
         tc.is_a?(Hash) ? RelatonBib::WorkGroup.new(**tc) : tc
@@ -58,7 +58,7 @@ module RelatonIsoBib
 
       builder.editorialgroup do
         technical_committee.each do |tc|
-          builder.send("technical-committee") { tc.to_xml builder }
+          builder.send(:"technical-committee") { tc.to_xml builder }
         end
         subcommittee.each do |sc|
           builder.subcommittee { sc.to_xml builder }
