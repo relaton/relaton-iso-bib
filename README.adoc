@@ -33,136 +33,32 @@ Or install it yourself as:
 
 [source,ruby]
 ----
-item = RelatonIsoBib::IsoBibliographicItem.new(
-    fetched: "2018-10-21",
-    structuredidentifier: RelatonIsoBib::StructuredIdentifier.new(
-      type: "sid", project_number: "ISO 1-2:2014", part: 2, subpart: 2,
-    ),
-    docnumber: "123456",
-    title: [
-      { type: "title-intro", content: "Metadata", language: "en", script: "Latn" },
-      { type: "title-main", content: "Geographic information", language: "en", script: "Latn" },
-      { type: "title-part", content: "Part 1: Fundamentals", language: "en", script: "Latn" },
-      { type: "main", content: "Metadata - Geographic information - Part 1: Fundamentals", language: "en", script: "Latn" },
-      { type: "title-intro", content: "Métadonnées", language: "fr", script: "Latn" },
-      { type: "title-main", content: "Information géographique", language: "fr", script: "Latn" },
-      { type: "title-part", content: "Partie 1: Principes de base", language: "fr", script: "Latn" },
-      { type: "main", content: "Information géographique - Métadonnées - Partie 1: Principes de base", language: "fr", script: "Latn" },
-    ],
-    edition: "1",
-    version: RelatonBib::BibliographicItem::Version.new("2019-04-01", ["draft"]),
-    language: %w[en fr],
-    script: ["Latn"],
-    type: "international-standard",
-    docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
-    date: [{ type: "published", on: "2014-04" }],
-    abstract: [
-      { content: "ISO 19115-1:2014 defines the schema required for ...",
-        language: "en", script: "Latn", format: "text/plain" },
-      { content: "L'ISO 19115-1:2014 définit le schéma requis pour ...",
-        language: "fr", script: "Latn", format: "text/plain" },
-    ],
-    contributor: [
-      { entity: { name: "International Organization for Standardization",
-                  url: "www.iso.org", abbreviation: "ISO" },
-        role: [type: "publisher"] },
-      {
-        entity: RelatonBib::Person.new(
-          name: RelatonBib::FullName.new(
-            completename: RelatonBib::LocalizedString.new("John Smith"),
-          ),
-        ),
-        role: [type: "author"],
-      },
-    ],
-    copyright: [{
-      owner: [{
-        name: "International Organization for Standardization",
-        abbreviation: "ISO", url: "www.iso.org"
-      }], from: "2014" }],
-    link: [
-      { type: "src", content: "https://www.iso.org/standard/53798.html" },
-      { type: "obp",
-        content: "https://www.iso.org/obp/ui/#!iso:std:53798:en" },
-      { type: "rss", content: "https://www.iso.org/contents/data/standard"\
-        "/05/37/53798.detail.rss" },
-    ],
-    relation: [
-      RelatonBib::DocumentRelation.new(
-        type: "updates",
-        bibitem: RelatonIsoBib::IsoBibliographicItem.new(
-          formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003"),
-          docstatus: RelatonBib::DocumentStatus.new(stage: "60", substage: "60"),
-        ),
-        locality: [
-          RelatonBib::BibItemLocality.new("updates", "Reference form"),
-        ],
-      ),
-      RelatonBib::DocumentRelation.new(
-        type: "updates",
-        bibitem: RelatonIsoBib::IsoBibliographicItem.new(
-          type: "international-standard",
-          formattedref: RelatonBib::FormattedRef.new(content: "ISO 19115:2003/Cor 1:2006"),
-        ),
-      ),
-    ],
-    series: [
-      RelatonBib::Series.new(
-        type: "main",
-        title: RelatonBib::TypedTitleString.new(
-          type: "title-main", content: "ISO/IEC FDIS 10118-3", language: "en", script: "Latn",
-        ),
-        place: "Serie's place",
-        organization: "Serie's organization",
-        abbreviation: RelatonBib::LocalizedString.new("ABVR", "en", "Latn"),
-        from: "2009-02-01",
-        to: "2010-12-20",
-        number: "serie1234",
-        partnumber: "part5678",
-      ),
-      RelatonBib::Series.new(
-        type: "alt",
-        formattedref: RelatonBib::FormattedRef.new(
-          content: "serieref", language: "en", script: "Latn",
-        ),
-      )
-    ],
-    medium: RelatonBib::Medium.new(
-      form: "medium form", size: "medium size", scale: "medium scale",
-    ),
-    place: ["bib place"],
-    extent: [
-      RelatonBib::BibItemLocality.new(
-        "section", "Reference from", "Reference to"
-      ),
-    ],
-    accesslocation: ["accesslocation1", "accesslocation2"],
-    classification: [RelatonBib::Classification.new(type: "type", value: "value")],
-    validity: RelatonBib::Validity.new(
-      begins: Time.new(2010, 10, 10, 12, 21),
-      ends: Time.new(2011, 2, 3, 18,30),
-      revision: Time.new(2011, 3, 4, 9, 0),
-    ),
-    editorialgroup: {
-      technical_committee: [{
-        name: " ISO/TC 211 Geographic information/Geomatics",
-        type: "technicalCommittee", number: 211
-      }],
-      subcommittee: [{
-        name: "International Organization for Standardization",
-        type: "ISO", number: 122,
-      }],
-      workgroup: [RelatonIsoBib::IsoSubgroup.new(
-        name: "Workgroup Organization",
-        type: "WG", number: 111,
-      )],
-    },
-    ics: [{ field: 35, group: 240, subgroup: 70 }],
-  )
+require 'relaton_iso_bib'
+=> true
 
-=> #<RelatonIsoBib::IsoBibliographicItem:0x007fc0b88c66a0
+hash = YAML.load_file "spec/examples/iso_bib_item.yml"
+=> {
+    "schema-version"=>"v1.0.0",
+    "id"=>"ISO/TC211",
+    "title"=>[
+      {"type"=>"title-intro", "content"=>"Geographic information", "language"=>"en", "script"=>"Latn", "format"=>"text/plain"},
+    ...
+
+bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
+=> {:"schema-version"=>"v1.0.0",
+ :id=>"ISO/TC211",
+ :fetched=>"2011-06-22",
+ :title=>
+  #<RelatonBib::TypedTitleStringCollection:0x00007ff73e922ab0
+   @array=
+    [#<RelatonBib::TypedTitleString:0x00007ff73e9225d8
+  ...
+
+item = RelatonIsoBib::IsoBibliographicItem.new(**bib_hash)
+=> #<RelatonIsoBib::IsoBibliographicItem:0x00007ff77f8952c8
  @abstract=
-  [#<RelatonBib::FormattedString:0x007fc0b88c5ae8 @content="ISO 19115-1:2014 defines the schema required for ...", @format="text/plain", @language=["en"], @script=["Latn"]>,
+  [#<RelatonBib::FormattedString:0x00007ff76f1496c8
+    @content="ISO 19115-1:2014 defines the schema required for ...",
   ...
 ----
 
@@ -171,45 +67,66 @@ item = RelatonIsoBib::IsoBibliographicItem.new(
 [source,ruby]
 ----
 item.title
-=> [#<RelatonBib::TypedTitleString:0x007fc08e95a640
-  @title=#<RelatonBib::FormattedString:0x007fc08e95a500 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-intro">,
- #<RelatonBib::TypedTitleString:0x007fc08e95a460
-  @title=#<RelatonBib::FormattedString:0x007fc08e95a320 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonBib::TypedTitleString:0x007fc08e95a280
-  @title=#<RelatonBib::FormattedString:0x007fc08e95a140 @content="Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-part">,
- #<RelatonBib::TypedTitleString:0x007fc08e95a0a0
-  @title=#<RelatonBib::FormattedString:0x007fc08e959f60 @content="Metadata - Geographic information - Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="main">,
- #<RelatonBib::TypedTitleString:0x007fc08e959ec0
-  @title=#<RelatonBib::FormattedString:0x007fc08e959d80 @content="Métadonnées", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="title-intro">,
- #<RelatonBib::TypedTitleString:0x007fc08e959ce0
-  @title=#<RelatonBib::FormattedString:0x007fc08e959ba0 @content="Information géographique", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonBib::TypedTitleString:0x007fc08e959b00
-  @title=#<RelatonBib::FormattedString:0x007fc08e9599c0 @content="Partie 1: Principes de base", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="title-part">,
- #<RelatonBib::TypedTitleString:0x007fc08e959920
-  @title=
-   #<RelatonBib::FormattedString:0x007fc08e9597e0 @content="Information géographique - Métadonnées - Partie 1: Principes de base", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="main">]
+=> #<RelatonBib::TypedTitleStringCollection:0x00007ff73e922ab0
+ @array=
+  [#<RelatonBib::TypedTitleString:0x00007ff73e9225d8
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e9224c0 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-intro">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921cc8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921b60 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9219d0
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921908 @content="Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-part">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921638
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e921548
+      @content="Geographic information – Metadata – Part 1: Fundamentals",
+      @format="text/plain",
+      @language=["en"],
+      @script=["Latn"]>,
+    @type="main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9214a8
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e921368 @content="Information géographique", @format="text/plain", @language=["fr"], @script=["Latn"]>,
+    @type="title-intro">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9212c8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e9211b0 @content="Métadonnées", @format="text/plain", @language=["fr"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921020
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e920f08 @content="Information géographique", @format="text/plain", @language=["fr"], @script=["Latn"]>,
+    @type="title-part">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e920da0
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e920c60
+      @content="Information géographique – Métadonnées – Information géographique",
+      @format="text/plain",
+      @language=["fr"],
+      @script=["Latn"]>,
+    @type="main">]>
 
 item.title(lang: "en")
-=> [#<RelatonBib::TypedTitleString:0x007fc08e95a640
-  @title=#<RelatonBib::FormattedString:0x007fc08e95a500 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-intro">,
- #<RelatonBib::TypedTitleString:0x007fc08e95a460
-  @title=#<RelatonBib::FormattedString:0x007fc08e95a320 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonBib::TypedTitleString:0x007fc08e95a280
-  @title=#<RelatonBib::FormattedString:0x007fc08e95a140 @content="Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-part">,
- #<RelatonBib::TypedTitleString:0x007fc08e95a0a0
-  @title=#<RelatonBib::FormattedString:0x007fc08e959f60 @content="Metadata - Geographic information - Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="main">]
+=> #<RelatonBib::TypedTitleStringCollection:0x00007ff72f0c2e88
+ @array=
+  [#<RelatonBib::TypedTitleString:0x00007ff73e9225d8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e9224c0 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-intro">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921cc8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921b60 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9219d0
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921908 @content="Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-part">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921638
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e921548
+      @content="Geographic information – Metadata – Part 1: Fundamentals",
+      @format="text/plain",
+      @language=["en"],
+      @script=["Latn"]>,
+    @type="main">]>
 
 item.abstract(lang: "en").to_s
 => "ISO 19115-1:2014 defines the schema required for ..."
@@ -220,7 +137,7 @@ item.abstract(lang: "en").to_s
 [source,ruby]
 ----
 item.shortref(item.structuredidentifier)
-=> "ISO1-2-2014"
+=> "ISO1-2-2014:2014"
 ----
 
 === IsoBibliographicItem URLs
@@ -258,9 +175,23 @@ item.ics
 [source,ruby]
 ----
 item.date
-=> [#<RelatonBib::BibliographicDate:0x007fc0aeb88438 @from=nil, @on=#<Date: 2014-04-01 ((2456749j,0s,0n),+0s,2299161j)>, @to=nil, @type="published">]
+=> [#<RelatonBib::BibliographicDate:0x00007ff77f894f08 @from=nil, @on="2014", @to=nil, @type="issued">,
+ #<RelatonBib::BibliographicDate:0x00007ff76f161f70 @from=nil, @on="2014-04", @to=nil, @type="published">,
+ #<RelatonBib::BibliographicDate:0x00007ff76f1605f8 @from=nil, @on="2015-05-20", @to=nil, @type="accessed">]
 
 item.date.filter(type: "published").first.on
+=> "2014-04"
+
+item.date.filter(type: "published").first.on :year
+=> 2014
+
+item.date.filter(type: "published").first.on :month
+=> 4
+
+item.date.filter(type: "published").first.on :day
+=> nil
+
+item.date.filter(type: "published").first.on :date
 => #<Date: 2014-04-01 ((2456749j,0s,0n),+0s,2299161j)>
 ----
 
@@ -269,20 +200,32 @@ item.date.filter(type: "published").first.on
 [source,ruby]
 ----
 item.status
-=> #<RelatonBib::DocumentStatus:0x007fc0aeb927d0
- @iteration=nil,
- @stage=#<RelatonBib::DocumentStatus::Stage:0x007fc0aeb92708 @abbreviation=nil, @value="60">,
- @substage=#<RelatonBib::DocumentStatus::Stage:0x007fc0aeb92690 @abbreviation=nil, @value="60">>
+=> #<RelatonBib::DocumentStatus:0x00007ff76f0eb8e8
+ @iteration="final",
+ @stage=#<RelatonBib::DocumentStatus::Stage:0x00007ff76f0ebaf0 @abbreviation=nil, @value=60>,
+ @substage=#<RelatonBib::DocumentStatus::Stage:0x00007ff76f0eba78 @abbreviation=nil, @value=60>>
 ----
 
 [source,ruby]
 ----
 wg = item.editorialgroup
-=> #<RelatonIsoBib::EditorialGroup:0x007fe519895200
+=> #<RelatonIsoBib::EditorialGroup:0x00007ff73e91a478
  @secretariat=nil,
- @subcommittee=[#<RelatonIsoBib::IsoSubgroup:0x007fe519894a58 @name="International Organization for Standardization", @number=122, @type="ISO">],
- @technical_committee=[#<RelatonIsoBib::IsoSubgroup:0x007fe519894d78 @name=" ISO/TC 211 Geographic information/Geomatics", @number=211, @type="technicalCommittee">],
- @workgroup=[#<RelatonIsoBib::IsoSubgroup:0x007fe5198c4668 @name="Workgroup Organization", @number=111, @type="WG">]>
+ @subcommittee=
+  [#<RelatonBib::WorkGroup:0x00007ff73e91a108
+    @identifier=nil,
+    @name="International Organization for Standardization",
+    @number="122",
+    @prefix=nil,
+    @type="ISO">],
+ @technical_committee=
+  [#<RelatonBib::WorkGroup:0x00007ff73e91a338
+    @identifier=nil,
+    @name="ISO/TC 211 Geographic information/Geomatics",
+    @number="211",
+    @prefix=nil,
+    @type="technicalCommittee">],
+ @workgroup=[#<RelatonBib::WorkGroup:0x00007ff73e919ed8 @identifier=nil, @name="Workgroup Organization", @number="111", @prefix=nil, @type="WG">]>
 ----
 
 === Document relations of a standard
@@ -301,7 +244,7 @@ item.relation
 === Reference modification: convert to all parts reference
 
 In ISO, an All Parts reference is a reference to all parts of a standard. If a standard consists of parts,
-only those parts are referenced in the ISO web site (as retrieved by the isobib gem). A part reference is
+only those parts are referenced in the ISO website (as retrieved by the isobib gem). A part reference is
 converted to an All Parts reference by making the part reference a partOf relation to a new reference,
 which strips the part number and part title of the original, and its abstract. The operation is destructive.
 
@@ -314,46 +257,64 @@ all_parts_item = item.to_all_parts
  @all_parts=true,
  ...
 
-all_arts_item.title(lang: "en")
-=> [#<RelatonBib::TypedTitleString:0x007fc08f388dd8
-  @title=#<RelatonBib::FormattedString:0x007fc08f388d10 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-intro">,
- #<RelatonBib::TypedTitleString:0x007fc08f388b58
-  @title=#<RelatonBib::FormattedString:0x007fc08f388b08 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonBib::TypedTitleString:0x007fc08f3888d8
-  @title=#<RelatonBib::FormattedString:0x007fc08f388888 @content="Metadata – Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="main">]
+all_parts_item.title(lang: "en")
+=> #<RelatonBib::TypedTitleStringCollection:0x00007ff77ea5fde8
+ @array=
+  [#<RelatonBib::TypedTitleString:0x00007ff77ecb5160
+    @title=#<RelatonBib::FormattedString:0x00007ff77ecb5098 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-intro">,
+   #<RelatonBib::TypedTitleString:0x00007ff77ecb4ee0
+    @title=#<RelatonBib::FormattedString:0x00007ff77ecb4e90 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x00007ff77ecb4c10
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff77ecb4bc0
+      @content="Geographic information – Metadata",
+      @format="text/plain",
+      @language=["en"],
+      @script=["Latn"]>,
+    @type="main">]>
 
-all_arts_item.shortref(item.structuredidentifier)
-=> "ISO1(allparts):2014: All Parts"
+all_parts_item.shortref(item.structuredidentifier)
+=> "ISO1-2-2014:2014: All Parts"
 
-all_arts_item.relation.last.bibitem.title
-=> [#<RelatonBib::TypedTitleString:0x007fc0aeb7bd28
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7bad0 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-intro">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7ba30
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7b8c8 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7b800
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7b5f8 @content="Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="title-part">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7b558
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7b288 @content="Metadata - Geographic information - Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
-  @type="main">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7b148
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7ae00 @content="Métadonnées", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="title-intro">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7ac48
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7a888 @content="Information géographique", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="title-main">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7a6d0
-  @title=#<RelatonBib::FormattedString:0x007fc0aeb7a400 @content="Partie 1: Principes de base", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="title-part">,
- #<RelatonBib::TypedTitleString:0x007fc0aeb7a2c0
-  @title=
-   #<RelatonBib::FormattedString:0x007fc0aeb79f28 @content="Information géographique - Métadonnées - Partie 1: Principes de base", @format="text/plain", @language=["fr"], @script=["Latn"]>,
-  @type="main">]
+all_parts_item.relation.last.bibitem.title
+=> #<RelatonBib::TypedTitleStringCollection:0x00007ff73e922ab0
+ @array=
+  [#<RelatonBib::TypedTitleString:0x00007ff73e9225d8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e9224c0 @content="Geographic information", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-intro">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921cc8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921b60 @content="Metadata", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9219d0
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921908 @content="Part 1: Fundamentals", @format="text/plain", @language=["en"], @script=["Latn"]>,
+    @type="title-part">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921638
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e921548
+      @content="Geographic information – Metadata – Part 1: Fundamentals",
+      @format="text/plain",
+      @language=["en"],
+      @script=["Latn"]>,
+    @type="main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9214a8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e921368 @content="Information géographique", @format="text/plain", @language=["fr"], @script=["Latn"]>,
+    @type="title-intro">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e9212c8
+    @title=#<RelatonBib::FormattedString:0x00007ff73e9211b0 @content="Métadonnées", @format="text/plain", @language=["fr"], @script=["Latn"]>,
+    @type="title-main">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e921020
+    @title=#<RelatonBib::FormattedString:0x00007ff73e920f08 @content="Information géographique", @format="text/plain", @language=["fr"], @script=["Latn"]>,
+    @type="title-part">,
+   #<RelatonBib::TypedTitleString:0x00007ff73e920da0
+    @title=
+     #<RelatonBib::FormattedString:0x00007ff73e920c60
+      @content="Information géographique – Métadonnées – Information géographique",
+      @format="text/plain",
+      @language=["fr"],
+      @script=["Latn"]>,
+    @type="main">]>
 ----
 
 === Reference modification: convert to most recent reference
@@ -361,16 +322,24 @@ all_arts_item.relation.last.bibitem.title
 In ISO, an undated reference is interpreted as a _de dicto_ reference to the most recent instance of the
 reference; if the document is read after a new version of the reference has been issued, the reference is taken
 to refer to that new instance, even if that instance had not been published at the time the bibliography was authored.
-All references on the ISO web site (as retrieved by the isobib gem) are dated. A dated reference is
-converted to a Most Recent referece by making the dated reference an instance relation to a new reference,
+All references on the ISO website (as retrieved by the isobib gem) are dated. A dated reference is
+converted to a Most Recent reference by making the dated reference an instance relation to a new reference,
 which strips the date of publication of the original, and its abstract. The operation is destructive.
 
 [source,ruby]
 ----
 all_parts_item.date
-=> [#<RelatonBib::BibliographicDate:0x007fc0aeb88438 @from=nil, @on=#<Date: 2014-04-01 ((2456749j,0s,0n),+0s,2299161j)>, @to=nil, @type="published">]
+=> [#<RelatonBib::BibliographicDate:0x00007ff77ecb4418 @from=nil, @on="2014", @to=nil, @type="issued">,
+ #<RelatonBib::BibliographicDate:0x00007ff77ecb4328 @from=nil, @on="2014-04", @to=nil, @type="published">,
+ #<RelatonBib::BibliographicDate:0x00007ff77ecb42b0 @from=nil, @on="2015-05-20", @to=nil, @type="accessed">]
 
 most_recent_ref_item = all_parts_item.to_most_recent_reference
+=> #<RelatonIsoBib::IsoBibliographicItem:0x00007ff73ea4b978
+  @abstract=[],
+  @accesslocation=["accesslocation1", "accesslocation2"],
+  @all_parts=true,
+  ...
+
 most_recent_ref_item.date
 => []
 
@@ -384,19 +353,27 @@ most_recent_ref_item.shortref(most_recent_ref_item.structuredidentifier)
 [source,ruby]
 ----
 item.to_xml(bibdata: true)
-=> "<bibdata>
-  <fetched>2018-10-21</fetched>
-  <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
+=> "<bibdata type="standard" schema-version="v1.2.1">
+  <fetched>2011-06-22</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
+  <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
-  <title type="main" format="text/plain" language="en" script="Latn">Metadata - Geographic information - Part 1: Fundamentals</title>
+  <title type="main" format="text/plain" language="en" script="Latn">Geographic information – Metadata – Part 1: Fundamentals</title>
+  <title type="title-intro" format="text/plain" language="fr" script="Latn">Information géographique</title>
+  <title type="title-main" format="text/plain" language="fr" script="Latn">Métadonnées</title>
+  <title type="title-part" format="text/plain" language="fr" script="Latn">Information géographique</title>
+  <title type="main" format="text/plain" language="fr" script="Latn">Information géographique – Métadonnées – Information géographique</title>
   ...
+  <ext schema-version="v1.0.0">
+    <doctype>international-standard</doctype>
+    ...
+  </ext>
 </bibdata>"
 
 item.to_xml(bibdata: true, note: [{ type: "note type", text: "test note" }])
-=> "<bibdata>
-  <fetched>2018-10-21</fetched>
-  <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
+=> "<bibdata type="standard" schema-version="v1.2.1">
+  <fetched>2011-06-22</fetched>
+  <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   ...
   <note format="text/plain" type="note type">test note</note>
   ...
@@ -407,16 +384,17 @@ item.to_xml(bibdata: true, note: [{ type: "note type", text: "test note" }])
 [source,ruby]
 ----
 item.to_bibtex
-=> "@international-standard{john2014a,
-  tile = {Information géographique - Métadonnées - Partie 1: Principes de base},
+=> "@misc{ISO/TC211,
+  title = {Geographic information – Metadata – Part 1: Fundamentals},
   edition = {1},
-  author = {Smith, John},
-  publisher = {International Organization for Standardization},
+  author = {Bierman, A. and Bierman, A},
+  publisher = {IETF},
   address = {bib place},
   year = {2014},
   month = apr,
+  urldate = {2015-05-20},
   type = {value},
-  timestamp = {2018-10-21},
+  timestamp = {2011-06-22},
   url = {https://www.iso.org/standard/53798.html},
   month_numeric = {4}
 }"
@@ -429,29 +407,35 @@ item.to_bibtex
 item.to_asciibib
 => "[%bibitem]
 == {blank}
-id:: ISOTC211
-fetched:: 2020-08-19
+id:: ISO/TC211
+fetched:: 2011-06-22
 title::
 title.type:: title-intro
+title.content:: Geographic information
+title.language:: en
+title.script:: Latn
+title.format:: text/plain
+title::
+title.type:: title-main
 title.content:: Metadata
 title.language:: en
 title.script:: Latn
 title.format:: text/plain
-itle::
-title.type:: title-main
-title.conten:: Geographic information
-..."
+...
+"
 ----
 
-=== Create bibliographic item form YAML
+=== Create bibliographic item from YAML
 [source,ruby]
 ----
 hash = YAML.load_file 'spec/examples/iso_bib_item.yml'
-=> {"id"=>"ISO/TC211",
+=> {"schema-version"=>"v1.0.0",
+ "id"=>"ISO/TC211",
 ...
 
 bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-=> {:id=>"ISO/TC211",
+=> {:"schema-version"=>"v1.0.0",
+ :id=>"ISO/TC211",
 ...
 
 RelatonIsoBib::IsoBibliographicItem.new **bib_hash
@@ -474,7 +458,7 @@ The ISO standards use a subset of the generic bibliographic fields specified in 
 ** Technical Committee, Subcommittee, Workgroup, Secretariat
 ** Technical Committee Number, Subcommittee Number, Workgroup Number
 ** Technical Committee Type, Subcommittee Type, Workgroup Type (e.g. JTC)
-** Organization:Name (ISO; other standards organisations, for standards jointly published with ISO)
+** Organization:Name (ISO; other standards organizations, for standards jointly published with ISO)
 * ICS: refer https://www.iso.org/publication/PUB100033.html
 * Status
 ** Stage, Substage
@@ -484,7 +468,7 @@ The ISO standards use a subset of the generic bibliographic fields specified in 
 * Relations
 ** Obsoletes, Updates
 
-All FormattedString instances are returned by default as  a text/plain string; if required, they are returned as a text/html string.
+All FormattedString instances are returned by default as a text/plain string; if required, they are returned as a text/html string.
 
 == Development
 

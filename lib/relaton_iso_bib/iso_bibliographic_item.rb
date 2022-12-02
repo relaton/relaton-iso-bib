@@ -161,16 +161,31 @@ module RelatonIsoBib
       @id_attribute = true
     end
 
-    # @param opts [Hash]
+    #
+    # Fetch the flavour schema version
+    #
+    # @return [String] flavour schema version
+    #
+    def ext_schema
+      @ext_schema ||= schema_versions["relaton-model-iso"]
+    end
+
+    #
+    # Render the document as an XML string.
+    #
+    # @param opts [Hash] options
     # @option opts [Nokogiri::XML::Builder] :builder XML builder
-    # @option opts [Boolean] :bibdata
+    # @option opts [Boolean] :bibdata if true, bibdata element is created
+    # @option opts [Boolean] :embedded if true the document is embedded in another document
     # @option opts [String] :lang language
+    #
     # @return [String] XML
+    #
     def to_xml(**opts)
       super(**opts) do |b|
         if block_given? then yield b
         elsif opts[:bibdata] && has_ext_attrs?
-          b.ext do
+          ext = b.ext do
             b.doctype doctype if doctype
             b.subdoctype subdoctype if subdoctype
             b.horizontal horizontal unless horizontal.nil?
@@ -179,6 +194,7 @@ module RelatonIsoBib
             structuredidentifier&.to_xml b
             b.stagename stagename if stagename
           end
+          ext["schema-version"] = ext_schema unless opts[:embedded]
         end
       end
     end
@@ -186,8 +202,14 @@ module RelatonIsoBib
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # @return [Hash]
-    def to_hash
+    #
+    # Render the document as HASH
+    #
+    # @param embedded [Boolean] true if the bibitem is embedded in another bibitem
+    #
+    # @return [Hash] the document as HAS
+    #
+    def to_hash(embedded: false)
       hash = super
       hash["horizontal"] = horizontal unless horizontal.nil?
       hash["stagename"] = stagename if stagename

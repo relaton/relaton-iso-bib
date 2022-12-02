@@ -51,7 +51,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
         .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
       expect(xml).to be_equivalent_to File.read(file, encoding: "UTF-8")
         .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
-      schema = Jing.new "spec/examples/isobib.rng"
+      schema = Jing.new "grammars/relaton-iso-compile.rng"
       errors = schema.validate file
       expect(errors).to eq []
     end
@@ -67,7 +67,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(xml_res).to include(
         "<note format=\"text/plain\" type=\"note type\">test note</note>",
       )
-      schema = Jing.new "spec/examples/isobib.rng"
+      schema = Jing.new "grammars/relaton-iso-compile.rng"
       errors = schema.validate file
       expect(errors).to eq []
     end

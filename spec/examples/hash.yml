@@ -1,4 +1,5 @@
 ---
+schema-version: v1.2.0
 id: ISO/TC211
 title:
 - content: Geographic information
@@ -113,7 +114,7 @@ contributor:
         postcode: '123456'
     - phone: '223322'
   role:
-  - author
+  - type: author
 - organization:
     name:
     - content: IETF
@@ -123,13 +124,12 @@ contributor:
     - type: uri
       id: www.ietf.org
   role:
-  - publisher
+  - type: publisher
 - person:
     name:
       given:
         forename:
-        - content:
-          initial: A
+        - initial: A
       surname:
         content: Bierman
     affiliation:
@@ -151,7 +151,7 @@ contributor:
         postcode: '123456'
     - phone: '223322'
   role:
-  - author
+  - type: author
 edition:
   content: '1'
 version:
@@ -295,3 +295,5 @@ structuredidentifier:
   type: sid
 horizontal: false
 stagename: International Standard published
+ext:
+  schema-version: v1.0.0

@@ -1,3 +1,4 @@
+schema-version: v1.0.0
 id: ISO/TC211
 
 fetched: '2011-06-22'
@@ -280,3 +281,6 @@ structuredidentifier:
   subpart: "2"
 
 stagename: International Standard published
+
+ext:
+  schema-version: v1.0.0

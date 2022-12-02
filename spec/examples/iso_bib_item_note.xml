@@ -1,5 +1,5 @@
-<bibdata type="standard">
-  <fetched>2022-08-18</fetched>
+<bibdata type="standard" schema-version="v1.2.1">
+  <fetched>2022-11-25</fetched>
   <title type="title-intro" format="text/plain" language="en" script="Latn">Geographic information</title>
   <title type="title-main" format="text/plain" language="en" script="Latn">Metadata</title>
   <title type="title-part" format="text/plain" language="en" script="Latn">Part 1: Fundamentals</title>
@@ -164,7 +164,7 @@
     <validityEnds>2011-02-03 18:30</validityEnds>
     <revision>2011-03-04 09:00</revision>
   </validity>
-  <ext>
+  <ext schema-version="v1.0.0">
     <doctype>international-standard</doctype>
     <subdoctype>specification</subdoctype>
     <horizontal>false</horizontal>
