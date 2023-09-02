@@ -17,17 +17,17 @@ module RelatonIsoBib
     # @return [String, NilClass]
     attr_reader :secretariat
 
-    # @param technical_committee [Array<Hash, RelatonIsoBib::IsoSubgroup>]
+    # @param technical_committee [Array<Hash, RelatonBib::WorkGroup>]
     # @option technical_committee [String] :name
     # @option technical_committee [String] :type
     # @option technical_committee [Integer] :number
     #
-    # @param subcommittee [Array<Hash, RelatonIsoBib::IsoSubgroup>]
+    # @param subcommittee [Array<Hash, RelatonBib::WorkGroup>]
     # @option subcommittee [String] :name
     # @option subcommittee [String] :type
     # @option subcommittee [Integer] :number
     #
-    # @param workgroup [Array<Hash, RelatonIsoBib::IsoSubgroup>]
+    # @param workgroup [Array<Hash, RelatonBib::WorkGroup>]
     # @option workgroup [String] :name
     # @option workgroup [String] :type
     # @option workgroup [Integer] :number

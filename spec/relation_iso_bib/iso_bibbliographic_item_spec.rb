@@ -88,7 +88,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
       expect(subject.relation.last.type).not_to eq "partOf"
       all_parts_item = subject.to_all_parts
-      expect(all_parts_item.relation.last.type).to eq "instance"
+      expect(all_parts_item.relation.last.type).to eq "instanceOf"
       expect(all_parts_item.title.detect { |t| t.type == "title-part" })
         .to be_nil
       expect(
@@ -98,10 +98,10 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
 
     it "converts to latest year reference" do
       expect(subject.title.detect { |t| t.type == "title-part" }).not_to be nil
-      expect(subject.relation.last.type).not_to eq "instance"
+      expect(subject.relation.last.type).not_to eq "instanceOf"
       expect(subject.date).not_to be_empty
       most_recent_ref = subject.to_most_recent_reference
-      expect(most_recent_ref.relation.last.type).to eq "instance"
+      expect(most_recent_ref.relation.last.type).to eq "instanceOf"
       expect(most_recent_ref.date).to be_empty
     end
 

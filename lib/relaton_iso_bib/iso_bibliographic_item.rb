@@ -150,8 +150,8 @@ module RelatonIsoBib
                           end
       end
 
-      if args[:subdoctype] && !SUBDOCTYPES.include?(args[:subdoctype])
-        warn "Invald subdoctype '#{args[:subdoctype]}'. Allowed values are: #{SUBDOCTYPES.join(', ')}"
+      if args[:subdoctype] && !self.class::SUBDOCTYPES.include?(args[:subdoctype])
+        warn "Invald subdoctype '#{args[:subdoctype]}'. Allowed values are: #{self.class::SUBDOCTYPES.join(', ')}"
       end
       @subdoctype = args[:subdoctype]
       @structuredidentifier = args[:structuredidentifier]
