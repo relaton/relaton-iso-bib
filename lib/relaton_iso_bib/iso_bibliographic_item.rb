@@ -1,8 +1,5 @@
 # frozen_string_literal: false
 
-require "nokogiri"
-require "isoics"
-require "relaton_bib"
 require "relaton_iso_bib/editorial_group"
 require "relaton_iso_bib/xml_parser"
 require "relaton_iso_bib/structured_identifier"
@@ -151,7 +148,7 @@ module RelatonIsoBib
       end
 
       if args[:subdoctype] && !self.class::SUBDOCTYPES.include?(args[:subdoctype])
-        warn "Invald subdoctype '#{args[:subdoctype]}'. Allowed values are: #{self.class::SUBDOCTYPES.join(', ')}"
+        Util.warn "Invald subdoctype `#{args[:subdoctype]}`. Allowed values are: #{self.class::SUBDOCTYPES.join(', ')}"
       end
       @subdoctype = args[:subdoctype]
       @structuredidentifier = args[:structuredidentifier]
@@ -231,8 +228,8 @@ module RelatonIsoBib
     # @raise ArgumentError
     def check_doctype(doctype)
       if doctype && !self.class::DOCTYPES.include?(doctype)
-        warn "[relaton-iso-bib] WARNING: invalid doctype: #{doctype}"
-        warn "[relaton-iso-bib] Allowed doctypes are: #{self.class::DOCTYPES.join(', ')}"
+        Util.warn "WARNING: invalid doctype: #{doctype}"
+        Util.warn "Allowed doctypes are: #{self.class::DOCTYPES.join(', ')}"
       end
     end
 
