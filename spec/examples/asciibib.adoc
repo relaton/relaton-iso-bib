@@ -188,7 +188,7 @@ series.formattedref.script:: Latn
 series.formattedref.format:: text/plain
 series.title.content:: Series Title
 series.title.format:: text/plain
-doctype:: international-standard
+doctype.type:: international-standard
 subdoctype:: specification
 editorialgroup.technical_committee.name:: ISO/TC 211 Geographic information/Geomatics
 editorialgroup.technical_committee.number:: 211

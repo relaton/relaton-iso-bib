@@ -133,12 +133,6 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     expect(item.editorialgroup).to be_instance_of RelatonIsoBib::EditorialGroup
   end
 
-  it "warn invalid doctype argument" do
-    expect do
-      RelatonIsoBib::IsoBibliographicItem.new doctype: "type"
-    end.to output(/invalid doctype: type/).to_stderr
-  end
-
   it "warn invalid subdoctype argument" do
     expect do
       RelatonIsoBib::IsoBibliographicItem.new subdoctype: "type"

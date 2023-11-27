@@ -18,22 +18,16 @@ end
 module RelatonIsoBib
   # Bibliographic item.
   class IsoBibliographicItem < RelatonBib::BibliographicItem
-    DOCTYPES = %w[
-      international-standard technical-specification technical-report
-      publicly-available-specification international-workshop-agreement guide
-      amendment technical-corrigendum directive
-    ].freeze
-
     SUBDOCTYPES = %w[specification method-of-test vocabulary code-of-practice].freeze
 
     # @return [RelatonIsoBib::StructuredIdentifier]
     attr_reader :structuredidentifier
 
-    # @!attribute [r] title
-    #   @return [Array<RelatonBib::TypedTitleString>]
+    # @return [String, nil]
+    attr_reader :stagename
 
-    # @return [String, NilClass]
-    attr_reader :doctype, :stagename
+    # @!attribute [r] subdoctype
+    #  @return [RelatonIsoBib::DocumentType]
 
     # @return [Boolean, nil]
     attr_reader :horizontal
@@ -64,18 +58,13 @@ module RelatonIsoBib
     # @param classification [RelatonBib::Classification, NilClass]
     # @param validity [RelatonBib:Validity, NilClass]
     # @param docid [Array<RelatonBib::DocumentIdentifier>]
-    # @param doctype [String, nil]
+    # @param doctype [RelatonIsoBib::DocumentType]
     # @param subdoctype [String, nil]
     # @param horizontal [Boolean, nil]
     # @param structuredidentifier [RelatonIsoBib::StructuredIdentifier]
     # @param stagename [String, NilClass]
     #
-    # @param title [Array<Hash>]
-    # @option title [String] :title_intro
-    # @option title [String] :title_main
-    # @option title [String] :title_part
-    # @option title [String] :language
-    # @option title [String] :script
+    # @param title [Array<Hash, RelatonBib::TypedTitleString>, RelatonBib::TypedTitleStringCollection]
     #
     # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup]
     # @option workgrpup [String] :name
@@ -128,8 +117,6 @@ module RelatonIsoBib
     #
     # @raise [ArgumentError]
     def initialize(**args)
-      check_doctype args[:doctype]
-
       args[:type] ||= "standard"
       arg_names = %i[
         id title docnumber language script docstatus date abstract contributor
@@ -183,7 +170,7 @@ module RelatonIsoBib
         if block_given? then yield b
         elsif opts[:bibdata] && has_ext_attrs?
           ext = b.ext do
-            b.doctype doctype if doctype
+            doctype.to_xml b if doctype
             b.subdoctype subdoctype if subdoctype
             b.horizontal horizontal unless horizontal.nil?
             editorialgroup&.to_xml b
@@ -223,15 +210,6 @@ module RelatonIsoBib
     end
 
     private
-
-    # @param doctype [String]
-    # @raise ArgumentError
-    def check_doctype(doctype)
-      if doctype && !self.class::DOCTYPES.include?(doctype)
-        Util.warn "WARNING: invalid doctype: #{doctype}"
-        Util.warn "Allowed doctypes are: #{self.class::DOCTYPES.join(', ')}"
-      end
-    end
 
     def makeid(id, attribute, _delim = "") # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
       return nil if attribute && !@id_attribute

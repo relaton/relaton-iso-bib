@@ -4,6 +4,7 @@ require "relaton_bib"
 require "relaton_iso_bib/version"
 require "relaton_iso_bib/config"
 require "relaton_iso_bib/util"
+require "relaton_iso_bib/document_type"
 require "relaton_iso_bib/iso_bibliographic_item"
 require "digest/md5"
 
