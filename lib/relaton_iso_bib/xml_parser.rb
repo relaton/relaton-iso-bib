@@ -26,6 +26,10 @@ module RelatonIsoBib
         IsoBibliographicItem.new(**item_hash)
       end
 
+      def create_doctype(type)
+        DocumentType.new type: type.text, abbreviation: type[:abbreviation]
+      end
+
       # @param ext [Nokogiri::XML::Element]
       # @return [RelatonIsoBib::StructuredIdentifier]
       def fetch_structuredidentifier(ext)
