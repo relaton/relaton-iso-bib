@@ -26,6 +26,9 @@
       <optional>
         <ref name="updates_document_type"/>
       </optional>
+      <optional>
+        <ref name="fast_track"/>
+      </optional>
     </define>
     <define name="bdate">
       <element name="date">
@@ -95,9 +98,11 @@
         <value>publicly-available-specification</value>
         <value>international-workshop-agreement</value>
         <value>guide</value>
+        <value>recommendation</value>
         <value>amendment</value>
         <value>technical-corrigendum</value>
         <value>directive</value>
+        <value>committee-document</value>
       </choice>
     </define>
     <define name="DocumentSubtype">
@@ -220,6 +225,11 @@
         <attribute name="abbreviation"/>
       </optional>
       <text/>
+    </element>
+  </define>
+  <define name="fast_track">
+    <element name="fast-track">
+      <data type="boolean"/>
     </element>
   </define>
 </grammar>

@@ -3,7 +3,7 @@ module RelatonIsoBib
     DOCTYPES = %w[
       international-standard technical-specification technical-report
       publicly-available-specification international-workshop-agreement guide
-      amendment technical-corrigendum directive
+      recommendation amendment technical-corrigendum directive committee-document
     ].freeze
 
     #

@@ -30,7 +30,7 @@ module RelatonIsoBib
     #  @return [RelatonIsoBib::DocumentType]
 
     # @return [Boolean, nil]
-    attr_reader :horizontal
+    attr_reader :horizontal, :fast_track
 
     # @return [RelatonIsoBib::EditorialGroup]
     attr_reader :editorialgroup
@@ -42,28 +42,28 @@ module RelatonIsoBib
     # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
 
     # @param edition [String]
-    # @param docnumber [String, NilClass]
+    # @param docnumber [String, nil]
     # @param language [Array<String>]
     # @param script [Arrra<String>]
-    # @param docstatus [RelatonBib::DocumentStatus, NilClass]
-    # @param type [String, NilClass]
-    # @param formattedref [RelatonBib::FormattedRef, NilClass]
-    # @param version [RelatonBib::BibliographicItem::Version, NilClass]
+    # @param docstatus [RelatonBib::DocumentStatus, nil]
+    # @param type [String, nil]
+    # @param formattedref [RelatonBib::FormattedRef, nil]
+    # @param version [RelatonBib::BibliographicItem::Version, nil]
     # @param biblionote [Array<RelatonBib::BiblioNote>]
     # @param series [Array<RelatonBib::Series>]
     # @param medium [RelatonBib::Medium, NilClas]
     # @param place [Array<String>]
     # @param extent [Array<Relaton::BibItemLocality>]
     # @param accesslocation [Array<String>]
-    # @param classification [RelatonBib::Classification, NilClass]
-    # @param validity [RelatonBib:Validity, NilClass]
+    # @param classification [RelatonBib::Classification, nil]
+    # @param validity [RelatonBib:Validity, nil]
     # @param docid [Array<RelatonBib::DocumentIdentifier>]
     # @param doctype [RelatonIsoBib::DocumentType]
     # @param subdoctype [String, nil]
     # @param horizontal [Boolean, nil]
     # @param structuredidentifier [RelatonIsoBib::StructuredIdentifier]
-    # @param stagename [String, NilClass]
-    #
+    # @param stagename [String, nil]
+    # @param fast_track [Boolean, nil]
     # @param title [Array<Hash, RelatonBib::TypedTitleString>, RelatonBib::TypedTitleStringCollection]
     #
     # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup]
@@ -143,6 +143,7 @@ module RelatonIsoBib
       @ics = args.fetch(:ics, []).map { |i| i.is_a?(Hash) ? Ics.new(**i) : i }
       @stagename = args[:stagename]
       @id_attribute = true
+      @fast_track = args[:fast_track]
     end
 
     #
@@ -177,6 +178,7 @@ module RelatonIsoBib
             ics.each { |i| i.to_xml b }
             structuredidentifier&.to_xml b
             b.stagename stagename if stagename
+            b.send("fast-track", fast_track) unless fast_track.nil?
           end
           ext["schema-version"] = ext_schema unless opts[:embedded]
         end
@@ -197,6 +199,7 @@ module RelatonIsoBib
       hash = super
       hash["horizontal"] = horizontal unless horizontal.nil?
       hash["stagename"] = stagename if stagename
+      hash["fast_track"] = fast_track unless fast_track.nil?
       hash
     end
 
@@ -206,6 +209,7 @@ module RelatonIsoBib
       pref = prefix.empty? ? prefix : "#{prefix}."
       out = super
       out += "#{pref}stagename:: #{stagename}\n" if stagename
+      out += "#{pref}fast-track:: #{fast_track}\n" unless fast_track.nil?
       out
     end
 

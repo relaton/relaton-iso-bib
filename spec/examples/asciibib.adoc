@@ -207,3 +207,4 @@ structured_identifier.part:: 2
 structured_identifier.subpart:: 2
 structured_identifier.type:: sid
 stagename:: International Standard published
+fast-track:: false

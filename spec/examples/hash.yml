@@ -295,5 +295,6 @@ structuredidentifier:
   type: sid
 horizontal: false
 stagename: International Standard published
+fast_track: false
 ext:
   schema-version: v1.0.0

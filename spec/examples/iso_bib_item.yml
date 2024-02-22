@@ -137,7 +137,7 @@ contributor:
         - phone: "223322"
     role:
       - author
-  
+
   - organization:
       name: IETF
       abbreviation: IETF
@@ -281,6 +281,7 @@ structuredidentifier:
   subpart: "2"
 
 stagename: International Standard published
+fast_track: false
 
 ext:
   schema-version: v1.0.0

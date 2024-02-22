@@ -181,5 +181,6 @@
       <tc-document-number>1234</tc-document-number>
     </structuredidentifier>
     <stagename>International Standard published</stagename>
+    <fast-track>false</fast-track>
   </ext>
 </bibdata>
