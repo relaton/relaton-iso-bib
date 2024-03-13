@@ -1,9 +1,6 @@
 module RelatonIsoBib
   module Util
     extend RelatonBib::Util
-
-    def self.logger
-      RelatonIsoBib.configuration.logger
-    end
+    PROGNAME = "relaton-iso-bib".freeze
   end
 end
