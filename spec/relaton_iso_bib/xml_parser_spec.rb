@@ -8,7 +8,7 @@ RSpec.describe RelatonIsoBib::XMLParser do
   it "warn if XML doesn't have bibitem or bibdata element" do
     item = ""
     expect { item = RelatonIsoBib::XMLParser.from_xml "" }.to(
-      output(/can't find bibitem/).to_stderr_from_any_process
+      output(/WARN: Can't find bibitem/).to_stderr_from_any_process
     )
     expect(item).to be_nil
   end
