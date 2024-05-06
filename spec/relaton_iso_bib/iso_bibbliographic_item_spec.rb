@@ -28,9 +28,11 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has abstracts" do
-      expect(subject.abstract(lang: "en")).to be_instance_of(
-        RelatonBib::FormattedString,
-      )
+      abstract = subject.abstract("en")
+      expect(abstract).to be_instance_of Array
+      expect(abstract.size).to eq 1
+      expect(abstract[0]).to be_instance_of(RelatonBib::Abstract)
+      expect(abstract[0].to_s).to include "ISO 19115-1:2014 defines the schema required for ..."
     end
 
     it "returns shortref" do
@@ -68,9 +70,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       File.write file, xml_res, encoding: "utf-8" unless File.exist? file
       expect(xml_res).to be_equivalent_to File.read(file, encoding: "UTF-8")
         .sub(%r{(?<=<fetched>)\d{4}-\d{2}-\d{2}}, Date.today.to_s)
-      expect(xml_res).to include(
-        "<note format=\"text/plain\" type=\"note type\">test note</note>",
-      )
+      expect(xml_res).to include("<note type=\"note type\">test note</note>")
       schema = Jing.new "grammars/relaton-iso-compile.rng"
       errors = schema.validate file
       expect(errors).to eq []
@@ -96,7 +96,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
       expect(all_parts_item.title.detect { |t| t.type == "title-part" })
         .to be_nil
       expect(
-        all_parts_item.title.detect { |t| t.type == "main" }.title.content,
+        all_parts_item.title.detect { |t| t.type == "main" }.to_s,
       ).to eq "Geographic information – Metadata"
     end
 
@@ -110,12 +110,12 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "returns hash" do
-      hash = subject.to_hash
+      hash = subject.to_h
       file = "spec/examples/hash.yml"
       File.write file, hash.to_yaml unless File.exist? file
       h = RelatonIsoBib::HashConverter.hash_to_bib(YAML.load_file(file))
       b = RelatonIsoBib::IsoBibliographicItem.new(**h)
-      expect(hash).to eq b.to_hash
+      expect(hash).to eq b.to_h
     end
 
     it "returns AsciiBib" do

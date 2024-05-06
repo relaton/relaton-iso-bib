@@ -195,7 +195,7 @@ module RelatonIsoBib
     #
     # @return [Hash] the document as HAS
     #
-    def to_hash(embedded: false)
+    def to_h(embedded: false)
       hash = super
       hash["horizontal"] = horizontal unless horizontal.nil?
       hash["stagename"] = stagename if stagename
@@ -223,7 +223,7 @@ module RelatonIsoBib
         idstr = id.id
         idstr = "IEV" if structuredidentifier&.project_number == "IEV"
       else
-        idstr = formattedref&.content
+        idstr = formattedref&.to_s
       end
       idstr&.gsub(/:/, "-")&.gsub(/\s/, "")&.strip
     end

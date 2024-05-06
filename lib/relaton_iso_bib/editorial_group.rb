@@ -71,14 +71,10 @@ module RelatonIsoBib
     end
 
     # @return [Hash]
-    def to_hash # rubocop:disable Metrics/AbcSize
-      hash = {
-        "technical_committee" => single_element_array(technical_committee),
-      }
-      if subcommittee&.any?
-        hash["subcommittee"] = single_element_array(subcommittee)
-      end
-      hash["workgroup"] = single_element_array(workgroup) if workgroup&.any?
+    def to_h # rubocop:disable Metrics/AbcSize
+      hash = { "technical_committee" => technical_committee.map(&:to_h) }
+      hash["subcommittee"] = subcommittee.map(&:to_h) if subcommittee&.any?
+      hash["workgroup"] = workgroup.map(&:to_h) if workgroup&.any?
       hash["secretariat"] = secretariat if secretariat
       hash
     end
@@ -132,7 +128,7 @@ module RelatonIsoBib
   #   end
 
   #   # @return [Hash]
-  #   def to_hash
+  #   def to_h
   #     hash = { "name" => name }
   #     hash["type"] = type if type
   #     hash["number"] = number if number

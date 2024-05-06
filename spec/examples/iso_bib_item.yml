@@ -1,4 +1,4 @@
-schema-version: v1.0.0
+schema-version: v1.0.3
 id: ISO/TC211
 
 fetched: '2011-06-22'
@@ -284,4 +284,4 @@ stagename: International Standard published
 fast_track: false
 
 ext:
-  schema-version: v1.0.0
+  schema-version: v1.0.3

@@ -71,7 +71,7 @@ module RelatonIsoBib
     end
 
     # @return [Hash]
-    def to_hash # rubocop:disable Metrics/AbcSize
+    def to_h # rubocop:disable Metrics/AbcSize
       hash = {}
       hash["tc_document_number"] = tc_document_number if tc_document_number
       hash["project_number"] = project_number if project_number
