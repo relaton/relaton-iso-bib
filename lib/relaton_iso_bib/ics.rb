@@ -24,7 +24,7 @@ module RelatonIsoBib
     end
 
     # @return [Hash]
-    def to_hash
+    def to_h
       hash = {}
       hash["code"] = code if code
       hash["text"] = description if description

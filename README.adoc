@@ -47,14 +47,14 @@ end
 ----
 hash = YAML.load_file "spec/examples/iso_bib_item.yml"
 => {
-    "schema-version"=>"v1.0.0",
+    "schema-version"=>"v1.0.3",
     "id"=>"ISO/TC211",
     "title"=>[
       {"type"=>"title-intro", "content"=>"Geographic information", "language"=>"en", "script"=>"Latn", "format"=>"text/plain"},
     ...
 
 bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-=> {:"schema-version"=>"v1.0.0",
+=> {:"schema-version"=>"v1.0.3",
  :id=>"ISO/TC211",
  :fetched=>"2011-06-22",
  :title=>
@@ -373,7 +373,7 @@ item.to_xml(bibdata: true)
   <title type="title-part" format="text/plain" language="fr" script="Latn">Information géographique</title>
   <title type="main" format="text/plain" language="fr" script="Latn">Information géographique – Métadonnées – Information géographique</title>
   ...
-  <ext schema-version="v1.0.0">
+  <ext schema-version="v1.0.3">
     <doctype>international-standard</doctype>
     ...
   </ext>
@@ -438,12 +438,12 @@ title.format:: text/plain
 [source,ruby]
 ----
 hash = YAML.load_file 'spec/examples/iso_bib_item.yml'
-=> {"schema-version"=>"v1.0.0",
+=> {"schema-version"=>"v1.0.3",
  "id"=>"ISO/TC211",
 ...
 
 bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-=> {:"schema-version"=>"v1.0.0",
+=> {:"schema-version"=>"v1.0.3",
  :id=>"ISO/TC211",
 ...
 
