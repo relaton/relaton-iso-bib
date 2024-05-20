@@ -188,19 +188,19 @@ item.date
  #<RelatonBib::BibliographicDate:0x00007ff76f161f70 @from=nil, @on="2014-04", @to=nil, @type="published">,
  #<RelatonBib::BibliographicDate:0x00007ff76f1605f8 @from=nil, @on="2015-05-20", @to=nil, @type="accessed">]
 
-item.date.filter(type: "published").first.on
+item.date(type: "published").first.on
 => "2014-04"
 
-item.date.filter(type: "published").first.on :year
+item.date(type: "published").first.on :year
 => 2014
 
-item.date.filter(type: "published").first.on :month
+item.date(type: "published").first.on :month
 => 4
 
-item.date.filter(type: "published").first.on :day
+item.date(type: "published").first.on :day
 => nil
 
-item.date.filter(type: "published").first.on :date
+item.date(type: "published").first.on :date
 => #<Date: 2014-04-01 ((2456749j,0s,0n),+0s,2299161j)>
 ----
 

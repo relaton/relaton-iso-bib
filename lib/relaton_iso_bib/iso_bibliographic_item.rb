@@ -6,15 +6,6 @@ require "relaton_iso_bib/structured_identifier"
 require "relaton_iso_bib/ics"
 require "relaton_iso_bib/hash_converter"
 
-# Add filter method to Array.
-class Array
-  # @param type [String]
-  # @return [Array]
-  def filter(type:)
-    select { |e| e.type == type }
-  end
-end
-
 module RelatonIsoBib
   # Bibliographic item.
   class IsoBibliographicItem < RelatonBib::BibliographicItem
