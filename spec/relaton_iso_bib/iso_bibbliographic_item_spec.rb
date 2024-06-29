@@ -80,7 +80,7 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
     end
 
     it "has dates" do
-      expect(subject.date.filter(type: "published").first)
+      expect(subject.date(type: "published").first)
         .to be_instance_of RelatonBib::BibliographicDate
     end
 
