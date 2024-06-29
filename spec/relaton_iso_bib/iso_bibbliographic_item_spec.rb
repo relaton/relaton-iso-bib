@@ -6,10 +6,6 @@ require "jing"
 require "relaton_iso_bib/iso_bibliographic_item"
 
 RSpec.describe RelatonIsoBib::IsoBibliographicItem do
-  before do
-    RelatonIsoBib.instance_variable_set :@configuration, nil
-  end
-
   context "instance" do
     subject do
       hash = YAML.load_file "spec/examples/iso_bib_item.yml"
@@ -136,8 +132,8 @@ RSpec.describe RelatonIsoBib::IsoBibliographicItem do
   it "warn invalid subdoctype argument" do
     expect do
       RelatonIsoBib::IsoBibliographicItem.new subdoctype: "type"
-    end.to output("[relaton-iso-bib] Invald subdoctype `type`. Allowed values are: " \
-                  "specification, method-of-test, vocabulary, code-of-practice\n").to_stderr
+    end.to output("[relaton-iso-bib] WARN: Invald subdoctype `type`. Allowed values are: " \
+                  "specification, method-of-test, vocabulary, code-of-practice\n").to_stderr_from_any_process
   end
 
   context "doc identifier remove part/date" do

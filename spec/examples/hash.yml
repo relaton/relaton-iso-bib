@@ -297,4 +297,4 @@ horizontal: false
 stagename: International Standard published
 fast_track: false
 ext:
-  schema-version: v1.0.0
+  schema-version: v1.0.3
