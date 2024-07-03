@@ -24,7 +24,7 @@ module RelatonIsoBib
     #
     def check_doctype(type)
       unless DOCTYPES.include? type
-        Util.warn "WARNING: invalid doctype: `#{type}`"
+        Util.warn "Invalid doctype: `#{type}`"
         Util.warn "Allowed doctypes are: `#{DOCTYPES.join('`, `')}`"
       end
     end

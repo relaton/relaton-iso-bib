@@ -27,34 +27,23 @@ Or install it yourself as:
 
 == Usage
 
-=== Configuration
-
-Configuration is optional. The available option is `logger` which is a `Logger` instance. By default, the logger is `Logger.new($stderr)` with `Logger::WARN` level. To change the logger level, use `RelatonIsoBib.configure` block.
+=== Create ISO bibliographic item
 
 [source,ruby]
 ----
 require 'relaton_iso_bib'
 => true
 
-RelatonIsoBib.configure do |config|
-  config.logger.level = Logger::DEBUG
-end
-----
-
-=== Create ISO bibliographic item
-
-[source,ruby]
-----
 hash = YAML.load_file "spec/examples/iso_bib_item.yml"
 => {
-    "schema-version"=>"v1.0.0",
+    "schema-version"=>"v1.0.3",
     "id"=>"ISO/TC211",
     "title"=>[
       {"type"=>"title-intro", "content"=>"Geographic information", "language"=>"en", "script"=>"Latn", "format"=>"text/plain"},
     ...
 
 bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-=> {:"schema-version"=>"v1.0.0",
+=> {:"schema-version"=>"v1.0.3",
  :id=>"ISO/TC211",
  :fetched=>"2011-06-22",
  :title=>
@@ -373,7 +362,7 @@ item.to_xml(bibdata: true)
   <title type="title-part" format="text/plain" language="fr" script="Latn">Information géographique</title>
   <title type="main" format="text/plain" language="fr" script="Latn">Information géographique – Métadonnées – Information géographique</title>
   ...
-  <ext schema-version="v1.0.0">
+  <ext schema-version="v1.0.3">
     <doctype>international-standard</doctype>
     ...
   </ext>
@@ -438,12 +427,12 @@ title.format:: text/plain
 [source,ruby]
 ----
 hash = YAML.load_file 'spec/examples/iso_bib_item.yml'
-=> {"schema-version"=>"v1.0.0",
+=> {"schema-version"=>"v1.0.3",
  "id"=>"ISO/TC211",
 ...
 
 bib_hash = RelatonIsoBib::HashConverter.hash_to_bib hash
-=> {:"schema-version"=>"v1.0.0",
+=> {:"schema-version"=>"v1.0.3",
  :id=>"ISO/TC211",
 ...
 
@@ -451,6 +440,10 @@ RelatonIsoBib::IsoBibliographicItem.new **bib_hash
 => #<RelatonIsoBib::IsoBibliographicItem:0x007fdb95ba98e8
 ...
 ----
+
+=== Logging
+
+RelatonIsoBib uses the relaton-logger gem for logging. By default, it logs to STDOUT. To change the log levels and add other loggers, read the https://github.com/relaton/relaton-logger#usage[relaton-logger] documentation.
 
 == BibliographicItem
 
