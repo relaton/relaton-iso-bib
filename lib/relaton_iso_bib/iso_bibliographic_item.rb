@@ -15,7 +15,7 @@ module RelatonIsoBib
     attr_reader :structuredidentifier
 
     # @return [String, nil]
-    attr_reader :stagename
+    attr_reader :stagename, :price_code
 
     # @!attribute [r] subdoctype
     #  @return [RelatonIsoBib::DocumentType]
@@ -56,6 +56,7 @@ module RelatonIsoBib
     # @param stagename [String, nil]
     # @param fast_track [Boolean, nil]
     # @param title [Array<Hash, RelatonBib::TypedTitleString>, RelatonBib::TypedTitleStringCollection]
+    # @param price_code [String, nil]
     #
     # @param editorialgroup [Hash, RelatonIsoBib::EditorialGroup]
     # @option workgrpup [String] :name
@@ -135,6 +136,7 @@ module RelatonIsoBib
       @stagename = args[:stagename]
       @id_attribute = true
       @fast_track = args[:fast_track]
+      @price_code = args[:price_code] if args.key? :price_code # @TODO: remove `if` when all users update relaton-iec
     end
 
     #
@@ -170,6 +172,7 @@ module RelatonIsoBib
             structuredidentifier&.to_xml b
             b.stagename stagename if stagename
             b.send("fast-track", fast_track) unless fast_track.nil?
+            b.send("price-code", price_code) if price_code
           end
           ext["schema-version"] = ext_schema unless opts[:embedded]
         end
@@ -191,6 +194,7 @@ module RelatonIsoBib
       hash["horizontal"] = horizontal unless horizontal.nil?
       hash["stagename"] = stagename if stagename
       hash["fast_track"] = fast_track unless fast_track.nil?
+      hash["price_code"] = price_code if price_code
       hash
     end
 

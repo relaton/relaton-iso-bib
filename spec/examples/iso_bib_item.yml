@@ -282,6 +282,7 @@ structuredidentifier:
 
 stagename: International Standard published
 fast_track: false
+price_code: "A"
 
 ext:
   schema-version: v1.0.3

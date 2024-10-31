@@ -17,6 +17,7 @@ module RelatonIsoBib
         data[:horizontal] = hrzt.text == "true" if hrzt
         data[:stagename] = ext.at("./stagename")&.text
         data[:fast_track] = ext.at("./fast-track")&.text
+        data[:price_code] = ext.at("./price-code")&.text
         data
       end
 
