@@ -192,9 +192,9 @@ relation:
   - type: updates
     bibitem:
       formattedref: ISO 19115:2003
-    locality:
-      locality_stack:
-        type: section
+    locality_stack:
+    - locality:
+      - type: section
         reference_from: Reference from
   - type: updates
     bibitem:
@@ -254,35 +254,34 @@ validity:
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
 
-horizontal: false
-
-editorialgroup:
-  technical_committee:
-    - type: technicalCommittee
-      number: "211"
-      name: ISO/TC 211 Geographic information/Geomatics
-  subcommittee:
-    - type: ISO
-      number: "122"
-      name: International Organization for Standardization
-  workgroup:
-    - type: WG
-      number: "111"
-      name: Workgroup Organization
-
-ics:
-  - code: "35.240.70"
-
-structuredidentifier:
-  tc_document_number: "1234"
-  type: sid
-  project_number: ISO 1-2:2014
-  part: "2"
-  subpart: "2"
-
-stagename: International Standard published
-fast_track: false
-price_code: "A"
-
 ext:
   schema-version: v1.0.3
+  editorialgroup:
+    technical_committee:
+      - type: technicalCommittee
+        number: "211"
+        name: ISO/TC 211 Geographic information/Geomatics
+    subcommittee:
+      - type: ISO
+        number: "122"
+        name: International Organization for Standardization
+    workgroup:
+      - type: WG
+        number: "111"
+        name: Workgroup Organization
+
+  ics:
+    - code: "35.240.70"
+
+  structuredidentifier:
+    tc_document_number: "1234"
+    type: sid
+    project_number: ISO 1-2:2014
+    part: "2"
+    subpart: "2"
+
+  horizontal: false
+  stagename: International Standard published
+  fast_track: false
+  price_code: "A"
+

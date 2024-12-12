@@ -202,11 +202,10 @@ relation:
     formattedref:
       content: ISO 19115:2003
       format: text/plain
-  locality:
-  - locality_stack:
-    - locality:
-        type: section
-        reference_from: Reference from
+  locality_stack:
+  - locality:
+    - type: section
+      reference_from: Reference from
 - type: updates
   bibitem:
     id: ISO19115-2003/Cor1-2006
@@ -269,33 +268,33 @@ validity:
   ends: 2011-02-03 18:30
   revision: 2011-03-04 09:00
 fetched: '2011-06-22'
-doctype: international-standard
-subdoctype: specification
-editorialgroup:
-  technical_committee:
-  - name: ISO/TC 211 Geographic information/Geomatics
-    number: '211'
-    type: technicalCommittee
-  subcommittee:
-  - name: International Organization for Standardization
-    number: '122'
-    type: ISO
-  workgroup:
-  - name: Workgroup Organization
-    number: '111'
-    type: WG
-ics:
-- code: 35.240.70
-  text: IT applications in science
-structuredidentifier:
-  tc_document_number: '1234'
-  project_number: ISO 1-2:2014
-  part: '2'
-  subpart: '2'
-  type: sid
-horizontal: false
-stagename: International Standard published
-fast_track: false
-price_code: A
 ext:
   schema-version: v1.0.3
+  doctype: international-standard
+  subdoctype: specification
+  editorialgroup:
+    technical_committee:
+    - name: ISO/TC 211 Geographic information/Geomatics
+      number: '211'
+      type: technicalCommittee
+    subcommittee:
+    - name: International Organization for Standardization
+      number: '122'
+      type: ISO
+    workgroup:
+    - name: Workgroup Organization
+      number: '111'
+      type: WG
+  ics:
+  - code: 35.240.70
+    text: IT applications in science
+  structuredidentifier:
+    tc_document_number: '1234'
+    project_number: ISO 1-2:2014
+    part: '2'
+    subpart: '2'
+    type: sid
+  horizontal: false
+  stagename: International Standard published
+  fast_track: false
+  price_code: A

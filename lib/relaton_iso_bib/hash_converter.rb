@@ -5,6 +5,15 @@ module RelatonIsoBib
 
     private
 
+    def ext_has_to_bib(ret)
+      super
+      ret[:stagename] = ret[:ext][:stagename] if ret.dig(:ext, :stagename)
+      ret[:horizontal] = ret[:ext][:horizontal] unless ret.dig(:ext, :horizontal).nil?
+      ret[:fast_track] = ret[:ext][:fast_track] unless ret.dig(:ext, :fast_track).nil?
+      ret[:price_code] = ret[:ext][:price_code] if ret.dig(:ext, :price_code)
+      ret
+    end
+
     #
     # Ovverides superclass's method
     #
@@ -25,7 +34,7 @@ module RelatonIsoBib
 
     # @param ret [Hash]
     def editorialgroup_hash_to_bib(ret)
-      eg = ret[:editorialgroup]
+      eg = ret.dig(:ext, :editorialgroup) || ret[:editorialgroup] # TODO: remove :editorialgroup after all bibdata are updated
       return unless eg
 
       ret[:editorialgroup] = EditorialGroup.new(
@@ -38,16 +47,18 @@ module RelatonIsoBib
 
     # @param ret [Hash]
     def ics_hash_to_bib(ret)
-      ret[:ics] = RelatonBib.array(ret[:ics]).map do |ics|
-        Ics.new(ics[:code] || ics)
-      end
+      ics = ret.dig(:ext, :ics) || ret[:ics] # TODO: remove :ics after all bibdata are updated
+      return unless ics
+
+      ret[:ics] = RelatonBib.array(ics).map { |item| Ics.new(item[:code] || item) }
     end
 
     # @param ret [Hash]
     def structuredidentifier_hash_to_bib(ret)
-      return unless ret[:structuredidentifier]
+      struct_id = ret.dig(:ext, :structuredidentifier) || ret[:structuredidentifier] # TODO: remove :structuredidentifier after all bibdata are updated
+      return unless struct_id
 
-      ret[:structuredidentifier] = RelatonIsoBib::StructuredIdentifier.new(**ret[:structuredidentifier])
+      ret[:structuredidentifier] = RelatonIsoBib::StructuredIdentifier.new(**struct_id)
     end
 
     def create_doctype(**args)

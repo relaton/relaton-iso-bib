@@ -1,3 +1,3 @@
 module RelatonIsoBib
-  VERSION = "1.19.2".freeze
+  VERSION = "1.20.0".freeze
 end

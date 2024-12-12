@@ -162,7 +162,7 @@ module RelatonIsoBib
     def to_xml(**opts)
       super(**opts) do |b|
         if block_given? then yield b
-        elsif opts[:bibdata] && has_ext_attrs?
+        elsif opts[:bibdata] && has_ext?
           ext = b.ext do
             doctype.to_xml b if doctype
             b.subdoctype subdoctype if subdoctype
@@ -191,11 +191,15 @@ module RelatonIsoBib
     #
     def to_hash(embedded: false)
       hash = super
-      hash["horizontal"] = horizontal unless horizontal.nil?
-      hash["stagename"] = stagename if stagename
-      hash["fast_track"] = fast_track unless fast_track.nil?
-      hash["price_code"] = price_code if price_code
+      hash["ext"]["horizontal"] = horizontal unless horizontal.nil?
+      hash["ext"]["stagename"] = stagename if stagename
+      hash["ext"]["fast_track"] = fast_track unless fast_track.nil?
+      hash["ext"]["price_code"] = price_code if price_code
       hash
+    end
+
+    def has_ext?
+      super || horizontal || stagename || fast_track || price_code
     end
 
     # @param prefix [String]
@@ -226,9 +230,8 @@ module RelatonIsoBib
     #
     # @return [Boolean]
     #
-    def has_ext_attrs? # rubocop:disable Metrics/CyclomaticComplexity
-      (doctype || !horizontal.nil? || editorialgroup || ics.any? ||
-        structuredidentifier || stagename || horizontal)
+    def has_ext? # rubocop:disable Metrics/CyclomaticComplexity
+      super || !horizontal.nil? || ics&.any? || stagename || !fast_track.nil? || price_code
     end
   end
 end
