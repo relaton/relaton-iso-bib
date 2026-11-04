@@ -1,3 +1,18 @@
+= ARCHIVED — superseded by the relaton monogem
+
+This repository is archived and no longer maintained. The ISO flavor was
+consolidated into the relaton monogem:
+
+- Code: https://github.com/relaton/relaton (`lib/relaton/iso/`)
+- Gem: `gem "relaton", ">= 3.0"` — install `relaton` alone; the
+  relaton-iso-bib gem is deprecated and receives no further releases.
+- Usage: `require "relaton/iso"` (or `Relaton::Iso` via the registry),
+  same namespaces as before.
+
+Bug reports and pull requests go to https://github.com/relaton/relaton.
+
+---
+
 = RelatonIsoBib
 
 image:https://img.shields.io/gem/v/relaton-iso-bib.svg["Gem Version", link="https://rubygems.org/gems/relaton-iso-bib"]
